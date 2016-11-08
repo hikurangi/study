@@ -1,3 +1,5 @@
+// Sum All Numbers In A Range
+
 // We'll pass you an array of two numbers. Return the sum of those two numbers and all numbers between them.
 //
 // The lowest number will not always come first.
@@ -10,11 +12,21 @@
 // Math.min()
 // Array.prototype.reduce()
 
+// My answer
 function sumAll(arr) {
-  return 1;
+  let sortedArr = arr.sort(function(a, b) {
+    return a - b
+  })
+  let total = 0
+  for ( let i = sortedArr[0]; i <= sortedArr[1]; i++ ) {
+    total += i
+  }
+  return total
 }
 
-sumAll([1, 4]) // should return a number.
+//
+
+// sumAll([1, 4]) // should return a number.
 // sumAll([1, 4]) // should return 10.
 // sumAll([4, 1]) // should return 10.
 // sumAll([5, 10]) // should return 45.
