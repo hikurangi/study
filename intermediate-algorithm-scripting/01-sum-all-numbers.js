@@ -13,6 +13,7 @@
 // Array.prototype.reduce()
 
 // My first answer - works only for a two-number array
+
 // function sumAll(arr) {
 //   let sortedArr = arr.sort(function(a, b) {
 //     return a - b
