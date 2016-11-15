@@ -35,8 +35,6 @@ var looping = function(n) { // n is the nth number of the fibonacci series. In t
 console.log(looping(33)) // <--- 4613732
 // the 33rd number of the fibonacci sequence is the last which does not exceed four million
 
-
-
 // build the fibonacci sequence using a recursive method, also from the link above
 
 // var recursive = function(n) {
