@@ -8,6 +8,7 @@
 
 const limit = 20
 
+
 // build the fibonacci sequence using a looping method - from https://www.thepolyglotdeveloper.com/2015/01/fibonacci-sequence-printed-javascript/
 
 // var looping = function(n) {
@@ -29,17 +30,6 @@ const limit = 20
 //
 // };
 
-var looping = function(n) {
-    var a = 0, b = 1, f = 1;
-    for(var i = 2; i <= n; i++) {
-        f = a + b;
-        a = b;
-        b = f;
-    }
-    return f;
-};
-
-console.log('LOOPINGLIMIT', looping(limit))
 
 // build the fibonacci sequence using a recursive method, also from the link above
 
