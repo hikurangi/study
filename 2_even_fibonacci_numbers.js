@@ -6,29 +6,35 @@
 
 // i = 1, j = 2
 
-const limit = 20
-
-
 // build the fibonacci sequence using a looping method - from https://www.thepolyglotdeveloper.com/2015/01/fibonacci-sequence-printed-javascript/
 
-// var looping = function(n) {
-//
-//     var sum = 0, a = 0, b = 1, f = 1;
-//
-//     for(var i = 2; i <= n; i++) {
-//       f = a + b;
-//       a = b;
-//       b = f;
-//
-//       console.log('F', f)
-//       sum += f
-//       console.log('SUM', sum)
-//
-//     }
-//     // return the sum of even numbers of the fibonacci sequence up to limit n
-//     return sum;
-//
-// };
+const limit = 4000000 // we're finding the sum of numbers in the fibonacci series which do not exceed four million
+
+var looping = function(n) { // n is the nth number of the fibonacci series. In this formulation we have to establish where the 4m point is hit
+
+  var sum = 0, a = 0, b = 1, f = 1;
+
+  for(var i = 2; i <= n; i++) {
+
+    f = a + b;
+
+    if (f > limit) { // breaks the loop if the value of the current number from the fibonacci sequence exceeds the limit value we've been given. Lets us find an answer just by entering any sufficiently large value of n
+      break
+    } else {
+      f % 2 === 0 ? sum += f : null // if f is even, add it to our running total
+    }
+
+    a = b;
+    b = f;
+
+    }
+  return sum
+
+}
+
+console.log(looping(33)) // <--- 4613732
+// the 33rd number of the fibonacci sequence is the last which does not exceed four million
+
 
 
 // build the fibonacci sequence using a recursive method, also from the link above

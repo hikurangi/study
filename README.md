@@ -1,2 +1,2 @@
-# project-euler-working
-My working for Project Euler challenges
+# project-euler
+My solutions for the Project Euler challenges
