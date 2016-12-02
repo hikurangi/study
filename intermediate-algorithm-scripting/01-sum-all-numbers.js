@@ -12,23 +12,23 @@
 // Math.min()
 // Array.prototype.reduce()
 
-// My first answer - works only for a two-number array
-
-// function sumAll(arr) {
-//   let sortedArr = arr.sort(function(a, b) {
-//     return a - b
-//   })
-//   let total = 0
-//   for ( let i = sortedArr[0]; i <= sortedArr[1]; i++ ) {
-//     total += i
-//   }
-//   return total
-// }
+// My first answer
 
 function sumAll(arr) {
-  let smallest = Math.min(...arr)
-  let biggest = Math.max(...arr)
+  let sortedArr = arr.sort(function(a, b) {
+    return a - b
+  })
+  let total = 0
+  for ( let i = sortedArr[0]; i <= sortedArr[1]; i++ ) {
+    total += i
+  }
+  return total
 }
+
+// function sumAll(arr) {
+//   let smallest = Math.min(...arr)
+//   let biggest = Math.max(...arr)
+// }
 
 // sumAll([1, 4]) // should return a number.
 // sumAll([1, 4]) // should return 10.
