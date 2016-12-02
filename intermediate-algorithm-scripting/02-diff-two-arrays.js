@@ -28,9 +28,9 @@ function diffArray(arr1, arr2) {
   for (let prop in counterObj) {
     // if the counterObj has a particular property...
     if (counterObj.hasOwnProperty(prop)) {
-      // and that property has a value of one, meaning there's only one instance of it in the whole joined array, bigArr
+      // ...and that property has a value of one, meaning there's only one instance of it in the whole joined array, bigArr...
       if(counterObj[prop] === 1) {
-        // push that key/property name, NOT its value to my output array (newArr), and if it's a number, make sure the number is actually numeric and not a string
+        // ...push that key/property name, NOT its value to my output array (newArr), and if it's a number in the string, make sure that the number is actually numeric and not a string
         newArr.push(isNaN(prop) ? prop : +prop)
       }
     }
