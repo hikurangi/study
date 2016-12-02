@@ -37,7 +37,7 @@ function diffArray(arr1, arr2) {
 
 }
 
-// Solution 2
+// Solution 1 refactor
 
 
 // tests
