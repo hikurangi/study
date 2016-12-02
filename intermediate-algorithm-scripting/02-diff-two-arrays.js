@@ -2,6 +2,7 @@
 
 // Compare two arrays and return a new array with any items only found in one of the two given arrays, but not both. In other words, return the symmetric difference of the two arrays.
 
+// My big ugly solution!
 function diffArray(arr1, arr2) {
 
   bigArr = arr1.concat(arr2)
@@ -24,12 +25,12 @@ function diffArray(arr1, arr2) {
   for (let prop in counterObj) {
     if (counterObj.hasOwnProperty(prop)) {
       if(counterObj[prop] === 1) {
-        newArr.push(prop)
+        newArr.push(isNaN(prop) ? prop : +prop)
       }
     }
   }
 
-  console.log(newArr)
+  console.log({newArr})
 
   return newArr
 
