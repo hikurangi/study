@@ -5,9 +5,9 @@
 // My big ugly solution!
 function diffArray(arr1, arr2) {
 
-  bigArr = arr1.concat(arr2)
+  let bigArr = arr1.concat(arr2)
 
-  counterObj = {}
+  let counterObj = {}
 
   for (let i = 0; i < bigArr.length; i++) {
     if (!counterObj[bigArr[i]]) {
