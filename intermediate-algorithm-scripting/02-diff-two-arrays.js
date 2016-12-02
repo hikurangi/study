@@ -1,7 +1,13 @@
+// Diff Two Arrays
+
+// Compare two arrays and return a new array with any items only found in one of the two given arrays, but not both. In other words, return the symmetric difference of the two arrays.
+
 function diffArray(arr1, arr2) {
-  // Same, same; but different.
+
   bigArr = arr1.concat(arr2)
+
   counterObj = {}
+
   for (let i = 0; i < bigArr.length; i++) {
     if (!counterObj[bigArr[i]]) {
       counterObj[bigArr[i]] = 1
@@ -12,9 +18,9 @@ function diffArray(arr1, arr2) {
 
   console.log({counterObj})
 
-  // return only items from the array which appear once
   let newArr = []
 
+  // return only items from the array which appear once
   for (let prop in counterObj) {
     if (counterObj.hasOwnProperty(prop)) {
       if(counterObj[prop] === 1) {
@@ -25,10 +31,14 @@ function diffArray(arr1, arr2) {
 
   console.log(newArr)
 
-  return newArr;
+  return newArr
+
 }
 
-diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);
-
-// take one array.
- // at index[0], match that number against
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]); // 4
+diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["pink wool"].
+diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["diorite", "pink wool"].
+diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]) // [].
+diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) // ["piglet", 4].
+diffArray([], ["snuffleupagus", "cookie monster", "elmo"]) // ["snuffleupagus", "cookie monster", "elmo"].
+diffArray([1, "calf", 3, "piglet"], [7, "filly"]) // [1, "calf", 3, "piglet", 7, "filly"].
