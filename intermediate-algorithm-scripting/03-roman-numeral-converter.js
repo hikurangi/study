@@ -1,20 +1,31 @@
+// 03 - Roman Numeral Converter
+
+// Convert the given number into a roman numeral.
+
+// All roman numerals answers should be provided in upper-case.
+
+// See also: http://www.mathsisfun.com/roman-numerals.html
+
 function convertToRoman(num) {
   (num += '').split('')
   let numerals = ''
-  if ( num[num.length-1] < 4 ) {
-    for ( let i = 0; i < num[num.length-1]; i++ )
-      numerals += 'I'
-    } else if ( num[num.length-1] == 4 ) {
-      numerals += 'IV'
-    } else if ( num[num.length-1] == 5 ) {
-      numerals += 'V'
-    } else if ( num[num.length-1] >= 6 && num[num.length-1] <= 8 ) {
-      numerals += 'V'
-      for ( let i = 6; i <= num[num.length-1]; i++ )
+  for ( let i = 1; i <= num.length; i++ ) {
+    if ( num[num.length-i] < 4 ) {
+      for ( let i = 0; i < num[num.length-1]; i++ )
         numerals += 'I'
-    } else {
-      numerals += 'IX'
+      } else if ( num[num.length-i] == 4 ) {
+        numerals += 'IV'
+      } else if ( num[num.length-i] == 5 ) {
+        numerals += 'V'
+      } else if ( num[num.length-i] >= 6 && num[num.length-1] <= 8 ) {
+        numerals += 'V'
+        for ( let i = 6; i <= num[num.length-1]; i++ )
+          numerals += 'I'
+      } else {
+        numerals += 'IX'
+      }
     }
+  }
   console.log(numerals);
   return numerals;
 }
