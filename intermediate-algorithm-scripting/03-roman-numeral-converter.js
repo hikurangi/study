@@ -4,9 +4,9 @@ function convertToRoman(num) {
   if ( num[num.length-1] < 4 ) {
     for ( let i = 0; i < num[num.length-1]; i++ )
       numerals += 'I'
-    } else if ( num[num.length-1] === 4 ) {
+    } else if ( num[num.length-1] == 4 ) {
       numerals += 'IV'
-    } else if ( num[num.length-1] === 5 ) {
+    } else if ( num[num.length-1] == 5 ) {
       numerals += 'V'
     } else if ( num[num.length-1] >= 6 && num[num.length-1] <= 8 ) {
       numerals += 'V'
