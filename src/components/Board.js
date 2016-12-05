@@ -3,22 +3,31 @@ import React from 'react'
 import Square from './Square'
 
 class Board extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      squares: Array(9).fill(null),
+
+  handleClick = i => {
+    const squares = this.state.squares.slice()
+    if (this.props.calculateWinner(squares) || squares[i]) {
+      return
     }
-    handleClick(i) {
-      const squares = this.state.squares.slice()
-      squares[i] = 'X'
-      this.setState({squares})
-    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O'
+    this.setState({
+      squares,
+      xIsNext: !this.state.xIsNext
+    })
   }
-  renderSquare(i) {
-    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />;
+
+  renderSquare = i => {
+    return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />;
   }
+
   render() {
-    const status = 'Next player: X';
+    const winner = this.props.calculateWinner(this.props.squares)
+    let status
+    if (winner) {
+      status = 'Winner: ' + winner
+    } else {
+      status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O')
+    }
     return (
       <div>
         <div className="status">{status}</div>
