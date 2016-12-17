@@ -5,6 +5,9 @@
 // All roman numerals answers should be provided in upper-case.
 
 // See also: http://www.mathsisfun.com/roman-numerals.html
+// Array.prototype.splice()
+// Array.prototype.indexOf()
+// Array.prototype.join()
 
 function convertToRoman(num) {
   (num += '').split('')
