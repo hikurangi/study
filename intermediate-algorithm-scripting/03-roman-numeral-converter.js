@@ -10,27 +10,8 @@
 // Array.prototype.join()
 
 function convertToRoman(num) {
-  (num += '').split('')
-  let numerals = ''
-  for ( let i = 1; i <= num.length; i++ ) {
-    if ( num[num.length-i] < 4 ) {
-      for ( let i = 0; i < num[num.length-1]; i++ )
-        numerals += 'I'
-      } else if ( num[num.length-i] == 4 ) {
-        numerals += 'IV'
-      } else if ( num[num.length-i] == 5 ) {
-        numerals += 'V'
-      } else if ( num[num.length-i] >= 6 && num[num.length-1] <= 8 ) {
-        numerals += 'V'
-        for ( let i = 6; i <= num[num.length-1]; i++ )
-          numerals += 'I'
-      } else {
-        numerals += 'IX'
-      }
-    }
-  }
-  console.log(numerals);
-  return numerals;
+  const numStr = (num += '').split('')
+  console.log({numStr});
 }
 
 convertToRoman(36) // => XXXVI
@@ -59,3 +40,28 @@ convertToRoman(1006) // => "MVI"
 convertToRoman(1023) // => "MXXIII"
 convertToRoman(2014) // => "MMXIV"
 convertToRoman(3999) // => "MMMCMXCIX"
+
+// function convertToRoman(num) {
+  // (num += '').split('')
+  // let numerals = ''
+  // console.log(num);
+  // for ( let i = 1; i <= num.length; i++ ) {
+  //   if ( num[num.length-i] < 4 ) {
+  //     for ( let i = 0; i < num[num.length-1]; i++ )
+  //       numerals += 'I'
+  //     } else if ( num[num.length-i] == 4 ) {
+  //       numerals += 'IV'
+  //     } else if ( num[num.length-i] == 5 ) {
+  //       numerals += 'V'
+  //     } else if ( num[num.length-i] >= 6 && num[num.length-1] <= 8 ) {
+  //       numerals += 'V'
+  //       for ( let i = 6; i <= num[num.length-1]; i++ )
+  //         numerals += 'I'
+  //     } else {
+  //       numerals += 'IX'
+  //     }
+  //   }
+  // }
+  // console.log(numerals);
+  // return numerals;
+// }
