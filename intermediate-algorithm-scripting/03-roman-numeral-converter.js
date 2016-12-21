@@ -11,6 +11,7 @@
 
 // My attempt:
 
+// better to go larger to smaller?
 function convertToRoman(num) {
   let processed = num.toString().split('')
   // console.log({numStr});
@@ -21,7 +22,7 @@ function convertToRoman(num) {
     if ( processed[i] === '0' ) {
       tenTracker = true
       break // at the next column test whether there is a value in thisColumn? or just use tenTracker
-    } else if ( processed[i] < 4 ) {
+    } else if ( processed[i] < 4 ) { // kind of a fall-through because 0 is already handled
       for ( let j = 0; j < processed[i]; j++ )
         thisColumn += 'I' // direct function of the number itself
     } else if ( processed[i] == 4 ) {
