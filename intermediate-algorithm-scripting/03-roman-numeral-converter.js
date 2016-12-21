@@ -10,8 +10,11 @@
 // Array.prototype.join()
 
 function convertToRoman(num) {
-  const numStr = (num += '').split('')
-  console.log({numStr});
+  const numStr = num.toString().split('')
+  // console.log({numStr});
+  for (let i = (numStr.length - 1); i >= 0; i--) {
+    // console.log(numStr[i])
+  }
 }
 
 convertToRoman(36) // => XXXVI
