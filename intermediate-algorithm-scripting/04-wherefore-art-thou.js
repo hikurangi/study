@@ -16,14 +16,20 @@ function whatIsInAName(collection, source) {
   // What's in a name?
   var arr = [];
   // Only change code below this line
+  const sourceKeys = Object.keys(source)
 
+  // for each item in sourceKeys, iterate through the collection and return matches. this works fine for a single key, but returns false positives in the fourth example.
+  const matches = collection.filter( person => {
+    // returns any match. we want to return only when all key-value pairs have matches
+    return person[sourceKeys[i]] === source[sourceKeys[i]]
+    // recursive?
+  })
 
+  console.log({matches});
   // Only change code above this line
+
   return arr;
 }
-
-whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
-
 
 whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }) // => [{ first: "Tybalt", last: "Capulet" }].
 whatIsInAName([{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }], { "a": 1 }) // => [{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }].
