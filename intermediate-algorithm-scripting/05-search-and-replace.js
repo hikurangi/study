@@ -44,15 +44,14 @@ function myReplace(str, before, after) {
   let capitalised = []
   const caseMutator = (mutatee, arr) => {
     for (let j = 0; j < mutatee.length; j++) {
-      if (undefined || null) {
-        break
-      } else if (arr[j]) {
+      if (arr[j]) {
         capitalised.push(mutatee[j].toUpperCase())
       } else if (!arr[j]) {
         capitalised.push(mutatee[j].toLowerCase())
-      }// what about undefined - handling when one word is longer than another
+      } // needs a length checker to avoid running .toLowerCase on nothing
     }
   }
+  
   caseMutator(after, capsArray)
 
   // console.log('capitalised before join', capitalised);
