@@ -12,6 +12,10 @@
 // Object.prototype.hasOwnProperty()
 // Object.keys()
 
+// My solution, with heaps of help from the top answer at: http://stackoverflow.com/questions/23349830/javascript-returning-objects-based-on-multiple-properties
+
+// Please excuse the excessive pseudocode/comments!
+
 function whatIsInAName(collection, source) {
   // What's in a name?
   var arr = [];
@@ -35,16 +39,21 @@ function whatIsInAName(collection, source) {
       // for each property in the target item, iterate through the reference properties in the source array - look for matching properties between the props on the source object
       for (let ref in source) {
         // console.log(ref);
-        if ( item[prop] === source[ref] ) {
+        // if both the keys on the target and source object AND the values of those respective keys on the target and source objects match.....
+        if ( ref === prop && item[prop] === source[ref] ) {
           // passes the first and second tests but not 3 and 4
           // console.log({propInComparison: prop, refInComparison: ref});
+          // ...increment samePropCount: add another match
           samePropCount++
         }
       }
     }
+    // if there are as many matches in the target object as there are query keys in the source object....
     if (samePropCount === sourceKeys.length) {
+      // ...then we have a match!
       match = true
     }
+    // ....and if there's a match, push it to the temporary storage array (arr) to be returned outside the loop after the whole comparison is done
     if (match) {
      arr.push(item)
     }
