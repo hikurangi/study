@@ -59,6 +59,7 @@ function whatIsInAName(collection, source) {
     }
   }
 
+  console.log({arr});
   // Only change code above this line
 
   return arr;

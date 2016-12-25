@@ -17,14 +17,59 @@
 // String.prototype.replace()
 // Array.prototype.join()
 
-
+// is it good practice to mutate an argument? It seems like FCC constantly wants us to do that...
 function myReplace(str, before, after) {
+  str = str.split(" ")
+  const locator = str.indexOf(before)
+  // check case of both before and after
+  // need to iterate through both before and after strings
+  // if we were being thoroughly accurate, we would create an array of booleans
+  // eg: if before is 'ChEEsy' we would have an array representing the uppercased-ness of before, ie [ true, false, true, true, false, false ]
+  // then we would mutate after's case to match that array until one or the other ran out, at which point we'd stop mutating.
+  let target = str[locator]
+
+  let capsArray = []
+
+  // bespoke case checker which pushes booleans to an array as described above. param is char but it would work with any string
+  const isUpperCase = (char, arr) => {
+    char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
+  }
+
+  for ( let i = 0; i < target.length; i++ ) {
+    isUpperCase(target[i], capsArray)
+  }
+
+  after = after.split("")
+
+  let capitalised = []
+  const caseMutator = (mutatee, arr) => {
+    for (let j = 0; j < mutatee.length; j++) {
+      if (undefined || null) {
+        break
+      } else if (arr[j]) {
+        capitalised.push(mutatee[j].toUpperCase())
+      } else if (!arr[j]) {
+        capitalised.push(mutatee[j].toLowerCase())
+      }// what about undefined - handling when one word is longer than another
+    }
+  }
+  caseMutator(after, capsArray)
+
+  // console.log('capitalised before join', capitalised);
+  const capJoin = capitalised.join('')
+
+  // console.log('caseMutator I', caseMutator(after, capsArray))
+
+  // console.log({before, after, capJoin, capsArray});
+
+  str.splice(locator, 1, capJoin)
+
+  str = str.join(" ")
+  console.log({str});
   return str;
 }
 
-myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
-
-
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped")
 myReplace("Let us go to the store", "store", "mall") // => "Let us go to the mall".
 myReplace("He is Sleeping on the couch", "Sleeping", "sitting") // => "He is Sitting on the couch".
 myReplace("This has a spellngi error", "spellngi", "spelling") // => "This has a spelling error".
