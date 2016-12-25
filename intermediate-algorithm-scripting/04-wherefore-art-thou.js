@@ -16,16 +16,42 @@ function whatIsInAName(collection, source) {
   // What's in a name?
   var arr = [];
   // Only change code below this line
+
+  // create an array of the object properties in the source object - we will need its length later
   const sourceKeys = Object.keys(source)
 
-  // for each item in sourceKeys, iterate through the collection and return matches. this works fine for a single key, but returns false positives in the fourth example.
-  const matches = collection.filter( person => {
-    // returns any match. we want to return only when all key-value pairs have matches
-    return person[sourceKeys[i]] === source[sourceKeys[i]]
-    // recursive?
-  })
+  // iterate through the collection
+  for ( let i = 0; i < collection.length; i++) {
+    // represent the current item in the array to be selected from (the target array) with the variable item
+    let item = collection[i]
+    // initialise the match checker variable with a value of false
+    let match = false
+    // initialise the matching properties variable at zero.
+    let samePropCount = 0
+    // iterate through the properties in the current item/object from the target array/collection
+    for (let prop in item) {
+      // console.log({prop});
 
-  console.log({matches});
+      // for each property in the target item, iterate through the reference properties in the source array - look for matching properties between the props on the source object
+      for (let ref in source) {
+        // console.log(ref);
+        if ( item[prop] === source[ref] ) {
+          // passes the first and second tests but not 3 and 4
+          // console.log({propInComparison: prop, refInComparison: ref});
+          samePropCount++
+        }
+      }
+    }
+    if (samePropCount === sourceKeys.length) {
+      match = true
+    }
+    if (match) {
+     arr.push(item)
+    }
+  }
+
+
+  console.log({arr});
   // Only change code above this line
 
   return arr;
