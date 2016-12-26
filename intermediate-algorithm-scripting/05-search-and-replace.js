@@ -46,12 +46,12 @@ function myReplace(str, before, after) {
     for (let j = 0; j < mutatee.length; j++) {
       if (arr[j]) {
         capitalised.push(mutatee[j].toUpperCase())
-      } else if (!arr[j]) {
+      } else {
         capitalised.push(mutatee[j].toLowerCase())
       } // needs a length checker to avoid running .toLowerCase on nothing
     }
   }
-  
+
   caseMutator(after, capsArray)
 
   // console.log('capitalised before join', capitalised);
