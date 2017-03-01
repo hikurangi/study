@@ -1,5 +1,5 @@
 import test from 'ava'
-import sumAll from './intermediate-algorithm-scripting/01-sum-all-numbers.js'
+import sumAll from './01-sum-all-numbers.js'
 
 test('#1 - Sum All Numbers: sumAll([1, 4]) returns a number', async t => {
   const sumAllPromise = Promise.resolve('01 - Sum All Numbers')
