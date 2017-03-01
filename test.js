@@ -15,3 +15,13 @@ test('01 - Sum All Numbers', async t => {
   const sumAllTitle = Promise.resolve('01 - Sum All Numbers')
   t.is(await sumAll([4, 1]), 10 )
 })
+
+test('01 - Sum All Numbers', async t => {
+  const sumAllTitle = Promise.resolve('01 - Sum All Numbers')
+  t.is(await sumAll([5, 10]), 45 )
+})
+
+test('01 - Sum All Numbers', async t => {
+  const sumAllTitle = Promise.resolve('01 - Sum All Numbers')
+  t.is(await sumAll([10, 5]), 45 )
+})
