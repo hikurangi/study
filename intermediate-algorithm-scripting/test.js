@@ -57,7 +57,7 @@ test('#2 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "dead shrub"
 })
 
 test('#2 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) returns ["piglet", 4]', t => {
-  const actual =  diffArray(1, "calf", 3, "piglet"], [1, "calf", 3, 4])
+  const actual =  diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4])
   const expected = ["piglet", 4]
   t.deepEqual(actual, expected)
 })
