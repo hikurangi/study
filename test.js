@@ -1,7 +1,7 @@
 import test from 'ava'
 import sumAll from './intermediate-algorithm-scripting/01-sum-all-numbers.js'
 
-test('01 - Sum All Numbers', async t => {
+test('sumAll([1, 4]) returns a number', async t => {
   const sumAllPromise = Promise.resolve('01 - Sum All Numbers')
   t.is(await isNaN(sumAll([1, 4])), false ) // testing that the result is not... not a number.
 })
