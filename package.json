@@ -4,7 +4,7 @@
   "description": "My answers for the free code camp javascript algorithm challenges",
   "main": "index.js",
   "scripts": {
-    "test": "ava --verbose"
+    "test int": "ava ./intermediate-algorithm-scripting --verbose"
   },
   "repository": {
     "type": "git",
