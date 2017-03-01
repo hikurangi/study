@@ -20,7 +20,7 @@ function diffArray(arr1, arr2) {
     : counterObj[bigArr[i]] = 1
   }
 
-  console.log({counterObj})
+  // console.log({counterObj})
 
   let newArr = []
 
@@ -36,7 +36,7 @@ function diffArray(arr1, arr2) {
     }
   }
 
-  console.log({newArr})
+  // console.log({newArr})
 
   return newArr
 
