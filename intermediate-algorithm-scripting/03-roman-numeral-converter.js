@@ -93,3 +93,5 @@ convertToRoman(3999) // => "MMMCMXCIX"
   // console.log(numerals);
   // return numerals;
 // }
+
+module.exports = convertToRoman
