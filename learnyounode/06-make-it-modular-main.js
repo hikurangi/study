@@ -1,10 +1,11 @@
 const directoryReader = require('./06-make-it-modular-module')
 const path = require('path')
+
 const dirFilter = (err, data) => {
   if (err) return console.error(err)
   data.filter((file) => {
     const correctExtension = path.extname(file)
-    if ( path.extname(file) === '.' + extension) {
+    if ( path.extname(file) === '.' + extension) { //extension is the issue
       return file
     }
   }).forEach((item) => {
