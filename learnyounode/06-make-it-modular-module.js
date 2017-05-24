@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 const directoryReader = (directory, extension) => {
   fs.readdir(directory, 'utf8', (err, data) => {
     if (err) return console.error(err) // my solution was missing error (first) handling
