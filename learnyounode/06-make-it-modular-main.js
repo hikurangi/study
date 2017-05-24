@@ -1,16 +1,17 @@
-const directoryReader = require('./06-make-it-modular-module')
+const fs = require('fs')
 const path = require('path')
 
-const dirFilter = (err, data) => {
-  if (err) return console.error(err)
-  data.filter((file) => {
-    const correctExtension = path.extname(file)
-    if ( path.extname(file) === '.' + extension) { //extension is the issue
-      return file
-    }
-  }).forEach((item) => {
-    console.log(item);
-  })
+const fileMatches = require('./06-make-it-modular-module')
+
+const dirName = process.argv[2]
+const extension = process.argv[3]
+
+const callback = (err, output) => {
+  if (err) {
+    return callback(err)
+  } else {
+    output.forEach(item => {console.log(item)})
+  }
 }
 
-directoryReader(process.argv[2], process.argv[3], dirFilter)
+fileMatches(dirName, extension, callback)
