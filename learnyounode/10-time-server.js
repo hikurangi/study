@@ -1,14 +1,14 @@
 const net = require('net')
 
 // Date
-const date = new Date()
-const formattedDate = `${date.getFullYear()}-${'0' + (+date.getMonth() + 1)}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}\n` // zero-indexed months... wat?
+const d = new Date()
+const formattedDate = `${d.getFullYear()}-${'0' + (+d.getMonth() + 1)}-${d.getDate()} ${'0' + (+d.getHours())}:${'0' + (+d.getMinutes())}\n` // zero-indexed months... wat?
 const server = net.createServer(socket => {
   // socket handling logic
   socket.end(formattedDate) // socket.end also sends data to client
 })
 
-server.listen(process.argv[2]) // I'm guessing type coercion allows the string to be read as a number? 
+server.listen(process.argv[2]) // I'm guessing type coercion allows the string to be read as a number?
 
 // Model Answer
 
