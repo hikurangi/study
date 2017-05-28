@@ -11,12 +11,13 @@ const server = http.createServer((req, res) => {
 
   res.writeHead(200, { 'Content-Type': 'application/json' })
 
-  queryParser(req.url)
+  let parsed = url.parse(req.url)
+  console.log({parsed});
 
   if (req.method === 'GET') {
-    if ( endpoint === '/api/parsetime') {
-      return res.end('time has parsed') // parse the time in here
-    } else if ( endpoint === '/api/unixtime') {
+    if ( parsed.pathname === '/api/parsetime') {
+      return res.end(JSON.stringify(parsed.query.toISOString())) // <= problem is here. parse the time in here
+    } else if ( parsed.pathname === '/api/unixtime') {
       return res.end('unix thing') // do the unix thing
     } else {
       // 404 ?
@@ -28,14 +29,3 @@ const server = http.createServer((req, res) => {
   res.body = {}
 
 }).listen(port)
-
-// give these variables global scope so queryParser can be neatly defined outside of the server function
-let endpoint = ''
-let query = ''
-
-// Middleware
-const queryParser = url => {
-  endpoint = url.split('?')[0]
-  query = url.split('?')[1]
-  return console.log({endpoint, query});
-}
