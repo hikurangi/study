@@ -11,24 +11,23 @@ const server = http.createServer((req, res) => {
   let resObj = {}
   let dateObj = new Date(processed.query.slice(4))
 
-  if (req.method === 'GET') {
-    if ( processed.pathname === '/api/parsetime') {
-      resObj = {
-        "hour": dateObj.getHours(),
-        "minute": dateObj.getMinutes(),
-        "second": dateObj.getSeconds()
-      }
-      return res.end(JSON.stringify(resObj))
-    } else if ( processed.pathname === '/api/unixtime') {
-      resObj = {
-        "unixtime": dateObj.getTime()
-      }
-      return res.end(JSON.stringify(resObj)) // gives unixtime
-  } else {
+  if (req.method !== 'GET') {
     return res.end('I need a GET request pls\n')
+  } else if ( processed.pathname === '/api/parsetime ') {
+    resObj = {
+      "hour": dateObj.getHours(),
+      "minute": dateObj.getMinutes(),
+      "second": dateObj.getSeconds()
+    }
+    return res.end(JSON.stringify(resObj))
+  } else if ( processed.pathname === '/api/unixtime' ) {
+    resObj = {
+      "unixtime": dateObj.getTime()
+    }
+    return res.end(JSON.stringify(resObj)) // gives unixtime
+  } else {
+    return res.end('Invalid request')
   }
-
-  res.body = {}
 
 }).listen(port)
 
