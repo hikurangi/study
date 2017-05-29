@@ -11,14 +11,15 @@ const server = http.createServer((req, res) => {
 
   res.writeHead(200, { 'Content-Type': 'application/json' })
 
-  let parsed = url.parse(req.url)
-  console.log({parsed});
+  const processed = url.parse(req.url)
 
   if (req.method === 'GET') {
-    if ( parsed.pathname === '/api/parsetime') {
-      return res.end(JSON.stringify(parsed.query.toISOString())) // <= problem is here. parse the time in here
-    } else if ( parsed.pathname === '/api/unixtime') {
-      return res.end('unix thing') // do the unix thing
+    if ( processed.pathname === '/api/parsetime') {
+      const isoDate = parseISOString(processed.query)
+      console.log({isoDate})
+      return res.end('ISO time object')
+    } else if ( processed.pathname === '/api/unixtime') {
+      return res.end(Date.parse(processed.query)) // do the unix thing
     } else {
       // 404 ?
     }
@@ -29,3 +30,9 @@ const server = http.createServer((req, res) => {
   res.body = {}
 
 }).listen(port)
+
+// Middleware
+const parseISOString = str => {
+  const b = str.split(/\D+/);
+  return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+}
