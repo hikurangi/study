@@ -6,20 +6,22 @@ const port = process.argv[2]
 
 const server = http.createServer((req, res) => {
 
-  console.log('request', req.url);
-  console.log('method', req.method);
-
   res.writeHead(200, { 'Content-Type': 'application/json' })
 
   const processed = url.parse(req.url)
+  let resObj = {}
+  let isoDate = splitISOString(processed.query)
 
   if (req.method === 'GET') {
     if ( processed.pathname === '/api/parsetime') {
-      const isoDate = parseISOString(processed.query)
-      console.log({isoDate})
-      return res.end('ISO time object')
+      resObj = { "hour": +isoDate[3] === 12 ? 0 : isoDate[3], "minute": +isoDate[4], "second": +isoDate[5] }
+      return res.end(JSON.stringify(resObj))
+
     } else if ( processed.pathname === '/api/unixtime') {
-      return res.end(Date.parse(processed.query)) // do the unix thing
+
+      resObj = { "unixtime": new Date(...isoDate).getTime() }
+      return res.end(JSON.stringify(resObj)) // gives unixtime
+
     } else {
       // 404 ?
     }
@@ -31,8 +33,10 @@ const server = http.createServer((req, res) => {
 
 }).listen(port)
 
-// Middleware
-const parseISOString = str => {
-  const b = str.split(/\D+/);
-  return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
+// Utility
+const splitISOString = str => {
+  let split = str.split(/\D+/)
+  split.shift()
+  split.pop()
+  return split
 }
