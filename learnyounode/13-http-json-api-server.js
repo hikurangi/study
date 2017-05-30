@@ -42,11 +42,9 @@ const server = http.createServer((req, res) => {
 //   }
 // }
 //
-// const unixtime = time => {
-//   return { unixtime: time.getTime() }
-// }
+// const unixtime = time => {{ unixtime: time.getTime() }}
 //
-// const server = http.createServer(function (req, res) {
+// const server = http.createServer((req, res) => {
 //   let parsedUrl = url.parse(req.url, true)
 //   let time = new Date(parsedUrl.query.iso)
 //   let result
