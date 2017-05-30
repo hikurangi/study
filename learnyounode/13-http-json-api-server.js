@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
 
   if (req.method !== 'GET') {
     return res.end('I need a GET request pls\n')
-  } else if ( processed.pathname === '/api/parsetime ') {
+  } else if ( processed.pathname === '/api/parsetime' ) {
     resObj = {
       "hour": dateObj.getHours(),
       "minute": dateObj.getMinutes(),
@@ -34,7 +34,7 @@ const server = http.createServer((req, res) => {
 // var http = require('http')
 // var url = require('url')
 //
-// function parsetime (time) {
+// const parsetime = time => {
 //   return {
 //     hour: time.getHours(),
 //     minute: time.getMinutes(),
@@ -42,14 +42,14 @@ const server = http.createServer((req, res) => {
 //   }
 // }
 //
-// function unixtime (time) {
+// const unixtime = time => {
 //   return { unixtime: time.getTime() }
 // }
 //
-// var server = http.createServer(function (req, res) {
-//   var parsedUrl = url.parse(req.url, true)
-//   var time = new Date(parsedUrl.query.iso)
-//   var result
+// const server = http.createServer(function (req, res) {
+//   let parsedUrl = url.parse(req.url, true)
+//   let time = new Date(parsedUrl.query.iso)
+//   let result
 //
 //   if (/^\/api\/parsetime/.test(req.url)) {
 //     result = parsetime(time)
