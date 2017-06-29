@@ -42,7 +42,7 @@ function diffArray(arr1, arr2) {
 
 }
 
-// tests
+// 'tests'
 diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]); // [4]
 diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["pink wool"].
 diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["diorite", "pink wool"].
