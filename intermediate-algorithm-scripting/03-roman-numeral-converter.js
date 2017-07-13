@@ -12,7 +12,7 @@
 // My attempt:
 
 // better to go larger to smaller?
-function convertToRoman(num) {
+const convertToRoman = num => {
   let processed = num.toString().split('')
   // console.log({numStr});
   let tenTracker = false
@@ -42,32 +42,34 @@ function convertToRoman(num) {
   console.log({num, processed, tenTracker});
 }
 
-convertToRoman(36) // => XXXVI
-convertToRoman(2) // => "II".
-convertToRoman(3) // => "III".
-convertToRoman(4) // => "IV".
-convertToRoman(5) // => "V".
-convertToRoman(9) // => "IX".
-convertToRoman(12) // => "XII".
-convertToRoman(16) // => "XVI".
-convertToRoman(29) // => "XXIX".
-convertToRoman(44) // => "XLIV".
-convertToRoman(45) // => "XLV"
-convertToRoman(68) // => "LXVIII"
-convertToRoman(83) // => "LXXXIII"
-convertToRoman(97) // => "XCVII"
-convertToRoman(99) // => "XCIX"
-convertToRoman(500) // => "D"
-convertToRoman(501) // => "DI"
-convertToRoman(649) // => "DCXLIX"
-convertToRoman(798) // => "DCCXCVIII"
-convertToRoman(891) // => "DCCCXCI"
-convertToRoman(1000) // => "M"
-convertToRoman(1004) // => "MIV"
-convertToRoman(1006) // => "MVI"
-convertToRoman(1023) // => "MXXIII"
-convertToRoman(2014) // => "MMXIV"
-convertToRoman(3999) // => "MMMCMXCIX"
+module.exports = convertToRoman
+
+// convertToRoman(36) // => XXXVI
+// convertToRoman(2) // => "II".
+// convertToRoman(3) // => "III".
+// convertToRoman(4) // => "IV".
+// convertToRoman(5) // => "V".
+// convertToRoman(9) // => "IX".
+// convertToRoman(12) // => "XII".
+// convertToRoman(16) // => "XVI".
+// convertToRoman(29) // => "XXIX".
+// convertToRoman(44) // => "XLIV".
+// convertToRoman(45) // => "XLV"
+// convertToRoman(68) // => "LXVIII"
+// convertToRoman(83) // => "LXXXIII"
+// convertToRoman(97) // => "XCVII"
+// convertToRoman(99) // => "XCIX"
+// convertToRoman(500) // => "D"
+// convertToRoman(501) // => "DI"
+// convertToRoman(649) // => "DCXLIX"
+// convertToRoman(798) // => "DCCXCVIII"
+// convertToRoman(891) // => "DCCCXCI"
+// convertToRoman(1000) // => "M"
+// convertToRoman(1004) // => "MIV"
+// convertToRoman(1006) // => "MVI"
+// convertToRoman(1023) // => "MXXIII"
+// convertToRoman(2014) // => "MMXIV"
+// convertToRoman(3999) // => "MMMCMXCIX"
 
 // function convertToRoman(num) {
   // (num += '').split('')
@@ -93,5 +95,3 @@ convertToRoman(3999) // => "MMMCMXCIX"
   // console.log(numerals);
   // return numerals;
 // }
-
-module.exports = convertToRoman

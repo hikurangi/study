@@ -1,8 +1,7 @@
 import test from 'ava'
-import sumAll from './01-sum-all-numbers.js'
-import diffArray from './02-diff-two-arrays.js'
 
 // 1. Sum All Numbers
+import sumAll from './01-sum-all-numbers.js'
 
 test('1.1 - Sum All Numbers: sumAll([1, 4]) returns a number', t => {
   const actual = !isNaN(sumAll([1, 4]))
@@ -35,6 +34,7 @@ test('1.5 - Sum All Numbers: sumAll([10, 5]) returns 45', async t => {
 })
 
 // 2. Diff Two Arrays
+import diffArray from './02-diff-two-arrays.js'
 
 test('2.1 - Diff Two Arrays: diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]) returns [4]', t => {
   const actual = diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])
@@ -84,6 +84,9 @@ test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) r
 //   const expected = [1, "calf", 3, "piglet", 7, "filly"]
 //   t.deepEqual(actual, expected)
 // })
+
+// 6.0 - Pig Latin Translator
+import translatePigLatin from './06-pig-latin'
 
 test('6.0 - Pig Latin: translatePigLatin("consonant") returns "onsonantcay"', async t => {
   const actual = translatePigLatin("consonant")
