@@ -42,13 +42,4 @@ function diffArray(arr1, arr2) {
 
 }
 
-// 'tests'
-diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]); // [4]
-diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["pink wool"].
-diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) // ["diorite", "pink wool"].
-diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]) // [].
-diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) // ["piglet", 4].
-diffArray([], ["snuffleupagus", "cookie monster", "elmo"]) // ["snuffleupagus", "cookie monster", "elmo"].
-diffArray([1, "calf", 3, "piglet"], [7, "filly"]) // [1, "calf", 3, "piglet", 7, "filly"].
-
 module.exports = diffArray
