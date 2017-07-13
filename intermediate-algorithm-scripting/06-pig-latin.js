@@ -17,12 +17,12 @@
 // String.prototype.substr()
 // String.prototype.split()
 
+// tricky! 
 function translatePigLatin(str) {
-  return str;
+  return str.slice(1) + str.slice(0, 1) + 'ay')
 }
 
 translatePigLatin("consonant");
-
 translatePigLatin("california") // => "aliforniacay".
 translatePigLatin("paragraphs") // => "aragraphspay".
 translatePigLatin("glove") // => "oveglay".

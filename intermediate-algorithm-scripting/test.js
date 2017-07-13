@@ -79,9 +79,44 @@ test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) r
 })
 
 // 3. Roman Numeral Converter
+// test('3.1 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', t => {
+//   const actual =  diffArray([1, "calf", 3, "piglet"], [7, "filly"])
+//   const expected = [1, "calf", 3, "piglet", 7, "filly"]
+//   t.deepEqual(actual, expected)
+// })
 
-test('3.1 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', t => {
-  const actual =  diffArray([1, "calf", 3, "piglet"], [7, "filly"])
-  const expected = [1, "calf", 3, "piglet", 7, "filly"]
-  t.deepEqual(actual, expected)
+test('6.0 - Pig Latin: translatePigLatin("consonant") returns "onsonantcay"', async t => {
+  const actual = translatePigLatin("consonant")
+  const expected = "onsonantcay"
+  t.is(actual, expected)
+})
+
+test('6.1 - Pig Latin: translatePigLatin("california") returns "aliforniacay"', async t => {
+  const actual = translatePigLatin("california")
+  const expected = "aliforniacay"
+  t.is(actual, expected)
+})
+
+test('6.2 - Pig Latin: translatePigLatin("paragraphs") returns "aragraphspay"', async t => {
+  const actual = translatePigLatin("paragraphs")
+  const expected = "aragraphspay"
+  t.is(actual, expected)
+})
+
+test('6.3 - Pig Latin: translatePigLatin("glove") returns "oveglay"', async t => {
+  const actual = translatePigLatin("glove")
+  const expected = "oveglay"
+  t.is(actual, expected)
+})
+
+test('6.4 - Pig Latin: translatePigLatin("algorithm") returns "algorithmway"', async t => {
+  const actual = translatePigLatin("algorithm")
+  const expected = "algorithmway"
+  t.is(actual, expected)
+})
+
+test('6.5 - Pig Latin: translatePigLatin("eight") returns "eightway"', async t => {
+  const actual = translatePigLatin("eight")
+  const expected = "eightway"
+  t.is(actual, expected)
 })
