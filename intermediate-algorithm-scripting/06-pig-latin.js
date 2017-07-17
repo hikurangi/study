@@ -19,7 +19,23 @@
 
 // tricky!
 const translatePigLatin = str => {
-  return str.slice(1) + str.slice(0, 1) + 'ay'
+  let consonantCluster = ''
+  // check if the first word is a vowel
+  if (isVowel(str[0])) {
+    return str + 'way'
+  } else {
+    // check the string for 
+  }
+}
+
+const isVowel = letter => {
+  return ['a', 'e', 'i', 'o', 'u'].indexOf(letter.toLowerCase()) !== -1 // returns true if the letter passed is a vowel
 }
 
 module.exports = translatePigLatin
+
+// translatePigLatin("california") should return "aliforniacay".
+// translatePigLatin("paragraphs") should return "aragraphspay".
+// translatePigLatin("glove") should return "oveglay".
+// translatePigLatin("algorithm") should return "algorithmway".
+// translatePigLatin("eight") should return "eightway".
