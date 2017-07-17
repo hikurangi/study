@@ -17,10 +17,8 @@
 // String.prototype.replace()
 // Array.prototype.join()
 
-// is it good practice to mutate an argument? It seems like FCC constantly wants us to do that...
 function myReplace(str, before, after) {
-  str = str.split(" ")
-  const locator = str.indexOf(before)
+  const locator = str.split(" ").indexOf(before)
   // check case of both before and after
   // need to iterate through both before and after strings
   // if we were being thoroughly accurate, we would create an array of booleans
@@ -39,8 +37,6 @@ function myReplace(str, before, after) {
     isUpperCase(target[i], capsArray)
   }
 
-  after = after.split("")
-
   let capitalised = []
   const caseMutator = (mutatee, arr) => {
     for (let j = 0; j < mutatee.length; j++) {
@@ -52,20 +48,17 @@ function myReplace(str, before, after) {
     }
   }
 
-  caseMutator(after, capsArray)
+  caseMutator(after.split(""), capsArray)
 
   // console.log('capitalised before join', capitalised);
-  const capJoin = capitalised.join('')
 
   // console.log('caseMutator I', caseMutator(after, capsArray))
 
   // console.log({before, after, capJoin, capsArray});
 
-  str.splice(locator, 1, capJoin)
+  str.splice(locator, 1, capitalised.join(''))
 
-  str = str.join(" ")
-  console.log({str});
-  return str;
+  return str.join(' ');
 }
 
 myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped")
