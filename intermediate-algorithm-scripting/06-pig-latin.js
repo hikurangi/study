@@ -24,7 +24,13 @@ const translatePigLatin = str => {
 }
 
 const isVowel = letter => {
-  return ['a', 'e', 'i', 'o', 'u'].indexOf(letter.toLowerCase()) !== -1 // returns true if the letter passed is a vowel
+  return ['a', 'e', 'i', 'o', 'u'].indexOf(letter.toLowerCase()) !== -1
 }
 
 module.exports = translatePigLatin
+
+// translatePigLatin("california") should return "aliforniacay".
+// translatePigLatin("paragraphs") should return "aragraphspay".
+// translatePigLatin("glove") should return "oveglay".
+// translatePigLatin("algorithm") should return "algorithmway".
+// translatePigLatin("eight") should return "eightway".
