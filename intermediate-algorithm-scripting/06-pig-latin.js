@@ -19,13 +19,8 @@
 
 // tricky!
 const translatePigLatin = str => {
-  let consonantCluster = ''
-  // check if the first word is a vowel
-  if (isVowel(str[0])) {
-    return str + 'way'
-  } else {
-    // check the string for 
-  }
+  const firstVowelPosition = str.split('').findIndex(isVowel)
+  return firstVowelPosition === 0 ? str + 'way' : str.substr(firstVowelPosition) + str.slice(0, firstVowelPosition) + 'ay'
 }
 
 const isVowel = letter => {
@@ -33,9 +28,3 @@ const isVowel = letter => {
 }
 
 module.exports = translatePigLatin
-
-// translatePigLatin("california") should return "aliforniacay".
-// translatePigLatin("paragraphs") should return "aragraphspay".
-// translatePigLatin("glove") should return "oveglay".
-// translatePigLatin("algorithm") should return "algorithmway".
-// translatePigLatin("eight") should return "eightway".
