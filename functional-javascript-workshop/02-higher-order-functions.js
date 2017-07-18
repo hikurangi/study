@@ -1,5 +1,5 @@
 const repeat = (operation, num) => {
-  if (num > 0) { repeat(operation, --num) } else return // pre-decrementing (say that eight times fast)
+  if (num > 0) { repeat(operation, num-=1) } else return
 }
 
 module.exports = repeat
@@ -12,4 +12,4 @@ module.exports = repeat
 //   return repeat(operation, --num)
 // }
 //
-// module.exports = repeat
+// module.exports = repeatal
