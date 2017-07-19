@@ -85,7 +85,46 @@ test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) r
 //   t.deepEqual(actual, expected)
 // })
 
-// 6.0 - Pig Latin Translator
+// 5. - Search And Replace
+import myReplace from './05-search-and-replace'
+
+test('5.0 - Search And Replace: myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped") returns "A quick brown fox leaped over the lazy dog"', async t => {
+  const actual = myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped")
+  const expected = "A quick brown fox leaped over the lazy dog"
+  t.is(actual, expected)
+})
+
+test('5.1 - Search And Replace: myReplace("Let us go to the store", "jumped", "leaped") returns "Let us go to the mall"', async t => {
+  const actual = myReplace("Let us go to the store", "store", "mall")
+  const expected = "Let us go to the mall"
+  t.is(actual, expected)
+})
+
+test('5.2 - Search And Replace: myReplace("He is Sleeping on the couch", "Sleeping", "sitting") returns "He is Sitting on the couch"', async t => {
+  const actual = myReplace("He is Sleeping on the couch", "Sleeping", "sitting")
+  const expected = "He is Sitting on the couch"
+  t.is(actual, expected)
+})
+
+test('5.3 - Search And Replace: myReplace("This has a spellngi error", "spellngi", "spelling") returns "This has a spelling error"', async t => {
+  const actual = myReplace("This has a spellngi error", "spellngi", "spelling")
+  const expected = "This has a spelling error"
+  t.is(actual, expected)
+})
+
+test('5.4 - Search And Replace: myReplace("His name is Tom", "Tom", "john") returns "Let us get back to more Algorithms"', async t => {
+  const actual = myReplace("His name is Tom", "Tom", "john")
+  const expected = "Let us get back to more Algorithms"
+  t.is(actual, expected)
+})
+
+test('5.4 - Search And Replace: myReplace("Let us get back to more Coding", "Coding", "algorithms") returns "His name is John"', async t => {
+  const actual = myReplace("Let us get back to more Coding", "Coding", "algorithms")
+  const expected = "His name is John"
+  t.is(actual, expected)
+})
+
+// 6. - Pig Latin Translator
 import translatePigLatin from './06-pig-latin'
 
 test('6.0 - Pig Latin: translatePigLatin("consonant") returns "onsonantcay"', async t => {

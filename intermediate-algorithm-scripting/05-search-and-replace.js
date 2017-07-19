@@ -28,11 +28,6 @@ function myReplace(str, before, after) {
 
   let capsArray = []
 
-  // bespoke case checker which pushes booleans to an array as described above. param is char but it would work with any string
-  const isUpperCase = (char, arr) => {
-    char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
-  }
-
   for ( let i = 0; i < target.length; i++ ) {
     isUpperCase(target[i], capsArray)
   }
@@ -50,20 +45,13 @@ function myReplace(str, before, after) {
 
   caseMutator(after.split(""), capsArray)
 
-  // console.log('capitalised before join', capitalised);
-
-  // console.log('caseMutator I', caseMutator(after, capsArray))
-
-  // console.log({before, after, capJoin, capsArray});
-
-  str.splice(locator, 1, capitalised.join(''))
+  str = str.split('').splice(locator, 1, capitalised.join(''))
 
   return str.join(' ');
 }
 
-myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped")
-myReplace("Let us go to the store", "store", "mall") // => "Let us go to the mall".
-myReplace("He is Sleeping on the couch", "Sleeping", "sitting") // => "He is Sitting on the couch".
-myReplace("This has a spellngi error", "spellngi", "spelling") // => "This has a spelling error".
-myReplace("His name is Tom", "Tom", "john") // => "His name is John".
-myReplace("Let us get back to more Coding", "Coding", "algorithms") // => "Let us get back to more Algorithms".
+const isUpperCase = (char, arr) => {
+  char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
+}
+
+module.exports = myReplace
