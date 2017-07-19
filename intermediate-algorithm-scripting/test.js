@@ -1,81 +1,78 @@
-import test from 'ava'
+import sumAll from './01-sum-all-numbers.js';
 
-// 1. Sum All Numbers
-import sumAll from './01-sum-all-numbers.js'
-
-test('1.1 - Sum All Numbers: sumAll([1, 4]) returns a number', t => {
+test('1.1 - Sum All Numbers: sumAll([1, 4]) returns a number', () => {
   const actual = !isNaN(sumAll([1, 4]))
   const expected = true
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('1.2 - Sum All Numbers: sumAll([1, 4]) returns 10', t => {
+test('1.2 - Sum All Numbers: sumAll([1, 4]) returns 10', () => {
   const actual = sumAll([1, 4])
   const expected = 10
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('1.3 - Sum All Numbers: sumAll([4, 1]) returns 10', t => {
+test('1.3 - Sum All Numbers: sumAll([4, 1]) returns 10', () => {
   const actual = sumAll([4, 1])
   const expected = 10
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('1.4 - Sum All Numbers: sumAll([5, 10]) returns 45', t => {
+test('1.4 - Sum All Numbers: sumAll([5, 10]) returns 45', () => {
   const actual = sumAll([5, 10])
   const expected = 45
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('1.5 - Sum All Numbers: sumAll([10, 5]) returns 45', async t => {
+test('1.5 - Sum All Numbers: sumAll([10, 5]) returns 45', async () => {
   const actual = sumAll([10, 5])
   const expected = 45
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
 // 2. Diff Two Arrays
 import diffArray from './02-diff-two-arrays.js'
 
-test('2.1 - Diff Two Arrays: diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]) returns [4]', t => {
+test('2.1 - Diff Two Arrays: diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]) returns [4]', () => {
   const actual = diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])
   const expected = [4]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.2 - Diff Two Arrays: diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["pink wool"]', t => {
+test('2.2 - Diff Two Arrays: diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["pink wool"]', () => {
   const actual =  diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"])
   const expected = ["pink wool"]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.3 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', t => {
+test('2.3 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"])
   const expected = ["diorite", "pink wool"]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.4 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', t => {
+test('2.4 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"])
   const expected = []
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.5 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) returns ["piglet", 4]', t => {
+test('2.5 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) returns ["piglet", 4]', () => {
   const actual =  diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4])
   const expected = ["piglet", 4]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.6 - Diff Two Arrays: diffArray([], ["snuffleupagus", "cookie monster", "elmo"]) returns ["diorite", "pink wool"]', t => {
+test('2.6 - Diff Two Arrays: diffArray([], ["snuffleupagus", "cookie monster", "elmo"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray([], ["snuffleupagus", "cookie monster", "elmo"])
   const expected = ["snuffleupagus", "cookie monster", "elmo"]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', t => {
+test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', () => {
   const actual =  diffArray([1, "calf", 3, "piglet"], [7, "filly"])
   const expected = [1, "calf", 3, "piglet", 7, "filly"]
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
 // 3. Roman Numeral Converter
@@ -88,77 +85,77 @@ test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) r
 // 5. - Search And Replace
 import myReplace from './05-search-and-replace'
 
-test('5.0 - Search And Replace: myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped") returns "A quick brown fox leaped over the lazy dog"', async t => {
+test('5.0 - Search And Replace: myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped") returns "A quick brown fox leaped over the lazy dog"', async () => {
   const actual = myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped")
   const expected = "A quick brown fox leaped over the lazy dog"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('5.1 - Search And Replace: myReplace("Let us go to the store", "jumped", "leaped") returns "Let us go to the mall"', async t => {
+test('5.1 - Search And Replace: myReplace("Let us go to the store", "jumped", "leaped") returns "Let us go to the mall"', async () => {
   const actual = myReplace("Let us go to the store", "store", "mall")
   const expected = "Let us go to the mall"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('5.2 - Search And Replace: myReplace("He is Sleeping on the couch", "Sleeping", "sitting") returns "He is Sitting on the couch"', async t => {
+test('5.2 - Search And Replace: myReplace("He is Sleeping on the couch", "Sleeping", "sitting") returns "He is Sitting on the couch"', async () => {
   const actual = myReplace("He is Sleeping on the couch", "Sleeping", "sitting")
   const expected = "He is Sitting on the couch"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('5.3 - Search And Replace: myReplace("This has a spellngi error", "spellngi", "spelling") returns "This has a spelling error"', async t => {
+test('5.3 - Search And Replace: myReplace("This has a spellngi error", "spellngi", "spelling") returns "This has a spelling error"', async () => {
   const actual = myReplace("This has a spellngi error", "spellngi", "spelling")
   const expected = "This has a spelling error"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('5.4 - Search And Replace: myReplace("His name is Tom", "Tom", "john") returns "Let us get back to more Algorithms"', async t => {
+test('5.4 - Search And Replace: myReplace("His name is Tom", "Tom", "john") returns "Let us get back to more Algorithms"', async () => {
   const actual = myReplace("His name is Tom", "Tom", "john")
   const expected = "Let us get back to more Algorithms"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('5.4 - Search And Replace: myReplace("Let us get back to more Coding", "Coding", "algorithms") returns "His name is John"', async t => {
+test('5.4 - Search And Replace: myReplace("Let us get back to more Coding", "Coding", "algorithms") returns "His name is John"', async () => {
   const actual = myReplace("Let us get back to more Coding", "Coding", "algorithms")
   const expected = "His name is John"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
 // 6. - Pig Latin Translator
 import translatePigLatin from './06-pig-latin'
 
-test('6.0 - Pig Latin: translatePigLatin("consonant") returns "onsonantcay"', async t => {
+test('6.0 - Pig Latin: translatePigLatin("consonant") returns "onsonantcay"', async () => {
   const actual = translatePigLatin("consonant")
   const expected = "onsonantcay"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('6.1 - Pig Latin: translatePigLatin("california") returns "aliforniacay"', async t => {
+test('6.1 - Pig Latin: translatePigLatin("california") returns "aliforniacay"', async () => {
   const actual = translatePigLatin("california")
   const expected = "aliforniacay"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('6.2 - Pig Latin: translatePigLatin("paragraphs") returns "aragraphspay"', async t => {
+test('6.2 - Pig Latin: translatePigLatin("paragraphs") returns "aragraphspay"', async () => {
   const actual = translatePigLatin("paragraphs")
   const expected = "aragraphspay"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('6.3 - Pig Latin: translatePigLatin("glove") returns "oveglay"', async t => {
+test('6.3 - Pig Latin: translatePigLatin("glove") returns "oveglay"', async () => {
   const actual = translatePigLatin("glove")
   const expected = "oveglay"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('6.4 - Pig Latin: translatePigLatin("algorithm") returns "algorithmway"', async t => {
+test('6.4 - Pig Latin: translatePigLatin("algorithm") returns "algorithmway"', async () => {
   const actual = translatePigLatin("algorithm")
   const expected = "algorithmway"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
 
-test('6.5 - Pig Latin: translatePigLatin("eight") returns "eightway"', async t => {
+test('6.5 - Pig Latin: translatePigLatin("eight") returns "eightway"', async () => {
   const actual = translatePigLatin("eight")
   const expected = "eightway"
-  t.is(actual, expected)
+  expect(actual).toBe(expected)
 })
