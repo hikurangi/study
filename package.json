@@ -4,7 +4,7 @@
   "description": "My answers for the free code camp javascript algorithm challenges",
   "main": "index.js",
   "scripts": {
-    "test-int": "ava intermediate-algorithm-scripting/test.js --verbose --watch"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/hikurangi/fcc-solutions#readme",
   "devDependencies": {
-    "ava": "^0.18.2",
     "jest": "^20.0.4"
   }
 }
