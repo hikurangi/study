@@ -7,15 +7,11 @@
 //   };
 // }
 
-const checkUsersValid = goodUsers => {
-  const allUsersValid = submittedUsers => {
+module.exports = checkUsersValid = goodUsers => {
+  return allUsersValid = submittedUsers => {
     return submittedUsers.every(submittedUser => goodUsers.some(goodUser => goodUser.id === submittedUser.id)) // that implicit return though
   }
-  return allUsersValid
 }
-
-
-module.exports = checkUsersValid
 
 // Model Answer
 
