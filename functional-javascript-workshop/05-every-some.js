@@ -1,4 +1,12 @@
-// rule-breaking answer - helper function!
+// Model answer - ES6 refactor - the names are unnecessary
+
+module.exports = checkUsersValid = goodUsers => { // can remove 'checkUsersValid = '
+  return allUsersValid = submittedUsers => { // can remove 'allUsersValid = '
+    return submittedUsers.every(submittedUser => goodUsers.some(goodUser => goodUser.id === submittedUser.id)) // that implicit return though
+  }
+}
+
+// My rule-breaking answer - uses a helper function!
 
 // const checkUsersValid = goodUsers => {
 //   return function allUsersValid(submittedUsers) { // allUsersValid checks whether all of submittedUsers exist within goodUsers and returns true if so
@@ -6,12 +14,6 @@
 //     return flattenToProperty(submittedUsers, 'id').every(id => flattenToProperty(goodUsers, 'id').indexOf(id) > -1 ) // my answer is also probably not very performant.
 //   };
 // }
-
-module.exports = checkUsersValid = goodUsers => {
-  return allUsersValid = submittedUsers => {
-    return submittedUsers.every(submittedUser => goodUsers.some(goodUser => goodUser.id === submittedUser.id)) // that implicit return though
-  }
-}
 
 // Model Answer
 
