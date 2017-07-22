@@ -14,13 +14,15 @@
 //
 // Arithmetic Operators
 
-// Loop version (faster)
+// Loop version (faster performance)
 // const factorialize = num => {
 //   let factorial = 1
-//   console.log({factorial});
-//   for (let i = 0; i < num; i++) {
-//     factorial = factorial * i
-//     console.log({factorial});
+//   for (let i = num; i > 0; i--) {
+//     if (i === 0) {
+//       return 1
+//     } else {
+//       factorial = factorial * i
+//     }
 //   }
 //   return factorial
 // }
@@ -30,4 +32,4 @@ const factorialize = num => {
   return num === 0 ? 1 : num * factorialize(num-1)
 }
 
-module.exports = factorialize // not recursive
+module.exports = factorialize
