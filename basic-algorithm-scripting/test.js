@@ -9,8 +9,8 @@ test('0.0.0 - Reverse A String: reverseString("hello") should return a string.',
   expect(actual).toBe(expected)
 })
 
-test('0.0.0 - Reverse A String: reverseString("hello") should become "olleh"', () => {
-  const actual = typeof reverseString('hello')
+test('0.0.1 - Reverse A String: reverseString("hello") should become "olleh"', () => {
+  const actual = reverseString('hello')
   const expected = 'olleh'
   expect(actual).toBe(expected)
 })
