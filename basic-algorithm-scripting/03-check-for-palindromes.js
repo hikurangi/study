@@ -20,7 +20,7 @@
 
 const palindrome = str => {
   str = str.toLowerCase().replace(/[^0-9a-z]/gi, '')
-  return str === str.split('').reverse().join('') ? true : false
+  return str === str.split('').reverse().join('')
 }
 
 module.exports = palindrome
