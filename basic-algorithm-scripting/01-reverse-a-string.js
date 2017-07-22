@@ -1,4 +1,4 @@
-// 1.1 - Basic Algorithm Scripting - Reverse a String - https://www.freecodecamp.com/challenges/reverse-a-string
+// 1.1 - Reverse a String
 
 // Reverse the provided string.
 //
