@@ -21,7 +21,7 @@ module.exports = function checkUsersValid(goodUsers) {
   return function allUsersValid(submittedUsers) {
     return submittedUsers.every(function(submittedUser) { // check every user id in submittedUser
       return goodUsers.some(function(goodUser) {
-        return goodUser.id === submittedUser.id // does the specified submittedUser.id match any of the goodUsers' ids?
+        return goodUser.id === submittedUser.id // does the specified submittedUser.id match any of the goodUsers' ids? Any false value will spit out a false value for allUsersValid.
       })
     })
   }
