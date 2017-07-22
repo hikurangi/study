@@ -19,9 +19,7 @@
 // String.prototype.toLowerCase()
 
 const palindrome = str => {
-  const stripped = str.toLowerCase().replace(/[^0-9a-z]/gi, '')
-  const reversed = str.toLowerCase().replace(/[^0-9a-z]/gi, '').split('').reverse().join('')
-  return stripped === reversed ? true : false;
+  return str.toLowerCase().replace(/[^0-9a-z]/gi, '') === str.toLowerCase().replace(/[^0-9a-z]/gi, '').split('').reverse().join('') ? true : false
 }
 
 module.exports = palindrome
