@@ -32,7 +32,7 @@ import factorialize from './02-factorialize-a-number'
 
 test('1.2.0 - Factorialize a Number: factorialize(5) should return a number.', () => {
   const actual = !isNaN(factorialize(5))
-  const expected = 'true'
+  const expected = true
   expect(actual).toBe(expected)
 })
 
