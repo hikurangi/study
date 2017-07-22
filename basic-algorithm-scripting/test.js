@@ -148,3 +148,42 @@ test('1.3.13 - Check For Palindromes: palindrome("five|\_/|four") should return 
   const expected = false
   expect(actual).toBe(expected)
 })
+
+// 1.4 - Find the Longest Word in a String
+import findLongestWord from './04-find-the-longest-word'
+
+test('1.4.0 - Find the Longest Word in a String: findLongestWord("The quick brown fox jumped over the lazy dog") should return a number.', () => {
+  const actual = !isNaN(findLongestWord("The quick brown fox jumped over the lazy dog"))
+  const expected = true
+  expect(actual).toBe(expected)
+})
+
+test('1.4.1 - Find the Longest Word in a String: findLongestWord("The quick brown fox jumped over the lazy dog") should return 6.', () => {
+  const actual = findLongestWord("The quick brown fox jumped over the lazy dog")
+  const expected = 6
+  expect(actual).toBe(expected)
+})
+
+test('1.4.2 - Find the Longest Word in a String: findLongestWord("May the force be with you") should return 5.', () => {
+  const actual = findLongestWord("May the force be with you")
+  const expected = 5
+  expect(actual).toBe(expected)
+})
+
+test('1.4.3 - Find the Longest Word in a String: findLongestWord("Google do a barrel roll") should return 6.', () => {
+  const actual = findLongestWord("Google do a barrel roll")
+  const expected = 6
+  expect(actual).toBe(expected)
+})
+
+test('1.4.4 - Find the Longest Word in a String: findLongestWord("What is the average airspeed velocity of an unladen swallow") should return 8.', () => {
+  const actual = findLongestWord("What is the average airspeed velocity of an unladen swallow")
+  const expected = 8
+  expect(actual).toBe(expected)
+})
+
+test('1.4.5 - Find the Longest Word in a String: findLongestWord("What if we try a super-long word such as otorhinolaryngology") should return 19.', () => {
+  const actual = findLongestWord("What if we try a super-long word such as otorhinolaryngology")
+  const expected = 19
+  expect(actual).toBe(expected)
+})
