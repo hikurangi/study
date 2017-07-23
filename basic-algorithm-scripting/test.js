@@ -187,3 +187,30 @@ test('1.4.5 - Find the Longest Word in a String: findLongestWord("What if we try
   const expected = 19
   expect(actual).toBe(expected)
 })
+
+// 1.5 - Title Case A Sentence
+import titleCase from './05-title-case-a-sentence'
+
+test('1.5.0 - Title Case A Sentence: titleCase("I\'m a little tea pot") should return a string.', () => {
+  const actual = typeof titleCase("I'm a little tea pot")
+  const expected = 'string'
+  expect(actual).toBe(expected)
+})
+
+test('1.5.1 - Title Case A Sentence: titleCase("I\'m a little tea pot") should return "I\'m A Little Tea Pot".', () => {
+  const actual = titleCase("I'm a little tea pot")
+  const expected = "I'm A Little Tea Pot"
+  expect(actual).toBe(expected)
+})
+
+test('1.5.2 - Title Case A Sentence: titleCase("sHoRt AnD sToUt") should return "Short And Stout".', () => {
+  const actual = titleCase("sHoRt AnD sToUt")
+  const expected = "Short And Stout"
+  expect(actual).toBe(expected)
+})
+
+test('1.5.3 - Title Case A Sentence: titleCase("HERE IS MY HANDLE HERE IS MY SPOUT") should return "Here Is My Handle Here Is My Spout".', () => {
+  const actual = titleCase("HERE IS MY HANDLE HERE IS MY SPOUT")
+  const expected = "Here Is My Handle Here Is My Spout"
+  expect(actual).toBe(expected)
+})
