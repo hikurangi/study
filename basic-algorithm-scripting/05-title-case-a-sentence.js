@@ -14,8 +14,6 @@
 // JS String Prototype ToUpperCase
 // JS String Prototype Replace
 
-const titleCase = str => {
-  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
-}
+const titleCase = str => str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
 
 module.exports = titleCase

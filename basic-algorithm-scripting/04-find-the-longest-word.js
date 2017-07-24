@@ -11,8 +11,6 @@
 // String.prototype.split()
 // String.length
 
-const findLongestWord = str => {
-  return str.split(' ').reduce((first, second) => first.length > second.length ? first : second).length
-}
+const findLongestWord = str => str.split(' ').reduce((first, second) => first.length > second.length ? first : second).length
 
 module.exports = findLongestWord

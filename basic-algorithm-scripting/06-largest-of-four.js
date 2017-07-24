@@ -10,8 +10,6 @@
 //
 // Comparison Operators
 
-const largestOfFour = arr => {
-  return arr.map(sub => sub.reduce((a, b) => a >= b ? a : b))
-}
+const largestOfFour = arr => arr.map(sub => sub.reduce((a, b) => a >= b ? a : b))
 
 module.exports = largestOfFour
