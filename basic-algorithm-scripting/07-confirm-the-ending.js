@@ -10,3 +10,9 @@
 //
 // String.prototype.substr()
 // String.prototype.substring()
+
+const confirmEnding = (str, target) => {
+  return str;
+}
+
+module.exports = confirmEnding
