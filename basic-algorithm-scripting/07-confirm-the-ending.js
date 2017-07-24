@@ -11,6 +11,6 @@
 // String.prototype.substr()
 // String.prototype.substring()
 
-const confirmEnding = (str, target) => str.substr(str.length-target.length) === target
+const confirmEnding = (str, target) => str.substr(-target.length) === target
 
 module.exports = confirmEnding
