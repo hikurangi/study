@@ -3,9 +3,9 @@
 import reverseString from './01-reverse-a-string';
 
 test('1.1.0 - Reverse A String: reverseString("hello") should return a string.', () => {
-  const actual = typeof reverseString('hello')
+  const actual = reverseString('hello')
   const expected = 'string'
-  expect(actual).toBe(expected)
+  expect(typeof actual).toBe(expected)
 })
 
 test('1.1.1 - Reverse A String: reverseString("hello") should become "olleh"', () => {
@@ -192,9 +192,9 @@ test('1.4.5 - Find the Longest Word in a String: findLongestWord("What if we try
 import titleCase from './05-title-case-a-sentence'
 
 test('1.5.0 - Title Case A Sentence: titleCase("I\'m a little tea pot") should return a string.', () => {
-  const actual = typeof titleCase("I'm a little tea pot")
+  const actual = titleCase("I'm a little tea pot")
   const expected = 'string'
-  expect(actual).toBe(expected)
+  expect(typeof actual).toBe(expected)
 })
 
 test('1.5.1 - Title Case A Sentence: titleCase("I\'m a little tea pot") should return "I\'m A Little Tea Pot".', () => {
@@ -213,4 +213,25 @@ test('1.5.3 - Title Case A Sentence: titleCase("HERE IS MY HANDLE HERE IS MY SPO
   const actual = titleCase("HERE IS MY HANDLE HERE IS MY SPOUT")
   const expected = "Here Is My Handle Here Is My Spout"
   expect(actual).toBe(expected)
+})
+
+// 1.6 - Return Largest Numbers In Arrays
+import largestOfFour from './06-largest-of-four'
+
+test('1.6.0 - Return Largest Numbers In Arrays: largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]) should return an array.', () => {
+  const actual = (largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]]))
+  const expected = true
+  expect(actual instanceof Array).toBe(expected)
+})
+
+test('1.6.1 - Return Largest Numbers In Arrays: largestOfFour([[13, 27, 18, 26], [4, 5, 1, 3], [32, 35, 37, 39], [1000, 1001, 857, 1]]) should return [27,5,39,1001]', () => {
+  const actual = largestOfFour([[4, 5, 1, 3], [13, 27, 18, 26], [32, 35, 37, 39], [1000, 1001, 857, 1]])
+  const expected = [5,27,39,1001]
+  expect(actual).toEqual(expected)
+})
+
+test('1.6.2 - Return Largest Numbers In Arrays: largestOfFour([[4, 9, 1, 3], [13, 35, 18, 26], [32, 35, 97, 39], [1000000, 1001, 857, 1]]) should return [9, 35, 97, 1000000]', () => {
+  const actual = largestOfFour([[4, 9, 1, 3], [13, 35, 18, 26], [32, 35, 97, 39], [1000000, 1001, 857, 1]])
+  const expected = [9, 35, 97, 1000000]
+  expect(actual).toEqual(expected)
 })
