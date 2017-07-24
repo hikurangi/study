@@ -235,3 +235,48 @@ test('1.6.2 - Return Largest Numbers In Arrays: largestOfFour([[4, 9, 1, 3], [13
   const expected = [9, 35, 97, 1000000]
   expect(actual).toEqual(expected)
 })
+
+// 1.7 - Confirm the Ending
+import confirmEnding from './07-confirm-the-ending'
+
+test('1.7.0 - Confirm the Ending: confirmEnding("Bastian", "n") should return true.', () => {
+  const actual = confirmEnding("Bastian", "n")
+  const expected = true
+  expect(actual).toBe(expected)
+})
+
+test('1.7.1 - Confirm the Ending: confirmEnding("Connor", "n") should return false.', () => {
+  const actual = confirmEnding("Connor", "n")
+  const expected = false
+  expect(actual).toBe(expected)
+})
+
+test('1.7.2 - Confirm the Ending: confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification") should return false.', () => {
+  const actual = confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification")
+  const expected = false
+  expect(actual).toBe(expected)
+})
+
+test('1.7.3 - Confirm the Ending: confirmEnding("He has to give me a new name", "name") should return true.', () => {
+  const actual = confirmEnding("He has to give me a new name", "name")
+  const expected = true
+  expect(actual).toBe(expected)
+})
+
+test('1.7.4 - Confirm the Ending: confirmEnding("Open sesame", "same") should return true.', () => {
+  const actual = confirmEnding("Open sesame", "same")
+  const expected = true
+  expect(actual).toBe(expected)
+})
+
+test('1.7.5 - Confirm the Ending: confirmEnding("Open sesame", "pen") should return false.', () => {
+  const actual = confirmEnding("Open sesame", "pen")
+  const expected = false
+  expect(actual).toBe(expected)
+})
+
+test('1.7.6 - Confirm the Ending: confirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain") should return false.', () => {
+  const actual = confirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain")
+  const expected = false
+  expect(actual).toBe(expected)
+})
