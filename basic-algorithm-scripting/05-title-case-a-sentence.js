@@ -15,7 +15,7 @@
 // JS String Prototype Replace
 
 const titleCase = str => {
-  return str.split(' ').map(word => word.toLowerCase().replace(/^ABC/, letter => letter.toUpperCase())).join(' ')
+  return str.split(' ').map(word => word.toLowerCase().charAt(0).toUpperCase()).join(' ')
 }
 
 module.exports = titleCase
