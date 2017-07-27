@@ -280,3 +280,42 @@ test('1.7.6 - Confirm the Ending: confirmEnding("If you want to save our world, 
   const expected = false
   expect(actual).toBe(expected)
 })
+
+// 1.8 - Repeat A String
+import repeatStringNumTimes from './08-repeat-a-string'
+
+test('1.8.0 - Repeat A String: repeatStringNumTimes("*", 3) should return "***".', () => {
+  const actual = repeatStringNumTimes("*", 3)
+  const expected = "***"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.1 - Repeat A String: repeatStringNumTimes("abc", 3) should return "abcabcabc".', () => {
+  const actual = repeatStringNumTimes("abc", 3)
+  const expected = "abcabcabc"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.2 - Repeat A String: repeatStringNumTimes("abc", 4) should return "abcabcabcabc".', () => {
+  const actual = repeatStringNumTimes("abc", 4)
+  const expected = "abcabcabcabc"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.3 - Repeat A String: repeatStringNumTimes("abc", 1) should return "abc".', () => {
+  const actual = repeatStringNumTimes("abc", 1)
+  const expected = "abc"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.4 - Repeat A String: repeatStringNumTimes("*", 8) should return "********".', () => {
+  const actual = repeatStringNumTimes("*", 8)
+  const expected = "********"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.5 - Repeat A String: repeatStringNumTimes("abc", -2) should return "".', () => {
+  const actual = repeatStringNumTimes("abc", -2)
+  const expected = ""
+  expect(actual).toBe(expected)
+})
