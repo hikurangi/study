@@ -1,11 +1,9 @@
 const repeatStringNumTimes = (str, num) => {
+  let target = str
   for (let i = 0; i < num; i++) {
-    str+=str
+    target+=str
   }
-  console.log({str});
-  return str
+  return target
 }
 
 module.exports = repeatStringNumTimes
-
-repeatStringNumTimes('cheese', 7)
