@@ -8,17 +8,29 @@
 //
 // Global String Object
 
-const repeatStringNumTimes = (str, num) => {
-  let target = str
-  if (num <= 0) {
-    return ''
-  } else {
-    for (let i = 1; i < num; i++) {
-      target+=str
-    }
-    return target
-  }
-}
+// // My first answer - basic loop
+// const repeatStringNumTimes = (str, num) => {
+//   let target = str
+//   if (num <= 0) {
+//     return ''
+//   } else {
+//     for (let i = 1; i < num; i++) {
+//       target+=str
+//     }
+//     return target
+//   }
+// }
+
+// // While loop
+// const repeatStringNumTimes = (str, num) => {
+//   let target = ''
+//   while (num > 0) {
+//     target+= str
+//     num--
+//   }
+//   return target
+// }
+
 
 module.exports = repeatStringNumTimes
 
