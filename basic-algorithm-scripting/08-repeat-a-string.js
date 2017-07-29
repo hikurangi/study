@@ -15,7 +15,7 @@
 //     return ''
 //   } else {
 //     for (let i = 1; i < num; i++) {
-//       target+=str
+//       target +=str
 //     }
 //     return target
 //   }
@@ -25,7 +25,7 @@
 // const repeatStringNumTimes = (str, num) => {
 //   let target = ''
 //   while (num > 0) {
-//     target+= str
+//     target += str
 //     num--
 //   }
 //   return target
@@ -34,12 +34,13 @@
 
 // // Recursion
 const repeatStringNumTimes = (str, num) => {
-  let target = ''
-  while (num > 0) {
-    target += str
-    num--
+  if ( num <= 0 ) {
+    return ''
+  } else if ( num === 1 ) {
+    return str
+  } else {
+    return str + repeatStringNumTimes(str, num-1)
   }
-  return target
 }
 
 module.exports = repeatStringNumTimes
