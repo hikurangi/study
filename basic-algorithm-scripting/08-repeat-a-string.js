@@ -32,6 +32,16 @@
 // }
 
 
+// // Recursion
+const repeatStringNumTimes = (str, num) => {
+  let target = ''
+  while (num > 0) {
+    target += str
+    num--
+  }
+  return target
+}
+
 module.exports = repeatStringNumTimes
 
 // next try a recursive method with external tracker variable
