@@ -15,7 +15,7 @@
 //     return ''
 //   } else {
 //     for (let i = 1; i < num; i++) {
-//       target +=str
+//       target += str
 //     }
 //     return target
 //   }
@@ -30,7 +30,6 @@
 //   }
 //   return target
 // }
-
 
 // // Recursion
 const repeatStringNumTimes = (str, num) => {
