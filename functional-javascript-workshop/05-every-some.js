@@ -1,10 +1,13 @@
 // Model answer - ES6 refactor - the names are unnecessary
 
-module.exports = checkUsersValid = goodUsers => { // can remove 'checkUsersValid = '
-  return allUsersValid = submittedUsers => { // can remove 'allUsersValid = '
-    return submittedUsers.every(submittedUser => goodUsers.some(goodUser => goodUser.id === submittedUser.id)) // that implicit return though
+checkUsersValid = goodUsers => { // can remove 'checkUsersValid = '
+  const allUsersValid = submittedUsers => { // can remove 'allUsersValid = '
+    return submittedUsers.every(submittedUser => goodUsers.some(goodUser => goodUser.id === submittedUser.id)) // if EVERY submittedUser.id matches SOME (at least one) goodUser.id, return true.
   }
+  return allUsersValid
 }
+
+module.exports = checkUsersValid
 
 // My rule-breaking answer - uses a helper function!
 
@@ -16,12 +19,12 @@ module.exports = checkUsersValid = goodUsers => { // can remove 'checkUsersValid
 // }
 
 // Model Answer
-
-module.exports = function checkUsersValid(goodUsers) {
-  return function allUsersValid(submittedUsers) {
-    return submittedUsers.every(function(submittedUser) { // check every user id in submittedUser
-      return goodUsers.some(function(goodUser) {
-        return goodUser.id === submittedUser.id // does the specified submittedUser.id match any of the goodUsers' ids? Any false value will spit out a false value for allUsersValid.
-      })
-    })
-  }
+//
+// module.exports = function checkUsersValid(goodUsers) {
+//   return function allUsersValid(submittedUsers) {
+//     return submittedUsers.every(function(submittedUser) { // check every user id in submittedUser
+//       return goodUsers.some(function(goodUser) {
+//         return goodUser.id === submittedUser.id // does the specified submittedUser.id match any of the goodUsers' ids? Any false value will spit out a false value for allUsersValid.
+//       })
+//     })
+//   }
