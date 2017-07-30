@@ -32,14 +32,19 @@
 // }
 
 // // Recursion
+// const repeatStringNumTimes = (str, num) => {
+//   if ( num <= 0 ) {
+//     return ''
+//   } else if ( num === 1 ) {
+//     return str
+//   } else {
+//     return str + repeatStringNumTimes(str, num-1)
+//   }
+// }
+
+// Ideal FCC answer using .repeat() method
 const repeatStringNumTimes = (str, num) => {
-  if ( num <= 0 ) {
-    return ''
-  } else if ( num === 1 ) {
-    return str
-  } else {
-    return str + repeatStringNumTimes(str, num-1)
-  }
+  return num < 0 ? '' : str.repeat(num)
 }
 
 module.exports = repeatStringNumTimes
