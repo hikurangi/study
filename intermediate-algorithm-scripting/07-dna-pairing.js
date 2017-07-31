@@ -16,12 +16,32 @@
 // Array.prototype.push()
 // String.prototype.split()
 
-function pairElement(str) {
-  return str;
+const pairElement = str => {
+  const arr = []
+  const matchmaker = strand => {
+    let pair
+    switch(strand) {
+      case 'A':
+        pair = 'T'
+        break;
+      case 'T':
+        pair = 'A'
+        break;
+      case 'C':
+        pair = 'G'
+        break;
+      case 'G':
+        pair = 'C'
+        break;
+      default:
+        console.error('Invalid input!');
+    }
+    return [strand, pair]
+  }
+  let finisher = str.split('').forEach(item => {
+    arr.push(matchmaker(item))
+  })
+  return arr;
 }
 
-pairElement("GCG");
-
-pairElement("ATCGA") // => [["A","T"],["T","A"],["C","G"],["G","C"],["A","T"]].
-pairElement("TTGAG") // => [["T","A"],["T","A"],["G","C"],["A","T"],["G","C"]].
-pairElement("CTCTA") // => [["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]].
+module.exports = pairElement
