@@ -17,11 +17,8 @@ const truncateString = (str, num) => {
     return str
   } else if (num <= 0) {
     return ''
-  } else if (num <= 3){
-    return str.trim().slice(0, num) + '...'
   } else {
-    return str.trim().slice(0, num-3) + '...' // wet
-  }
+    return str.trim().slice(0, num > 3 ? num - 3 : num) + '...'
 }
 
 module.exports = truncateString
