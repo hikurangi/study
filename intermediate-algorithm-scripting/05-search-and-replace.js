@@ -18,40 +18,45 @@
 // Array.prototype.join()
 
 const myReplace = (str, before, after) => {
-  const locator = str.split(" ").indexOf(before)
-  // check case of both before and after
-  // need to iterate through both before and after strings
-  // if we were being thoroughly accurate, we would create an array of booleans
-  // eg: if before is 'ChEEsy' we would have an array representing the uppercased-ness of before, ie [ true, false, true, true, false, false ]
-  // then we would mutate after's case to match that array until one or the other ran out, at which point we'd stop mutating.
-  let target = str[locator]
-
-  let capsArray = []
-
-  for ( let i = 0; i < target.length; i++ ) {
-    isUpperCase(target[i], capsArray)
-  }
-
-  let capitalised = []
-  const caseMutator = (mutatee, arr) => {
-    for (let j = 0; j < mutatee.length; j++) {
-      if (arr[j]) {
-        capitalised.push(mutatee[j].toUpperCase())
-      } else {
-        capitalised.push(mutatee[j].toLowerCase())
-      } // needs a length checker to avoid running .toLowerCase on nothing
-    }
-  }
-
-  caseMutator(after.split(""), capsArray)
-
-  str = str.split('').splice(locator, 1, capitalised.join(''))
-
-  return str.join(' ');
+  
+  return str.replace(before, after) // works where
 }
 
-const isUpperCase = (char, arr) => {
-  char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
-}
+// const myReplace = (str, before, after) => {
+//   const locator = str.split(" ").indexOf(before)
+//   // check case of both before and after
+//   // need to iterate through both before and after strings
+//   // if we were being thoroughly accurate, we would create an array of booleans
+//   // eg: if before is 'ChEEsy' we would have an array representing the uppercased-ness of before, ie [ true, false, true, true, false, false ]
+//   // then we would mutate after's case to match that array until one or the other ran out, at which point we'd stop mutating.
+//   let target = str[locator]
+//
+//   let capsArray = []
+//
+//   for ( let i = 0; i < target.length; i++ ) {
+//     isUpperCase(target[i], capsArray)
+//   }
+//
+//   let capitalised = []
+//   const caseMutator = (mutatee, arr) => {
+//     for (let j = 0; j < mutatee.length; j++) {
+//       if (arr[j]) {
+//         capitalised.push(mutatee[j].toUpperCase())
+//       } else {
+//         capitalised.push(mutatee[j].toLowerCase())
+//       } // needs a length checker to avoid running .toLowerCase on nothing
+//     }
+//   }
+//
+//   caseMutator(after.split(""), capsArray)
+//
+//   str = str.split('').splice(locator, 1, capitalised.join(''))
+//
+//   return str.join(' ');
+// }
+//
+// const isUpperCase = (char, arr) => {
+//   char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
+// }
 
 module.exports = myReplace
