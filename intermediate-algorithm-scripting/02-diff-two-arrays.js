@@ -11,16 +11,14 @@
 // Array.prototype.concat()
 
 const diffArray = (arr1, arr2) => {
-    var newArr = [];
-    
-    let longest = arr1.length > arr2.length ? arr1 : arr2
-    let shortest = arr1.length > arr2.length ? arr2 : arr1
-
-    let goodItems = longest.filter(item => !(shortest.indexOf(item) > -1)) // we only want to return the items which do not exist in the other
-    console.log({goodItems});
-    // Same, same; but different.
-    return goodItems;
+  let longest = arr1.length > arr2.length ? arr1 : arr2
+  let shortest = arr1.length > arr2.length ? arr2 : arr1
+  let matches = longest.filter(item => shortest.includes(item))
+  let newArr = arr1.concat(arr2).filter(item => !matches.includes(item))
+  return newArr;
 }
+
+console.log(diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]))
 
 // My Solution #1: Using arr.concat to combine arrays to check for multiple instances of the same value - hint 1 from https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/Algorithm-Diff-Two-Arrays
 

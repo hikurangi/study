@@ -4,7 +4,7 @@
   "description": "My answers for the free code camp javascript algorithm challenges",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

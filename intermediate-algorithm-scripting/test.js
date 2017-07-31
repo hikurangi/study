@@ -36,43 +36,43 @@ import diffArray from './02-diff-two-arrays.js'
 test('2.1 - Diff Two Arrays: diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]) returns [4]', () => {
   const actual = diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])
   const expected = [4]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.2 - Diff Two Arrays: diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["pink wool"]', () => {
   const actual =  diffArray(["diorite", "andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"])
   const expected = ["pink wool"]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.3 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"])
   const expected = ["diorite", "pink wool"]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.4 - Diff Two Arrays: diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray(["andesite", "grass", "dirt", "dead shrub"], ["andesite", "grass", "dirt", "dead shrub"])
   const expected = []
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.5 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]) returns ["piglet", 4]', () => {
   const actual =  diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4])
   const expected = ["piglet", 4]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.6 - Diff Two Arrays: diffArray([], ["snuffleupagus", "cookie monster", "elmo"]) returns ["diorite", "pink wool"]', () => {
   const actual =  diffArray([], ["snuffleupagus", "cookie monster", "elmo"])
   const expected = ["snuffleupagus", "cookie monster", "elmo"]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.7 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', () => {
   const actual =  diffArray([1, "calf", 3, "piglet"], [7, "filly"])
   const expected = [1, "calf", 3, "piglet", 7, "filly"]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 // 3. Roman Numeral Converter
