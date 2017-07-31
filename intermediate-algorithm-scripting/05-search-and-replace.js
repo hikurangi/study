@@ -17,7 +17,7 @@
 // String.prototype.replace()
 // Array.prototype.join()
 
-function myReplace(str, before, after) {
+const myReplace = (str, before, after) => {
   const locator = str.split(" ").indexOf(before)
   // check case of both before and after
   // need to iterate through both before and after strings
