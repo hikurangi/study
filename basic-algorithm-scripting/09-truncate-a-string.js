@@ -13,7 +13,6 @@
 // String.prototype.slice()
 
 const truncateString = (str, num) => {
-  // what length is the string?
   if (num >= str.length) {
     return str
   } else if (num <= 0) {
@@ -26,3 +25,12 @@ const truncateString = (str, num) => {
 }
 
 module.exports = truncateString
+
+// FCC Model Answer ft. neat use of a ternary inside the slice method
+// function truncateString(str, num) {
+//   if (str.length <= num) {
+//     return str;
+//   } else {
+//     return str.slice(0, num > 3 ? num - 3 : num) + '...';
+//   }
+// }
