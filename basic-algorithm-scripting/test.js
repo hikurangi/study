@@ -319,3 +319,42 @@ test('1.8.5 - Repeat A String: repeatStringNumTimes("abc", -2) should return "".
   const expected = ""
   expect(actual).toBe(expected)
 })
+
+// 1.8 - Truncate A String
+import truncateString from './09-truncate-a-string'
+
+test('1.8.0 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", 11) should return "A-tisket...".', () => {
+  const actual = truncateString("A-tisket a-tasket A green and yellow basket", 11)
+  const expected = "A-tisket..."
+  expect(actual).toBe(expected)
+})
+
+test('1.8.1 - Truncate A String: truncateString("Peter Piper picked a peck of pickled peppers", 14) should return "Peter Piper...".', () => {
+  const actual = truncateString("Peter Piper picked a peck of pickled peppers", 14)
+  const expected = "Peter Piper..."
+  expect(actual).toBe(expected)
+})
+
+test('1.8.2 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length) should return "A-tisket a-tasket A green and yellow basket".', () => {
+  const actual = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length)
+  const expected = "A-tisket a-tasket A green and yellow basket"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.3 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2) should return "A-tisket a-tasket A green and yellow basket".', () => {
+  const actual = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2)
+  const expected = "A-tisket a-tasket A green and yellow basket"
+  expect(actual).toBe(expected)
+})
+
+test('1.8.4 - Truncate A String: truncateString("A-", 1) should return "A...".', () => {
+  const actual = truncateString("A-", 1)
+  const expected = "A..."
+  expect(actual).toBe(expected)
+})
+
+test('1.8.5 - truncateString("Absolutely Longer", 2) should return "Ab...".', () => {
+  const actual = truncateString("Absolutely Longer", 2)
+  const expected = "Ab..."
+  expect(actual).toBe(expected)
+})
