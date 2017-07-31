@@ -17,7 +17,7 @@
 // String.prototype.replace()
 // Array.prototype.join()
 
-// Working solution for instances of Title Case
+// Working solution for instances of Title Case - identical to beginner model answer
 
 const myReplace = (str, before, after) => {
   if (before[0] === before[0].toUpperCase()) { after = after.charAt(0).toUpperCase() + after.slice(1) }
