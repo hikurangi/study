@@ -21,10 +21,10 @@
 
 const myReplace = (str, before, after) => {
   if (before[0] === before[0].toUpperCase()) { after = after.charAt(0).toUpperCase() + after.slice(1) }
-  return str.replace(before, after) // works where
+  return str.replace(before, after)
 }
 
-// My longer-winded answer which handles capitalisation of any letter
+// My longer-winded answer which handles capitalisation of any letter.. but isn't quite working
 
 // const myReplace = (str, before, after) => {
 //   const locator = str.split(" ").indexOf(before)
