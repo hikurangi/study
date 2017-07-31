@@ -13,8 +13,16 @@
 // String.prototype.slice()
 
 const truncateString = (str, num) => {
-
-  return str;
+  // what length is the string?
+  if (num >= str.length) {
+    return str
+  } else if (num <= 0) {
+    return ''
+  } else if (num <= 3){
+    return str.trim().slice(0, num) + '...'
+  } else {
+    return str.trim().slice(0, num-3) + '...'
+  }
 }
 
 module.exports = truncateString
