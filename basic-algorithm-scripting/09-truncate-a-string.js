@@ -12,8 +12,8 @@
 //
 // String.prototype.slice()
 
-const truncateString => (str, num) {
-  // Clear out that junk in your trunk
+const truncateString = (str, num) => {
+
   return str;
 }
 
