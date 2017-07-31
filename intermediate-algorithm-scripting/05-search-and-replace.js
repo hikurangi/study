@@ -17,10 +17,14 @@
 // String.prototype.replace()
 // Array.prototype.join()
 
+// Working solution for instances of Title Case
+
 const myReplace = (str, before, after) => {
-  
+  if (before[0] === before[0].toUpperCase()) { after = after.charAt(0).toUpperCase() + after.slice(1) }
   return str.replace(before, after) // works where
 }
+
+// My longer-winded answer which handles capitalisation of any letter
 
 // const myReplace = (str, before, after) => {
 //   const locator = str.split(" ").indexOf(before)
