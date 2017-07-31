@@ -109,15 +109,15 @@ test('5.3 - Search And Replace: myReplace("This has a spellngi error", "spellngi
   expect(actual).toBe(expected)
 })
 
-test('5.4 - Search And Replace: myReplace("His name is Tom", "Tom", "john") returns "Let us get back to more Algorithms"', async () => {
+test('5.4 - Search And Replace: myReplace("His name is Tom", "Tom", "john") returns "His name is John"', async () => {
   const actual = myReplace("His name is Tom", "Tom", "john")
-  const expected = "Let us get back to more Algorithms"
+  const expected = "His name is John"
   expect(actual).toBe(expected)
 })
 
-test('5.4 - Search And Replace: myReplace("Let us get back to more Coding", "Coding", "algorithms") returns "His name is John"', async () => {
+test('5.4 - Search And Replace: myReplace("Let us get back to more Coding", "Coding", "algorithms") returns "Let us get back to more Algorithms"', async () => {
   const actual = myReplace("Let us get back to more Coding", "Coding", "algorithms")
-  const expected = "His name is John"
+  const expected = "Let us get back to more Algorithms"
   expect(actual).toBe(expected)
 })
 
