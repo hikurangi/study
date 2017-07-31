@@ -159,3 +159,24 @@ test('6.5 - Pig Latin: translatePigLatin("eight") returns "eightway"', async () 
   const expected = "eightway"
   expect(actual).toBe(expected)
 })
+
+// 7. - DNA Pairing
+import pairElement from './07-dna-pairing'
+
+test('7.0 - DNA Pairing: pairElement("ATCGA") should return [["A","T"],["T","A"],["C","G"],["G","C"],["A","T"]].', () => {
+  const actual =  pairElement("ATCGA")
+  const expected = [["A","T"],["T","A"],["C","G"],["G","C"],["A","T"]]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
+
+test('7.1 - DNA Pairing: pairElement("TTGAG") should return [["T","A"],["T","A"],["G","C"],["A","T"],["G","C"]].', () => {
+  const actual =  pairElement("TTGAG")
+  const expected = [["T","A"],["T","A"],["G","C"],["A","T"],["G","C"]]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
+
+test('7.2 - DNA Pairing: pairElement("CTCTA") should return [["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]].', () => {
+  const actual =  pairElement("CTCTA")
+  const expected = [["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
