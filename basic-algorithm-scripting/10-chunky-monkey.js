@@ -18,14 +18,3 @@ const chunkArrayInGroups = (arr, size) => {
 }
 
 module.exports = chunkArrayInGroups
-
-// const chunkArrayInGroups = (arr, size) => {
-//   let newArr = []
-//   let i = 0
-//   while (newArr.length <= Math.floor(arr.length / size)) {
-//     newArr.push(arr.slice(size*(i-1), size*i))
-//     i++
-//   }
-//   // Break it up.
-//   return arr;
-// }
