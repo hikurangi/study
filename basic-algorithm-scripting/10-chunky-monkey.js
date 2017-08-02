@@ -10,6 +10,11 @@
 // Array.prototype.slice()
 
 const chunkArrayInGroups = (arr, size) => {
+  let newArr = []
+  while (newArr.length <= Math.floor(arr.length / size)) {
+    newArr.push(arr.slice(size*(i-1), size*i))
+    i++
+  }
   // Break it up.
   return arr;
 }
