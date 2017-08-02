@@ -12,7 +12,7 @@
 const chunkArrayInGroups = (arr, size) => {
   let newArr = []
   for (let i = 1; i < Math.ceil(arr.length/size) + 1; i++) {
-    newArr.push(size*i >= arr.length ? arr.slice(size*(i-1)) : arr.slice(size*(i-1), size*i))
+    newArr.push(arr.slice(size*(i-1), size*i))
   }
   return newArr
 }
