@@ -11,12 +11,22 @@
 
 const chunkArrayInGroups = (arr, size) => {
   let newArr = []
-  while (newArr.length <= Math.floor(arr.length / size)) {
-    newArr.push(arr.slice(size*(i-1), size*i))
-    i++
+  for (let i = 1; i < Math.floor(arr.length/size); i++) {
+    newArr.push(size*i >= arr.length ? arr.slice(size*(i-1)) : arr.slice(size*(i-1), size*i))
   }
-  // Break it up.
-  return arr;
+  console.log({newArr});
+  return newArr
 }
 
 module.exports = chunkArrayInGroups
+
+// const chunkArrayInGroups = (arr, size) => {
+//   let newArr = []
+//   let i = 0
+//   while (newArr.length <= Math.floor(arr.length / size)) {
+//     newArr.push(arr.slice(size*(i-1), size*i))
+//     i++
+//   }
+//   // Break it up.
+//   return arr;
+// }
