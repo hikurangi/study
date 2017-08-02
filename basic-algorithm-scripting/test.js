@@ -364,42 +364,42 @@ import chunkArrayInGroups from './10-chunky-monkey'
 
 test('1.9.0 - chunkArrayInGroups(["a", "b", "c", "d"], 2) should return [["a", "b"], ["c", "d"]].', () => {
   const actual = chunkArrayInGroups(["a", "b", "c", "d"], 2)
-  const expected = "[["a", "b"], ["c", "d"]]"
+  const expected = [["a", "b"], ["c", "d"]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.1 - chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3) should return [[0, 1, 2], [3, 4, 5]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3)
-  const expected = "[[0, 1, 2], [3, 4, 5]]"
+  const expected = [[0, 1, 2], [3, 4, 5]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.2 - chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2) should return [[0, 1], [2, 3], [4, 5]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2)
-  const expected = "[[0, 1], [2, 3], [4, 5]]"
+  const expected = [[0, 1], [2, 3], [4, 5]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.3 - chunkArrayInGroups([0, 1, 2, 3, 4, 5], 4) should return [[0, 1, 2, 3], [4, 5]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5], 4)
-  const expected = "[[0, 1, 2, 3], [4, 5]]"
+  const expected = [[0, 1, 2, 3], [4, 5]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.4 - chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3) should return [[0, 1, 2], [3, 4, 5], [6]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3)
-  const expected = "[[0, 1, 2], [3, 4, 5], [6]]"
+  const expected = [[0, 1, 2], [3, 4, 5], [6]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.5 - chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4) should return [[0, 1, 2, 3], [4, 5, 6, 7], [8]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4)
-  const expected = "[[0, 1, 2, 3], [4, 5, 6, 7], [8]]"
+  const expected = [[0, 1, 2, 3], [4, 5, 6, 7], [8]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('1.9.6 - chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2) should return [[0, 1], [2, 3], [4, 5], [6, 7], [8]].', () => {
   const actual = chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2)
-  const expected = "[[0, 1], [2, 3], [4, 5], [6, 7], [8]]"
+  const expected = [[0, 1], [2, 3], [4, 5], [6, 7], [8]]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
