@@ -320,41 +320,52 @@ test('1.8.5 - Repeat A String: repeatStringNumTimes("abc", -2) should return "".
   expect(actual).toBe(expected)
 })
 
-// 1.8 - Truncate A String
+// 1.9 - Truncate A String
 import truncateString from './09-truncate-a-string'
 
-test('1.8.0 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", 11) should return "A-tisket...".', () => {
+test('1.89.0 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", 11) should return "A-tisket...".', () => {
   const actual = truncateString("A-tisket a-tasket A green and yellow basket", 11)
   const expected = "A-tisket..."
   expect(actual).toBe(expected)
 })
 
-test('1.8.1 - Truncate A String: truncateString("Peter Piper picked a peck of pickled peppers", 14) should return "Peter Piper...".', () => {
+test('1.9.1 - Truncate A String: truncateString("Peter Piper picked a peck of pickled peppers", 14) should return "Peter Piper...".', () => {
   const actual = truncateString("Peter Piper picked a peck of pickled peppers", 14)
   const expected = "Peter Piper..."
   expect(actual).toBe(expected)
 })
 
-test('1.8.2 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length) should return "A-tisket a-tasket A green and yellow basket".', () => {
+test('1.9.2 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length) should return "A-tisket a-tasket A green and yellow basket".', () => {
   const actual = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length)
   const expected = "A-tisket a-tasket A green and yellow basket"
   expect(actual).toBe(expected)
 })
 
-test('1.8.3 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2) should return "A-tisket a-tasket A green and yellow basket".', () => {
+test('1.9.3 - Truncate A String: truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2) should return "A-tisket a-tasket A green and yellow basket".', () => {
   const actual = truncateString("A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2)
   const expected = "A-tisket a-tasket A green and yellow basket"
   expect(actual).toBe(expected)
 })
 
-test('1.8.4 - Truncate A String: truncateString("A-", 1) should return "A...".', () => {
+test('1.9.4 - Truncate A String: truncateString("A-", 1) should return "A...".', () => {
   const actual = truncateString("A-", 1)
   const expected = "A..."
   expect(actual).toBe(expected)
 })
 
-test('1.8.5 - truncateString("Absolutely Longer", 2) should return "Ab...".', () => {
+test('1.9.5 - truncateString("Absolutely Longer", 2) should return "Ab...".', () => {
   const actual = truncateString("Absolutely Longer", 2)
   const expected = "Ab..."
   expect(actual).toBe(expected)
 })
+
+// 1.10 Chunky Monkey
+import chunkArrayInGroups from './10-chunky-monkey'
+
+// chunkArrayInGroups(["a", "b", "c", "d"], 2) should return [["a", "b"], ["c", "d"]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3) should return [[0, 1, 2], [3, 4, 5]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2) should return [[0, 1], [2, 3], [4, 5]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5], 4) should return [[0, 1, 2, 3], [4, 5]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3) should return [[0, 1, 2], [3, 4, 5], [6]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4) should return [[0, 1, 2, 3], [4, 5, 6, 7], [8]].
+// chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2) should return [[0, 1], [2, 3], [4, 5], [6, 7], [8]].
