@@ -1,16 +1,26 @@
 const countWords = inputWords => {
   return inputWords.reduce((counter, word) => {
-    if (!counter[word]) {
-      counter[word] = 1
+    if (counter[word]) {
+      counter[word]++ // if the word exists in the counter/accumulator, increment it
     } else {
-      counter[word]++
+      counter[word] = 1 // if the word doesn't exist in the counter/accumulator, set its value to 1
     }
-    return counter // must return the accumulator after the if statement has done its thing
-  }, {}) // the initial value for the accumulator (the first callback argument) is an empty counterect
+    return counter // must return the counter/accumulator after the if statement has done its thing
+  }, {}) // the initial value for the counter/accumulator (the first callback argument) is an empty counterect
 }
 
 module.exports = countWords
 
+// Model Answer - neat use of ||
+
+// function countWords(arr) {
+//   return arr.reduce(function(countMap, word) {
+//     countMap[word] = ++countMap[word] || 1 // increment or initialize to 1
+//     return countMap
+//   }, {}) // second argument to reduce initialises countMap to {}
+// }
+
+// MDN example
 
 // var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
 //
