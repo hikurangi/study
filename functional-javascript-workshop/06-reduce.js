@@ -1,12 +1,8 @@
 const countWords = inputWords => {
   return inputWords.reduce((counter, word) => {
-    if (counter[word]) {
-      counter[word]++ // if the word exists in the counter/accumulator, increment it
-    } else {
-      counter[word] = 1 // if the word doesn't exist in the counter/accumulator, set its value to 1
-    }
+    counter[word] ? counter[word]++ : counter[word] = 1 // if the word exists in the counter/accumulator, increment it. if it doesn't, set its value to 1
     return counter // must return the counter/accumulator after the if statement has done its thing
-  }, {}) // the initial value for the counter/accumulator (the first callback argument) is an empty counterect
+  }, {}) // the initial value for the counter/accumulator (the first callback argument) is an empty object
 }
 
 module.exports = countWords
