@@ -1,14 +1,12 @@
 const countWords = inputWords => {
-  return inputWords.reduce((obj, curr) => {
-    if (!obj) {
-      obj = {}
-      obj[curr] = 1
-    } else if (!obj[curr]) {
-      obj[curr] = 1
-    } else if (obj[curr]) {
-      obj[curr]++
+  return inputWords.reduce((counter, word) => {
+    if (!counter[word]) {
+      counter[word] = 1
+    } else {
+      counter[word]++
     }
-  })
+    return counter // must return the accumulator after the if statement has done its thing
+  }, {}) // the initial value for the accumulator (the first callback argument) is an empty counterect
 }
 
 module.exports = countWords
