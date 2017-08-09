@@ -2,11 +2,11 @@ const countWords = inputWords => {
   return inputWords.reduce((obj, curr) => {
     if (!obj) {
       obj = {}
-      obj.curr = 1
-    } else if (!obj.curr) {
-      obj.curr = 1
-    } else if (obj.curr) {
-      obj.curr = obj.curr+=1
+      obj[curr] = 1
+    } else if (!obj[curr]) {
+      obj[curr] = 1
+    } else if (obj[curr]) {
+      obj[curr]++
     }
   })
 }
