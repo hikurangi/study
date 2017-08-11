@@ -499,3 +499,30 @@ test('1.12.8 - mutation(["voodoo", "no"]) should return false.', () => {
   const expected = false
   expect(actual).toEqual(expected)
 })
+
+// 1.13 - Falsy Bouncer
+import bouncer from './13-falsy-bouncer'
+
+test('1.13.0 - bouncer([7, "ate", "", false, 9]) should return [7, "ate", 9].', () => {
+  const actual = bouncer([7, "ate", "", false, 9])
+  const expected = [7, "ate", 9]
+  expect(actual).toEqual(expected)
+})
+
+test('1.13.1 - bouncer(["a", "b", "c"]) should return ["a", "b", "c"].', () => {
+  const actual = bouncer(["a", "b", "c"])
+  const expected = ["a", "b", "c"]
+  expect(actual).toEqual(expected)
+})
+
+test('1.13.2 - bouncer([false, null, 0, NaN, undefined, ""]) should return [].', () => {
+  const actual = bouncer([false, null, 0, NaN, undefined, ""])
+  const expected = []
+  expect(actual).toEqual(expected)
+})
+
+test('1.13.3 - bouncer([1, null, NaN, 2, undefined]) should return [1, 2].', () => {
+  const actual = bouncer([1, null, NaN, 2, undefined])
+  const expected = [1, 2]
+  expect(actual).toEqual(expected)
+})
