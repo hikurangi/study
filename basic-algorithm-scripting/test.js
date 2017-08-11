@@ -404,7 +404,7 @@ test('1.10.6 - chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2) should return 
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
-// 1.10 Chunky Monkey
+// 1.11 - Slasher FLick
 import slasher from './11-slasher-flick'
 
 test('1.11.0 - slasher([1, 2, 3], 2) should return [3].', () => {
@@ -440,5 +440,62 @@ test('1.11.4 - slasher(["burgers", "fries", "shake"], 1) should return ["fries",
 test('1.11.5 - slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5) should return ["cheese", 4].', () => {
   const actual = slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5)
   const expected = ["cheese", 4]
+  expect(actual).toEqual(expected)
+})
+
+// 1.12 - Mutations
+import mutation from './12-mutations'
+
+test('1.12.0 - mutation(["hello", "hey"]) should return false.', () => {
+  const actual = mutation(["hello", "hey"])
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.1 - mutation(["hello", "Hello"]) should return true.', () => {
+  const actual = mutation(["hello", "Hello"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.2 - mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"]) should return true.', () => {
+  const actual = mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.3 - mutation(["Mary", "Army"]) should return true.', () => {
+  const actual = mutation(["Mary", "Army"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.4 - mutation(["Mary", "Aarmy"]) should return true.', () => {
+  const actual = mutation(["Mary", "Aarmy"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.5 - mutation(["Alien", "line"]) should return true.', () => {
+  const actual = mutation(["Alien", "line"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.6 - mutation(["floor", "for"]) should return true.', () => {
+  const actual = mutation(["floor", "for"])
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.7 - mutation(["hello", "neo"]) should return false.', () => {
+  const actual = mutation(["hello", "neo"])
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('1.12.8 - mutation(["voodoo", "no"]) should return false.', () => {
+  const actual = mutation(["voodoo", "no"])
+  const expected = false
   expect(actual).toEqual(expected)
 })
