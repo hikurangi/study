@@ -11,7 +11,14 @@
 
 const destroyer = arr => {
   // Remove all the values
-  return arr;
+  let args = [...arguments]
+  console.log({args});
+  let initial = args[0]
+  console.log({initial});
+  let targets = args.slice(1)
+
+  return initial.filter(initialItem => targets.forEach(target => target != initialItem))
+
 }
 
 module.exports = destroyer
