@@ -526,3 +526,36 @@ test('1.13.3 - bouncer([1, null, NaN, 2, undefined]) should return [1, 2].', () 
   const expected = [1, 2]
   expect(actual).toEqual(expected)
 })
+
+// 1.14 - Seek and Destroy
+import destroyer from './14-seek-and-destroy'
+
+test('1.14.0 - destroyer([1, 2, 3, 1, 2, 3], 2, 3) should return [1, 1].', () => {
+  const actual = destroyer([1, 2, 3, 1, 2, 3], 2, 3)
+  const expected = [1, 1]
+  expect(actual).toEqual(expected)
+})
+
+test('1.14.1 - destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3) should return [1, 5, 1].', () => {
+  const actual = destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3)
+  const expected = [1, 5, 1]
+  expect(actual).toEqual(expected)
+})
+
+test('1.14.2 - destroyer([3, 5, 1, 2, 2], 2, 3, 5) should return [1].', () => {
+  const actual = destroyer([3, 5, 1, 2, 2], 2, 3, 5)
+  const expected = [1]
+  expect(actual).toEqual(expected)
+})
+
+test('1.14.3 - destroyer([2, 3, 2, 3], 2, 3) should return [].', () => {
+  const actual = destroyer([2, 3, 2, 3], 2, 3)
+  const expected = []
+  expect(actual).toEqual(expected)
+})
+
+test('1.14.4 - destroyer(["tree", "hamburger", 53], "tree", 53) should return ["hamburger"].', () => {
+  const actual = destroyer(["tree", "hamburger", 53], "tree", 53)
+  const expected = ["hamburger"]
+  expect(actual).toEqual(expected)
+})
