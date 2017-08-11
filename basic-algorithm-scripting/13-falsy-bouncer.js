@@ -8,9 +8,10 @@
 // Boolean Objects
 // Array.prototype.filter()
 
-const bouncer = arr => {
-  // Don't show a false ID to this bouncer.
-  return arr;
-}
+const bouncer = arr => arr.filter(item => item)
 
 module.exports = bouncer
+
+// Model Answer - this is a chin-scratcher
+
+// const bouncer = arr => arr.filter(Boolean) // using the Boolean object as a callback for filter means that each item in the array is passed to the Boolean function which itself returns true or false for truthy or falsy values respectively
