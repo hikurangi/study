@@ -13,7 +13,7 @@
 
 const slasher = (arr, howMany) => {
   // it doesn't always pay to be first
-  return arr;
+  return howMany.length >= arr.length ? [] : arr.splice(0, howMany)
 }
 
 module.exports = slasher
