@@ -14,3 +14,7 @@
 const slasher = (arr, howMany) => howMany.length >= arr.length ? [] : arr.slice(howMany)
 
 module.exports = slasher
+
+// Model answer... slightly embarrassing
+
+// const slasher = (arr, howMany) => arr.slice(howMany)
