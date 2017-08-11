@@ -11,9 +11,6 @@
 // Array.prototype.slice()
 // Array.prototype.splice()
 
-const slasher = (arr, howMany) => {
-  // it doesn't always pay to be first
-  return howMany.length >= arr.length ? [] : arr.splice(0, howMany)
-}
+const slasher = (arr, howMany) => howMany.length >= arr.length ? [] : arr.slice(-arr.length-howMany)
 
 module.exports = slasher
