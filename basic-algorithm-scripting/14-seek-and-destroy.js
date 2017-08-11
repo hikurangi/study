@@ -10,12 +10,10 @@
 // Array.prototype.filter()
 
 const destroyer = arr => {
+  console.log({arguments: arguments});
   // Remove all the values
-  let args = [...arguments]
-  console.log({args});
-  let initial = args[0]
-  console.log({initial});
-  let targets = args.slice(1)
+  let initial = arguments[0]
+  let targets = arguments.slice(1)
 
   return initial.filter(initialItem => targets.forEach(target => target != initialItem))
 
