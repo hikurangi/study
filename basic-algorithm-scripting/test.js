@@ -410,35 +410,35 @@ import slasher from './11-slasher-flick'
 test('1.11.0 - slasher([1, 2, 3], 2) should return [3].', () => {
   const actual = slasher([1, 2, 3], 2)
   const expected = [3]
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
 
 test('1.11.1 - slasher([1, 2, 3], 0) should return [1, 2, 3].', () => {
   const actual = slasher([1, 2, 3], 0)
   const expected = [1, 2, 3]
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
 
 test('1.11.2 - slasher([1, 2, 3], 9) should return [].', () => {
   const actual = slasher([1, 2, 3], 9)
   const expected = []
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
 
 test('1.11.3 - slasher([1, 2, 3], 4) should return [].', () => {
   const actual = slasher([1, 2, 3], 4)
   const expected = []
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
 
 test('1.11.4 - slasher(["burgers", "fries", "shake"], 1) should return ["fries", "shake"].', () => {
   const actual = slasher(["burgers", "fries", "shake"], 1)
   const expected = ["fries", "shake"]
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
 
 test('1.11.5 - slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5) should return ["cheese", 4].', () => {
   const actual = slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5)
   const expected = ["cheese", 4]
-  expect(actual).toEqual(expect.arrayContaining(expected))
+  expect(actual).toEqual(expected)
 })
