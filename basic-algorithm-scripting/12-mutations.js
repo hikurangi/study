@@ -9,10 +9,6 @@
 //
 // String.prototype.indexOf()
 
-const mutation = arr => {
-  let first = arr[0].toLowerCase().split('')
-  let second = arr[1].toLowerCase().split('')
-  return second.every(targetLetter => first.some(matchLetter => matchLetter === targetLetter))
-}
+const mutation = arr => arr[1].toLowerCase().split('').every(targetLetter => arr[0].toLowerCase().split('').some(matchLetter => matchLetter === targetLetter))
 
 module.exports = mutation
