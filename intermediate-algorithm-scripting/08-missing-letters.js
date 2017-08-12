@@ -13,11 +13,11 @@
 
 const fearNotLetter = str => {
   let indices = str.split('').map(letter => letter.charCodeAt(0))
-  let complete = [] // a complete list of integers
+  let complete = [] // a complete list of integers including the missing one
   for (let i = indices[0]; i <= indices[indices.length - 1]; i++) {
     complete.push(i)
   }
-  let output = String.fromCharCode(complete.filter(missingValue => !indices.some(index => missingValue === index)))
+  let output = String.fromCharCode(complete.filter(missingValue => !indices.some(index => missingValue === index))) // this filter checks for values in the complete list that are missing from the input string
   return output === "\u0000" ? undefined : output // if the filter doesn't receive a value, it becomes the unicode for a space. Change that to undefined, otherwise just return the processed output value
 }
 
