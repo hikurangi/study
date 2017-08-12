@@ -12,13 +12,8 @@
 // Run tests (ctrl + enter)
 //   Reset	  Help	  Bug
 
-function fearNotLetter(str) {
+const fearNotLetter = str => {
   return str;
 }
 
-fearNotLetter("abce");
-
-fearNotLetter("abce") // => "d".
-fearNotLetter("abcdefghjklmno") // => "i".
-fearNotLetter("bcd") // => undefined.
-fearNotLetter("yz") // => undefined.
+module.exports = fearNotLetter
