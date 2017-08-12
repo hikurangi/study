@@ -598,3 +598,30 @@ test('1.15.5 - getIndexToIns([2, 5, 10], 15) should return 3.', () => {
   const expected = 3
   expect(actual).toEqual(expected)
 })
+
+// 1.16 - Caesar's Cipher
+import rot13 from './16-caesars-cipher'
+
+test('1.16.0 - rot13("SERR PBQR PNZC") should decode to "FREE CODE CAMP".', () => {
+  const actual = rot13("SERR PBQR PNZC")
+  const expected = "FREE CODE CAMP"
+  expect(actual).toEqual(expected)
+})
+
+test('1.16.1 - rot13("SERR CVMMN!") should decode to "FREE PIZZA!".', () => {
+  const actual = rot13("SERR CVMMN!")
+  const expected = "FREE PIZZA!"
+  expect(actual).toEqual(expected)
+})
+
+test('1.16.2 - rot13("SERR YBIR?") should decode to "FREE LOVE?".', () => {
+  const actual = rot13("SERR YBIR?")
+  const expected = "FREE LOVE?"
+  expect(actual).toEqual(expected)
+})
+
+test('1.16.3 - rot13("GUR DHVPX OEBJA QBT WHZCRQ BIRE GUR YNML SBK.") should decode to "THE QUICK BROWN DOG JUMPED OVER THE LAZY FOX.".', () => {
+  const actual = rot13("GUR DHVPX OEBJA QBT WHZCRQ BIRE GUR YNML SBK.")
+  const expected = "THE QUICK BROWN DOG JUMPED OVER THE LAZY FOX."
+  expect(actual).toEqual(expected)
+})
