@@ -9,12 +9,12 @@
 // Arguments object
 // Array.prototype.filter()
 
-const destroyer = arr => {
-  console.log({arguments: arguments});
+const destroyer = function(arr) { // arrow functions do not bind an arguments object!
   // Remove all the values
-  let initial = arguments[0]
-  let targets = arguments.slice(1)
-
+  var args = Array.prototype.slice.call(arguments)
+  let initial = args[0]
+  let targets = args.slice(1)
+  console.log({initial, targets});
   return initial.filter(initialItem => targets.forEach(target => target != initialItem))
 
 }
