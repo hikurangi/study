@@ -559,3 +559,42 @@ test('1.14.4 - destroyer(["tree", "hamburger", 53], "tree", 53) should return ["
   const expected = ["hamburger"]
   expect(actual).toEqual(expected)
 })
+
+// 1.15 - Seek and Destroy
+import getIndexToIns from './15-where-do-i-belong'
+
+test('1.15.0 - getIndexToIns([10, 20, 30, 40, 50], 35) should return 3.', () => {
+  const actual = getIndexToIns([10, 20, 30, 40, 50], 35)
+  const expected = 3
+  expect(actual).toEqual(expected)
+})
+
+test('1.15.1 - getIndexToIns([10, 20, 30, 40, 50], 30) should return 2.', () => {
+  const actual = getIndexToIns([10, 20, 30, 40, 50], 30)
+  const expected = 2
+  expect(actual).toEqual(expected)
+})
+
+test('1.15.2 - getIndexToIns([40, 60], 50) should return 1.', () => {
+  const actual = getIndexToIns([40, 60], 50)
+  const expected = 1
+  expect(actual).toEqual(expected)
+})
+
+test('1.15.3 - getIndexToIns([3, 10, 5], 3) should return 0.', () => {
+  const actual = getIndexToIns([3, 10, 5], 3)
+  const expected = 0
+  expect(actual).toEqual(expected)
+})
+
+test('1.15.4 - getIndexToIns([2, 20, 10], 19) should return 2.', () => {
+  const actual = getIndexToIns([2, 20, 10], 19)
+  const expected = 2
+  expect(actual).toEqual(expected)
+})
+
+test('1.15.5 - getIndexToIns([2, 5, 10], 15) should return 3.', () => {
+  const actual = getIndexToIns([2, 5, 10], 15)
+  const expected = 3
+  expect(actual).toEqual(expected)
+})
