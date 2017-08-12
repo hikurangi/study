@@ -12,28 +12,20 @@
 //
 // Array.prototype.sort()
 
-// const getIndexToIns = (arr, num) => {
-//   // Find my place in this sorted array.
-//   let targetIndex = []
-//   arr.sort((a, b) => a - b).forEach((item, index) => { // array.sort() normally converts array elements to strings and compares strings in Unicode point order. it requires a compare function in order to sort them numerically. forEach iterates in order.
-//     if (item >= num) { targetIndex.push(index > arr.length ? arr.length+1 : index) }
-//   })
-//   console.log({targetIndex, targetIndex0: targetIndex[0]});
-//   return targetIndex[0]
-// }
-
 const getIndexToIns = (arr, num) => {
-  // Find my place in this sorted array.
-  let sorted = arr.sort((a, b) => a - b)
+  let sorted = arr.sort((a, b) => a - b) // array.sort() normally converts array elements to strings and compares strings in Unicode point order. it requires a compare function in order to sort them numerically.
   let targetIndex = sorted.length
   for (let i = 0; i < sorted.length; i++) {
     if (sorted[i] >= num) {
       targetIndex = i
-      break
+      return targetIndex
     }
   }
-  return targetIndex
+  return targetIndex // in case num is the biggest number
 }
+
+// Neat Model Answer / one liner
+// const getIndexToIns = (arr, num) => arr.concat(num).sort((a,b) => a-b).indexOf(num)
 
 
 module.exports = getIndexToIns
