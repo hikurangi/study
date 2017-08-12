@@ -10,10 +10,15 @@
 // String.prototype.charCodeAt()
 // String.fromCharCode()
 // Run tests (ctrl + enter)
-//   Reset	  Help	  Bug
 
 const fearNotLetter = str => {
-  return str;
+  let indices = str.split('').map(letter => letter.charCodeAt(0))
+  let complete = []
+  for (let i = indices[0]; i <= indices[indices.length - 1]; i++) {
+    complete.push(i)
+  }
+  let output = String.fromCharCode(complete.filter(missingValue => !indices.some(index => missingValue === index)))
+  return output === "\u0000" ? undefined : output
 }
 
 module.exports = fearNotLetter
