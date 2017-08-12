@@ -26,8 +26,6 @@ const destroyer = function(arr) {
 //   return initial.filter(initialItem => targets.forEach(target => target != initialItem))
 // }
 
-module.exports = destroyer
-
 // Model answer
 
 // function destroyer(arr) {
@@ -36,3 +34,5 @@ module.exports = destroyer
 //     return !args.includes(val);
 //   });
 // }
+
+module.exports = destroyer
