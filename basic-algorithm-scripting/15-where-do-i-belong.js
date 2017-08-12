@@ -25,10 +25,11 @@
 const getIndexToIns = (arr, num) => {
   // Find my place in this sorted array.
   let sorted = arr.sort((a, b) => a - b)
-  let targetIndex = arr.length
+  let targetIndex = sorted.length
   for (let i = 0; i < sorted.length; i++) {
-    if (sorted[i] > num) {
+    if (sorted[i] >= num) {
       targetIndex = i
+      break
     }
   }
   return targetIndex
