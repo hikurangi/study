@@ -10,5 +10,11 @@
     "express-react-views": "0.9.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "nodemon ./program.js"
   }
 }
