@@ -8,6 +8,16 @@ const script = DOM.script;
 const browserify = require('browserify');
 const babelify = require("babelify");
 
+// from the program.js code
+const express = require('express')
+const app = express()
+
+app.set('port', (process.argv[2] || 3000));
+app.set('view engine', 'jsx');
+app.set('views', __dirname + '/views');
+app.engine('jsx', require('express-react-views').createEngine({ transformViews: false }));
+
+// back to our regularly scheduled programming
 require('babel/register')({
     ignore: false
 });
