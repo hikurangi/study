@@ -16,7 +16,7 @@ let data = [
     detail: process.argv[3]
   },
   {
-    title: 'Haircut',
+    title: 'Hair cut',
     detail: process.argv[4]
   }
 ]
