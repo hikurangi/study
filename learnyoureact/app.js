@@ -1,56 +1,6 @@
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const DOM = React.DOM;
-const body = DOM.body;
-const div = DOM.div;
-const script = DOM.script;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TodoBox from './views/index.jsx';
 
-const browserify = require('browserify');
-const babelify = require("babelify");
-
-// from the program.js code
-const express = require('express')
-const app = express()
-
-app.set('port', (process.argv[2] || 3000));
-app.set('view engine', 'jsx');
-app.set('views', __dirname + '/views');
-app.engine('jsx', require('express-react-views').createEngine({ transformViews: false }));
-
-// back to our regularly scheduled programming
-require('babel/register')({
-    ignore: false
-});
-
-const TodoBox = require('./views/index.jsx');
-
-app.use('/bundle.js', (req, res) => {
-    res.setHeader('content-type', 'application/javascript');
-    browserify({ debug: true })
-        .transform(babelify.configure({
-            presets: ["react", "es2015"],
-            compact: false
-        }))
-        .require("./app.js", { entry: true })
-        .bundle()
-        .pipe(res);
-});
-
-app.use('/', (req, res) => {
-    var initialData = JSON.stringify(data);
-    var markup = ReactDOMServer.renderToString(React.createElement(TodoBox, {data: data}));
-
-    res.setHeader('Content-Type', 'text/html');
-
-    var html = ReactDOMServer.renderToStaticMarkup(body(null,
-        div({id: 'app', dangerouslySetInnerHTML: {__html: markup}}),
-        script({
-            id: 'initial-data',
-            type: 'text/plain',
-            'data-json': initialData
-        }),
-        script({src: '/bundle.js'})
-    ));
-
-    res.end(html);
-});
+let data = JSON.parse(document.getElementById('initial-data').getAttribute('data-json'));
+ReactDOM.render(<TodoBox data={data} />, document.getElementById("app"));
