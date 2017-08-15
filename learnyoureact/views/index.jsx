@@ -76,8 +76,7 @@ class Todo extends React.Component {
   }
 
   handleChange(e) {
-    console.log(this.state);
-    this.setState({checked: e.target.checked, TodoStyle: (e.target.checked ? style.checkedTodo : style.notcheckedTodo)})
+    this.setState({checked: e.target.checked, TodoStyle: e.target.checked ? style.checkedTodo : style.notCheckedTodo})
   }
 
   _onDelete() {
@@ -115,10 +114,10 @@ class TodoForm extends React.Component {
 }
 
 let style = {
-  checkedToDo: {
+  checkedTodo: {
     textDecoration: "line-through"
   },
-  notCheckedToDo: {
+  notCheckedTodo: {
     textDecoration: "none"
   },
   tableContent: {
