@@ -75,6 +75,11 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor () { // only needs to be passed a 'props' argument if it is receiving props
     super () // only needs to be passed a 'props' argument if this class' state is manipulating - effectively forking - props
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null) // calls the Array constructor to create an array with length 9, .filled with null values - even the default is immutable. Best practice.
+      }]
+    }
   }
   render() {
     return (
