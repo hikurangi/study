@@ -73,6 +73,9 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+  constructor () { // only needs to be passed a 'props' argument if it is receiving props
+    super () // only needs to be passed a 'props' argument if this class' state is manipulating - effectively forking - props
+  }
   render() {
     return (
       <div className="game">
