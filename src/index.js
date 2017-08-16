@@ -14,14 +14,18 @@ class Board extends React.Component {
   constructor() {
     super()
     this.state = {
-      squares: Array(9).fill(null) // initial state is nine empty squares
+      squares: Array(9).fill(null), // initial state is nine empty squares
+      xIsNext: true,
     }
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice()
-    squares[i] = 'X'
-    this.setState({squares: squares})
+    const squares = this.state.squares.slice() // a shallow copy of the squares array for immutability. No 'let's!
+    squares[i] = this.state.xIsNext? 'X' : 'O'
+    this.setState({
+      squares,
+      xIsNext: !this.state.xIsNext,
+    })
   }
 
   renderSquare(i) {
@@ -34,7 +38,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}` // literals might be overkill
 
     return (
       <div>
