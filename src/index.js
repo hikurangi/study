@@ -50,12 +50,13 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null) // calls the Array constructor to create an array with length 9, .filled with null values - even the default is immutable. Best practice.
       }],
+      stepNumber: 0,
       xIsNext: true, // As in the AirBnB style guide, for sanity and avoiding errors, use trailing commas in multiline object initialisations.
     }
   }
 
   handleClick(i) {
-    const history = this.state.history
+    const history = this.state.history.slice(0, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     const squares = current.squares.slice() // a shallow copy of the squares array for immutability. No 'let's!
     if (calculateWinner(squares) || squares[i]) {
@@ -66,13 +67,21 @@ class Game extends React.Component {
       history: history.concat([{
         squares,
       }]),
+      stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+    })
+  }
+
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step % 2) === 0,
     })
   }
 
   render() {
     const history = this.state.history
-    const current = history[history.length - 1]
+    const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
 
     let status
@@ -81,7 +90,18 @@ class Game extends React.Component {
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
     }
-    
+
+    const moves = history.map((step, move) => { // move corresponds to the array item's index, so it's an easy choice for a React key value
+      const desc = move ?
+        'Move #' + move :
+        'Game start'
+        return (
+          <li key={move}>
+            <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a> {/*Gives: "Links must not point to "#". Use a more descriptive href or use a button instead  jsx-a11y/href-no-hash"*/}
+          </li>
+        )
+    })
+
     return (
       <div className="game">
         <div className="game-board">
@@ -92,7 +112,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     );
