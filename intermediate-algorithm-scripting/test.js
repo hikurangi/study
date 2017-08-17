@@ -283,7 +283,7 @@ test('2.10.0 - uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]) should return [1, 3,
 
 test('2.10.1 - uniteUnique([1, 3, 2], [1, [5]], [2, [4]]) should return [1, 3, 2, [5], [4]].', () => {
   const actual =  uniteUnique([1, 3, 2], [1, [5]], [2, [4]])
-  const expected = [1, 3, 2, 5, 4]
+  const expected = [1, 3, 2, [5], [4]]
   expect(actual).toEqual(expected)
 })
 
