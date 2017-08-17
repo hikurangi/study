@@ -209,8 +209,7 @@ test('2.8.3 - Missing Letters: fearNotLetter("yz") should return undefined.', ()
   expect(actual).toEqual(expected)
 })
 
-// 2.9 - Boo who
-
+// 2.9 - Boo Who
 import booWho from './09-boo-who'
 
 test('2.9.0 - Boo Who: booWho(true) should return true.', () => {
@@ -271,4 +270,31 @@ test('2.9.9 - Boo Who: booWho("false") should return false.', () => {
   const actual =  booWho("false")
   const expected = false
   expect(actual).toBe(expected)
+})
+
+// 2.10 - Sorted Union
+import uniteUnique from './10-sorted-union'
+
+test('2.10.0 - uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]) should return [1, 3, 2, 5, 4].', () => {
+  const actual =  uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1])
+  const expected = [1, 3, 2, 5, 4]
+  expect(actual).toEqual(expected)
+})
+
+test('2.10.1 - uniteUnique([1, 3, 2], [1, [5]], [2, [4]]) should return [1, 3, 2, [5], [4]].', () => {
+  const actual =  uniteUnique([1, 3, 2], [1, [5]], [2, [4]])
+  const expected = [1, 3, 2, 5, 4]
+  expect(actual).toEqual(expected)
+})
+
+test('2.10.2 - uniteUnique([1, 2, 3], [5, 2, 1]) should return [1, 2, 3, 5].', () => {
+  const actual =  uniteUnique([1, 2, 3], [5, 2, 1])
+  const expected = [1, 2, 3, 5]
+  expect(actual).toEqual(expected)
+})
+
+test('2.10.3 - uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]) should return [1, 2, 3, 5, 4, 6, 7, 8].', () => {
+  const actual =  uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8])
+  const expected = [1, 2, 3, 5, 4, 6, 7, 8]
+  expect(actual).toEqual(expected)
 })
