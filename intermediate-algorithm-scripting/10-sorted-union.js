@@ -14,8 +14,10 @@
 // Arguments object
 // Array.prototype.reduce()
 
-const uniteUnique = arr => {
-  return arr;
+function uniteUnique(arr) {
+  return Array.prototype.slice.call(arguments)
+    .reduce((array, accumulator) => array.concat(accumulator), [])
+    .filter((item, position, array) => array.indexOf(item) === position)
 }
 
 module.exports = uniteUnique
