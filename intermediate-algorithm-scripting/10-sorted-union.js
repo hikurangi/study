@@ -14,10 +14,41 @@
 // Arguments object
 // Array.prototype.reduce()
 
-function uniteUnique(arr) {
+function uniteUnique(arr) { // this function doesn't require prescribed parameters
   return Array.prototype.slice.call(arguments)
     .reduce((array, accumulator) => array.concat(accumulator), [])
     .filter((item, position, array) => array.indexOf(item) === position)
 }
 
 module.exports = uniteUnique
+
+// Model Answer - Intermediate - like mine but nests the filter within the reduce. Nifty.
+
+// function uniteUnique(arr1, arr2, arr3) {
+//  var newArr;
+//  //Convert the arguments object into an array
+//   var args = Array.prototype.slice.call(arguments);
+//   //Use reduce function to flatten the array
+//   newArr = args.reduce(function(arrA,arrB){
+//   //Apply filter to remove the duplicate elements in the array
+//     return arrA.concat(arrB.filter(function(i){
+//       return arrA.indexOf(i) === -1;
+//     }));
+//   });
+//
+//    return newArr;
+// }
+
+// Model Answer - Advanced
+
+// function uniteUnique() {
+//   var concatArr = [];
+//   var i = 0;
+//   while (arguments[i]){
+//     concatArr = concatArr.concat(arguments[i]); i++;
+//   }
+//   uniqueArray = concatArr.filter(function(item, pos) {
+//     return concatArr.indexOf(item) == pos;
+//   });
+//   return uniqueArray;
+// }
