@@ -216,59 +216,59 @@ import booWho from './09-boo-who'
 test('2.9.0 - Boo Who: booWho(true) should return true.', () => {
   const actual =  booWho(true)
   const expected = true
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.1 - Boo Who: booWho(false) should return true.', () => {
   const actual =  booWho(false)
   const expected = true
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.2 - Boo Who: booWho([1, 2, 3]) should return false.', () => {
   const actual =  booWho([1, 2, 3])
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.3 - Boo Who: booWho([].slice) should return false.', () => {
   const actual =  booWho([].slice)
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.4 - Boo Who: booWho({ "a": 1 }) should return false.', () => {
   const actual =  booWho({ "a": 1 })
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.5 - Boo Who: booWho(1) should return false.', () => {
   const actual =  booWho(1)
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.6 - Boo Who: booWho(NaN) should return false.', () => {
   const actual =  booWho(NaN)
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.7 - Boo Who: booWho("a") should return false.', () => {
   const actual =  booWho("a")
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.8 - Boo Who: booWho("true") should return false.', () => {
   const actual =  booWho("true")
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
 
 test('2.9.9 - Boo Who: booWho("false") should return false.', () => {
   const actual =  booWho("false")
   const expected = false
-  expect(actual).toEqual(expected)
+  expect(actual).toBe(expected)
 })
