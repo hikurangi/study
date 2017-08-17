@@ -9,6 +9,6 @@
 //
 // Boolean Objects
 
-const booWho = bool => bool === Boolean(bool)
+const booWho = bool => bool === Boolean(bool) // typeof bool === 'boolean'
 
 module.exports = booWho
