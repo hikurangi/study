@@ -18,7 +18,7 @@ function uniteUnique(arr) { // this function doesn't require prescribed paramete
   return Array.prototype.slice.call(arguments)
     .reduce((array, accumulator) => array.concat(accumulator), [])
     .filter((item, position, array) => array.indexOf(item) === position)
-}
+} // not nested but super straightforward
 
 module.exports = uniteUnique
 
