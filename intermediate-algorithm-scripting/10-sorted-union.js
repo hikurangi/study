@@ -14,13 +14,8 @@
 // Arguments object
 // Array.prototype.reduce()
 
-function uniteUnique(arr) {
+const uniteUnique = arr => {
   return arr;
 }
 
-uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
-
-uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]) // => [1, 3, 2, 5, 4].
-uniteUnique([1, 3, 2], [1, [5]], [2, [4]]) // => [1, 3, 2, [5], [4]].
-uniteUnique([1, 2, 3], [5, 2, 1]) // => [1, 2, 3, 5].
-uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]) // => [1, 2, 3, 5, 4, 6, 7, 8].
+module.exports = uniteUnique
