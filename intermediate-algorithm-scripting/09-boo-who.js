@@ -9,7 +9,6 @@
 //
 // Boolean Objects
 
-function booWho(bool) {
-  // What is the new fad diet for ghost developers? The Boolean.
-  return bool;
-}
+const booWho = bool => bool === Boolean(bool)
+
+module.exports = booWho
