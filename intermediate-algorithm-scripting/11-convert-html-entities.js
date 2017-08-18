@@ -10,8 +10,20 @@
 // String.prototype.replace()
 
 const convertHTML = str => {
-  // &colon;&rpar;
-  return str;
-}
+  return str
+    .split('')
+    .map(letter => {
+      let regex
+      let replace
+      switch(letter) {
+        case '&':
+          regex = new RegExp(/\&/)
+          replace = '&amp;'
+        break;
+      }
+      return letter.replace(regex, replace)
+    })
+    .join('')
+  }
 
 module.exports = convertHTML
