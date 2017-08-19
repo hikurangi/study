@@ -310,7 +310,7 @@ test('2.11.0 - convertHTML("Dolce & Gabbana") should return "Dolce &​amp; Gabb
 
 test('2.11.1 - convertHTML("Hamburgers < Pizza < Tacos") should return "Hamburgers &​lt; Pizza &​lt; Tacos".', () => {
   const actual =  convertHTML("Hamburgers < Pizza < Tacos")
-  const expected = 'Hamburgers &​lt; Pizza &​lt; Tacos'
+  const expected = "Hamburgers &​lt; Pizza &​lt; Tacos"
   expect(actual).toEqual(expected)
 })
 
