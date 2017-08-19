@@ -305,41 +305,41 @@ import convertHTML from './11-convert-html-entities'
 test('2.11.0 - convertHTML("Dolce & Gabbana") should return "Dolce &​amp; Gabbana".', () => {
   const actual =  convertHTML("Dolce & Gabbana")
   const expected = 'Dolce &​amp; Gabbana'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
 test('2.11.1 - convertHTML("Hamburgers < Pizza < Tacos") should return "Hamburgers &​lt; Pizza &​lt; Tacos".', () => {
   const actual =  convertHTML("Hamburgers < Pizza < Tacos")
   const expected = 'Hamburgers &​lt; Pizza &​lt; Tacos'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
 test('2.11.2 - convertHTML("Sixty > twelve") should return "Sixty &​gt; twelve".', () => {
   const actual =  convertHTML("Sixty > twelve")
   const expected = 'Sixty &​gt; twelve'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
 test('2.11.3 - convertHTML(\'Stuff in "quotation marks"\') should return "Stuff in &​quot;quotation marks&​quot;".', () => {
   const actual =  convertHTML('Stuff in "quotation marks"')
   const expected = 'Stuff in &​quot;quotation marks&​quot;'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
 test('2.11.4 - convertHTML("Shindler\'s List") should return "Shindler&​apos;s List".', () => {
   const actual =  convertHTML("Shindler's List")
   const expected = 'Shindler&​apos;s List'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
 test('2.11.5 - convertHTML("<>") should return "&​lt;&​gt";.', () => {
   const actual =  convertHTML("<>")
   const expected = '&​lt;&​gt;'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })
 
-test('2.11.5 - convertHTML("abc") should return "abc".', () => {
+test('2.11.6 - convertHTML("abc") should return "abc".', () => {
   const actual =  convertHTML("abc")
   const expected = 'abc'
-  expect(actual).toBe(expected)
+  expect(actual).toEqual(expected)
 })

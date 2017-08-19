@@ -20,8 +20,24 @@ const convertHTML = str => {
           regex = new RegExp(/\&/)
           replace = '&amp;'
         break;
+        case '<':
+          regex = new RegExp(/\</)
+          replace = '&lt;'
+        break;
+        case '>':
+          regex = new RegExp(/\>/)
+          replace = '&gt;'
+        break;
+        case '"':
+          regex = new RegExp(/\"/g)
+          replace = '&quot;'
+        break;
+        case '\'':
+          regex = new RegExp(/\'/g)
+          replace = '&apos;'
+        break;
       }
-      return letter.replace(regex, replace)
+      return regex ? letter.replace(regex, replace) : letter
     })
     .join('')
   }
