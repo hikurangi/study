@@ -9,39 +9,52 @@
 // HTML Entities
 // String.prototype.replace()
 //
-const convertHTML = str => {
-  return str
-    .split('')
-    .map(letter => {
-      let regex
-      let replace
-      switch(letter) {
-        case '&':
-          regex = new RegExp(/\&/)
-          replace = '&amp;'
-        break;
-        case '<':
-          regex = new RegExp(/\</)
-          replace = '&lt;'
-        break;
-        case '>':
-          regex = new RegExp(/\>/)
-          replace = '&gt;'
-        break;
-        case '"':
-          regex = new RegExp(/\"/g)
-          replace = '&quot;'
-        break;
-        case '\'':
-          regex = new RegExp(/\'/)
-          replace = '&apos;'
-        break;
-      }
-      return regex ? letter.replace(regex, replace) : letter
-    })
-    .join('')
-  }
 
+const convertHTML = str => {
+    const htmlEntities = {
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '\"':'&quot;',
+      '\'':"&apos;"
+    };
+    return str.split('').map(entity => htmlEntities[entity] || entity).join('')
+}
+
+// My old basic answer
+
+// const convertHTML = str => {
+//   return str
+//     .split('')
+//     .map(letter => {
+//       let regex
+//       let replace
+//       switch(letter) {
+//         case '&':
+//           regex = new RegExp(/\&/)
+//           replace = '&amp;'
+//         break;
+//         case '<':
+//           regex = new RegExp(/\</)
+//           replace = '&lt;'
+//         break;
+//         case '>':
+//           regex = new RegExp(/\>/)
+//           replace = '&gt;'
+//         break;
+//         case '"':
+//           regex = new RegExp(/\"/g)
+//           replace = '&quot;'
+//         break;
+//         case '\'':
+//           regex = new RegExp(/\'/)
+//           replace = '&apos;'
+//         break;
+//       }
+//       return regex ? letter.replace(regex, replace) : letter
+//     })
+//     .join('')
+//   }
 
 // Model Answer - Beginner
 
