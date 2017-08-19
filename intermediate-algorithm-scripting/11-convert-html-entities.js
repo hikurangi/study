@@ -18,7 +18,7 @@ const convertHTML = str => {
       '\"':'&quot;',
       '\'':"&apos;"
     };
-    return str.split('').map(entity => htmlEntities[entity] || entity).join('')
+    return str.split('').map(entity => htmlEntities[entity] || entity).join('') // object Lookup
 }
 
 // My old basic answer
