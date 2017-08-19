@@ -302,39 +302,39 @@ test('2.10.3 - uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]) should re
 // 2.11 - Convert HTML Entities
 import convertHTML from './11-convert-html-entities'
 
-test('2.11.0 - convertHTML("Dolce & Gabbana") should return "Dolce &​amp; Gabbana".', () => {
+test('2.11.0 - convertHTML("Dolce & Gabbana") should return "Dolce &amp; Gabbana".', () => {
   const actual =  convertHTML("Dolce & Gabbana")
-  const expected = 'Dolce &​amp; Gabbana'
+  const expected = 'Dolce &amp; Gabbana'
   expect(actual).toEqual(expected)
 })
 
-test('2.11.1 - convertHTML("Hamburgers < Pizza < Tacos") should return "Hamburgers &​lt; Pizza &​lt; Tacos".', () => {
+test('2.11.1 - convertHTML("Hamburgers < Pizza < Tacos") should return "Hamburgers &lt; Pizza &lt; Tacos".', () => {
   const actual =  convertHTML("Hamburgers < Pizza < Tacos")
-  const expected = "Hamburgers &​lt; Pizza &​lt; Tacos"
+  const expected = "Hamburgers &lt; Pizza &lt; Tacos"
   expect(actual).toEqual(expected)
 })
 
-test('2.11.2 - convertHTML("Sixty > twelve") should return "Sixty &​gt; twelve".', () => {
+test('2.11.2 - convertHTML("Sixty > twelve") should return "Sixty &gt; twelve".', () => {
   const actual =  convertHTML("Sixty > twelve")
-  const expected = 'Sixty &​gt; twelve'
+  const expected = 'Sixty &gt; twelve'
   expect(actual).toEqual(expected)
 })
 
-test('2.11.3 - convertHTML(\'Stuff in "quotation marks"\') should return "Stuff in &​quot;quotation marks&​quot;".', () => {
+test('2.11.3 - convertHTML(\'Stuff in "quotation marks"\') should return "Stuff in &quot;quotation marks&quot;".', () => {
   const actual =  convertHTML('Stuff in "quotation marks"')
-  const expected = 'Stuff in &​quot;quotation marks&​quot;'
+  const expected = 'Stuff in &quot;quotation marks&quot;'
   expect(actual).toEqual(expected)
 })
 
-test('2.11.4 - convertHTML("Shindler\'s List") should return "Shindler&​apos;s List".', () => {
+test('2.11.4 - convertHTML("Shindler\'s List") should return "Shindler&apos;s List".', () => {
   const actual =  convertHTML("Shindler's List")
-  const expected = 'Shindler&​apos;s List'
+  const expected = 'Shindler&apos;s List'
   expect(actual).toEqual(expected)
 })
 
-test('2.11.5 - convertHTML("<>") should return "&​lt;&​gt";.', () => {
+test('2.11.5 - convertHTML("<>") should return "&lt;&gt";.', () => {
   const actual =  convertHTML("<>")
-  const expected = '&​lt;&​gt;'
+  const expected = '&lt;&gt;'
   expect(actual).toEqual(expected)
 })
 
