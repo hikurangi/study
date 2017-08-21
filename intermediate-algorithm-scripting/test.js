@@ -345,6 +345,8 @@ test('2.11.6 - convertHTML("abc") should return "abc".', () => {
 })
 
 // 2.12 - Spinal Tap Case
+import spinalCase from './12-spinal-tap-case'
+
 test('2.12.0 - spinalCase("This Is Spinal Tap") should return "this-is-spinal-tap".', () => {
   const actual =  spinalCase("This Is Spinal Tap")
   const expected = 'this-is-spinal-tap'
