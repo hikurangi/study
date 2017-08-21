@@ -8,16 +8,10 @@
 // RegExp
 // String.prototype.replace()
 
-function spinalCase(str) {
+const spinalCase = str => {
   // "It's such a fine line between stupid, and clever."
   // --David St. Hubbins
   return str;
 }
 
-spinalCase('This Is Spinal Tap');
-
-spinalCase("This Is Spinal Tap") // => "this-is-spinal-tap".
-spinalCase("thisIsSpinalTap") // => "this-is-spinal-tap".
-spinalCase("The_Andy_Griffith_Show") // => "the-andy-griffith-show".
-spinalCase("Teletubbies say Eh-oh") // => "teletubbies-say-eh-oh".
-spinalCase("AllThe-small Things") // => "all-the-small-things".
+module.exports = spinalCase
