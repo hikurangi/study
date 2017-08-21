@@ -343,3 +343,34 @@ test('2.11.6 - convertHTML("abc") should return "abc".', () => {
   const expected = 'abc'
   expect(actual).toEqual(expected)
 })
+
+// 2.12 - Spinal Tap Case
+test('2.12.0 - spinalCase("This Is Spinal Tap") should return "this-is-spinal-tap".', () => {
+  const actual =  spinalCase("This Is Spinal Tap")
+  const expected = 'this-is-spinal-tap'
+  expect(actual).toEqual(expected)
+})
+
+test('2.12.1 - spinalCase("thisIsSpinalTap") should return "this-is-spinal-tap".', () => {
+  const actual =  spinalCase("thisIsSpinalTap")
+  const expected = 'this-is-spinal-tap'
+  expect(actual).toEqual(expected)
+})
+
+test('2.12.2 - spinalCase("The_Andy_Griffith_Show") should return "the-andy-griffith-show".', () => {
+  const actual =  spinalCase("The_Andy_Griffith_Show")
+  const expected = 'the-andy-griffith-show'
+  expect(actual).toEqual(expected)
+})
+
+test('2.12.3 - spinalCase("Teletubbies say Eh-oh") should return "teletubbies-say-eh-oh".', () => {
+  const actual =  spinalCase("Teletubbies say Eh-oh")
+  const expected = 'teletubbies-say-eh-oh'
+  expect(actual).toEqual(expected)
+})
+
+test('2.12.4 - spinalCase("AllThe-small Things") should return "all-the-small-things".', () => {
+  const actual =  spinalCase("AllThe-small Things")
+  const expected = 'all-the-small-things'
+  expect(actual).toEqual(expected)
+})
