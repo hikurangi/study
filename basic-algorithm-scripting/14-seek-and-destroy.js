@@ -11,20 +11,14 @@
 
 // Minimal ES6 - using the suggested ES5 / prior methods from FCC
 //
-const destroyer = function(arr) {
-  let args = Array.prototype.slice.call(arguments)
-  return args[0].filter(initialItem => !args.slice(1).some(target => target === initialItem))
-}
+// const destroyer = function(arr) {
+//   let args = Array.prototype.slice.call(arguments)
+//   return args[0].filter(initialItem => !args.slice(1).some(target => target === initialItem))
+// }
 
 // The ES6 way
 
-// const destroyer = arr => { // doing it in an ES6-friendly way.
-//   console.log({arr: [...arr]}); // Rest Spread is bad for multidimensional arrays
-//   let initial = [...arr][0]
-//   let targets = [...arr].slice()
-//   console.log({initial, targets});
-//   return initial.filter(initialItem => targets.forEach(target => target != initialItem))
-// }
+const destroyer = (...args) => args[0].filter(initialItem => !args.slice(1).some(target => target === initialItem))
 
 // Model answer
 
