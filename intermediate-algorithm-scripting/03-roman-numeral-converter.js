@@ -18,13 +18,15 @@ const convertToRoman = num => {
   let output = num.toString()
     .split('')
     .map((digit, index, array) => {
+      console.log({digit, index, array});
       let numeral
-      if (array.length === 4) {
+      if (array.length === 4 && index === 0) {
         numeral = 'M'.repeat(digit)
+        console.log({numeral});
       }
       return numeral
   })
-  return output
+  return output.join('')
 }
 
 module.exports = convertToRoman
