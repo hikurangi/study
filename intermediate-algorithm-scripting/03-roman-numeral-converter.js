@@ -20,45 +20,44 @@ const convertToRoman = num => {
     .map(digit => parseInt(digit)) // make them into numbers again
     .map((digit, index, array) => {
       let numeral
-      if (index === 0) { // first number
-        if (array.length === 4) { // thousands column
-          numeral = 'M'.repeat(digit)
-        } else if (array.length === 3) { // hundreds column
-          if (digit < 4) {
-            numeral = 'C'.repeat(digit)
-          } else if (digit === 4) {
-            numeral = 'CD'
-          } else if (digit === 5) {
-            numeral = 'D'
-          } else if (digit > 5 && digit < 9) {
-            numeral = 'D' + 'C'.repeat(digit-5)
-          } else if (digit === 9) {
-            numeral = 'CM'
-          }
-        } else if (array.length === 2) { // tens
-          if (digit < 4) {
-            numeral = 'X'.repeat(digit)
-          } else if (digit === 4) {
-            numeral = 'XL'
-          } else if (digit === 5) {
-            numeral = 'L'
-          } else if (digit > 5 && digit < 9) {
-            numeral = 'L' + 'X'.repeat(digit-5)
-          } else if (digit === 9) {
-            numeral = 'XC'
-          }
-        } else if (array.length === 1) { // ones
-          if (digit < 4) {
-            numeral = 'I'.repeat(digit)
-          } else if (digit === 4) {
-            numeral = 'IV'
-          } else if (digit === 5) {
-            numeral = 'V'
-          } else if (digit > 5 && digit < 9) {
-            numeral = 'V' + 'I'.repeat(digit-5)
-          } else if (digit === 9) {
-            numeral = 'IX'
-          }
+      const column = array.length - index
+      if (column === 4) { // if we are in the thousands column (are we 4th from the left?)
+        numeral = 'M'.repeat(digit)
+      } else if (column === 3) { // hundreds column
+        if (digit < 4) {
+          numeral = 'C'.repeat(digit)
+        } else if (digit === 4) {
+          numeral = 'CD'
+        } else if (digit === 5) {
+          numeral = 'D'
+        } else if (digit > 5 && digit < 9) {
+          numeral = 'D' + 'C'.repeat(digit-5)
+        } else if (digit === 9) {
+          numeral = 'CM'
+        }
+      } else if (column === 2) { // tens
+        if (digit < 4) {
+          numeral = 'X'.repeat(digit)
+        } else if (digit === 4) {
+          numeral = 'XL'
+        } else if (digit === 5) {
+          numeral = 'L'
+        } else if (digit > 5 && digit < 9) {
+          numeral = 'L' + 'X'.repeat(digit-5)
+        } else if (digit === 9) {
+          numeral = 'XC'
+        }
+      } else if (column === 1) { // ones
+        if (digit < 4) {
+          numeral = 'I'.repeat(digit)
+        } else if (digit === 4) {
+          numeral = 'IV'
+        } else if (digit === 5) {
+          numeral = 'V'
+        } else if (digit > 5 && digit < 9) {
+          numeral = 'V' + 'I'.repeat(digit-5)
+        } else if (digit === 9) {
+          numeral = 'IX'
         }
       }
       return numeral
