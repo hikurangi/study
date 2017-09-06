@@ -1,4 +1,4 @@
-ch// 2.1 - Sum All Numbers
+// 2.1 - Sum All Numbers
 import sumAll from './01-sum-all-numbers.js';
 
 test('2.1.0 - Sum All Numbers: sumAll([1, 4]) returns a number', () => {
