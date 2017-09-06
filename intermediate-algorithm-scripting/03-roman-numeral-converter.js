@@ -36,9 +36,29 @@ const convertToRoman = num => {
             numeral = 'CM'
           }
         } else if (array.length === 2) { // tens
-
+          if (digit < 4) {
+            numeral = 'X'.repeat(digit)
+          } else if (digit === 4) {
+            numeral = 'XL'
+          } else if (digit === 5) {
+            numeral = 'L'
+          } else if (digit > 5 && digit < 9) {
+            numeral = 'L' + 'X'.repeat(digit-5)
+          } else if (digit === 9) {
+            numeral = 'XC'
+          }
         } else if (array.length === 1) { // ones
-
+          if (digit < 4) {
+            numeral = 'I'.repeat(digit)
+          } else if (digit === 4) {
+            numeral = 'IV'
+          } else if (digit === 5) {
+            numeral = 'V'
+          } else if (digit > 5 && digit < 9) {
+            numeral = 'V' + 'I'.repeat(digit-5)
+          } else if (digit === 9) {
+            numeral = 'IX'
+          }
         }
       }
       return numeral
