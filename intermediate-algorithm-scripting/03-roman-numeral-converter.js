@@ -24,7 +24,16 @@ const convertToRoman = num => {
         if (array.length === 4) { // thousands column
           numeral = 'M'.repeat(digit)
         } else if (array.length === 3) { // hundreds column
-          if (digit <= 9 && digit >= 5) {
+          if (digit < 4) {
+            numeral = 'C'.repeat(digit)
+          } else if (digit === 4) {
+            numeral = 'CD'
+          } else if (digit === 5) {
+            numeral = 'D'
+          } else if (digit > 5 && digit < 9) {
+            numeral = 'D' + 'C'.repeat(digit-5)
+          } else if (digit === 9) {
+            numeral = 'CM'
           }
         } else if (array.length === 2) { // tens
 
