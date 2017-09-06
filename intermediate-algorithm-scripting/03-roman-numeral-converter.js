@@ -15,14 +15,22 @@
 
 const convertToRoman = num => {
   // go larger to smaller - we need to handle up to four digits worth
-  let output = num.toString()
+  let output = num.toString() // make the
     .split('')
+    .map(digit => parseInt(digit)) // make them into numbers again
     .map((digit, index, array) => {
-      console.log({digit, index, array});
       let numeral
-      if (array.length === 4 && index === 0) {
-        numeral = 'M'.repeat(digit)
-        console.log({numeral});
+      if (index === 0) { // first number
+        if (array.length === 4) { // thousands column
+          numeral = 'M'.repeat(digit)
+        } else if (array.length === 3) { // hundreds column
+          if (digit <= 9 && digit >= 5) {
+          }
+        } else if (array.length === 2) { // tens
+
+        } else if (array.length === 1) { // ones
+
+        }
       }
       return numeral
   })
