@@ -139,9 +139,9 @@ test('2.3.9 - convertToRoman(45) should return "XLV".', () => {
   expect(actual).toEqual(expected)
 })
 
-test('2.3.10 - convertToRoman(68) should return "LXVII".', () => {
+test('2.3.10 - convertToRoman(68) should return "LXVIII".', () => {
   const actual = convertToRoman(68)
-  const expected = 'LXVII'
+  const expected = 'LXVIII'
   expect(actual).toEqual(expected)
 })
 
