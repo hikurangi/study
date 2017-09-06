@@ -1,4 +1,4 @@
-// 2.1 - Sum All Numbers
+ch// 2.1 - Sum All Numbers
 import sumAll from './01-sum-all-numbers.js';
 
 test('2.1.0 - Sum All Numbers: sumAll([1, 4]) returns a number', () => {
@@ -77,11 +77,157 @@ test('2.2.6 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"])
 })
 
 // 2.3 Roman Numeral Converter
-// test('3.1 - Diff Two Arrays: diffArray([1, "calf", 3, "piglet"], [7, "filly"]) returns [1, "calf", 3, "piglet", 7, "filly"]', t => {
-//   const actual =  diffArray([1, "calf", 3, "piglet"], [7, "filly"])
-//   const expected = [1, "calf", 3, "piglet", 7, "filly"]
-//   t.deepEqual(actual, expected)
-// })
+import convertToRoman from './03-roman-numeral-converter'
+
+test('2.3.0 - convertToRoman(2) should return "II".', () => {
+  const actual = convertToRoman(2)
+  const expected = 'II'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.1 - convertToRoman(3) should return "III".', () => {
+  const actual = convertToRoman(3)
+  const expected = 'III'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.2 - convertToRoman(4) should return "IV".', () => {
+  const actual = convertToRoman(4)
+  const expected = 'IV'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.3 - convertToRoman(5) should return "V".', () => {
+  const actual = convertToRoman(5)
+  const expected = 'V'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.4 - convertToRoman(9) should return "IX".', () => {
+  const actual = convertToRoman(9)
+  const expected = 'IX'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.5 - convertToRoman(12) should return "XII".', () => {
+  const actual = convertToRoman(12)
+  const expected = 'XII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.6 - convertToRoman(16) should return "XVI".', () => {
+  const actual = convertToRoman(16)
+  const expected = 'XVI'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.7 - convertToRoman(29) should return "XXIX".', () => {
+  const actual = convertToRoman(29)
+  const expected = 'XXIX'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.8 - convertToRoman(44) should return "XLIV".', () => {
+  const actual = convertToRoman(44)
+  const expected = 'XLIV'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.9 - convertToRoman(45) should return "XLV".', () => {
+  const actual = convertToRoman(45)
+  const expected = 'XLV'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.10 - convertToRoman(68) should return "LXVII".', () => {
+  const actual = convertToRoman(68)
+  const expected = 'LXVII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.11 - convertToRoman(83) should return "LXXXIII".', () => {
+  const actual = convertToRoman(83)
+  const expected = 'LXXXIII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.12 - convertToRoman(97) should return "XCVII".', () => {
+  const actual = convertToRoman(97)
+  const expected = 'XCVII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.13 - convertToRoman(99) should return "XCIX".', () => {
+  const actual = convertToRoman(99)
+  const expected = 'XCIX'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.14 - convertToRoman(500) should return "D".', () => {
+  const actual = convertToRoman(500)
+  const expected = 'D'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.15 - convertToRoman(501) should return "DI".', () => {
+  const actual = convertToRoman(501)
+  const expected = 'DI'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.16 - convertToRoman(649) should return "DCXLIX".', () => {
+  const actual = convertToRoman(649)
+  const expected = 'DCXLIX'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.17 - convertToRoman(798) should return "DCCXCVIII".', () => {
+  const actual = convertToRoman(798)
+  const expected = 'DCCXCVIII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.18 - convertToRoman(891) should return "DCCCXCI".', () => {
+  const actual = convertToRoman(891)
+  const expected = 'DCCCXCI'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.19 - convertToRoman(1000) should return "M".', () => {
+  const actual = convertToRoman(1000)
+  const expected = 'M'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.20 - convertToRoman(1004) should return "MIV".', () => {
+  const actual = convertToRoman(1004)
+  const expected = 'MIV'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.21 - convertToRoman(1006) should return "MVI".', () => {
+  const actual = convertToRoman(1006)
+  const expected = 'MVI'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.22 - convertToRoman(1023) should return "MXXIII".', () => {
+  const actual = convertToRoman(1023)
+  const expected = 'MXXIII'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.23 - convertToRoman(2014) should return "MMXIV".', () => {
+  const actual = convertToRoman(2014)
+  const expected = 'MMXIV'
+  expect(actual).toEqual(expected)
+})
+
+test('2.3.24 - convertToRoman(3999) should return "MMMCMXCIX".', () => {
+  const actual = convertToRoman(3999)
+  const expected = 'MMMCMXCIX'
+  expect(actual).toEqual(expected)
+})
 
 // 2.5 - Search And Replace
 import myReplace from './05-search-and-replace'
