@@ -17,7 +17,7 @@ const convertToRoman = num => {
   // go larger to smaller - we need to handle up to four digits worth
   let output = num.toString() // make the number splittable
     .split('')
-    .map(digit => parseInt(digit)) // make the array of strings into numbers again. Unnecessary but good to be explicit about types
+    .map(digit => parseInt(digit)) // make the array of strings into numbers again. Not strictly necessary due to type inference.
     .map((digit, index, array) => {
       let numeral
       const column = array.length - index
