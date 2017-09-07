@@ -1,6 +1,6 @@
 const reduce = (arr, fn, initial) => {
   // SOLUTION GOES HERE
-  console.log({arr, fn, intial});
+  console.log({arr, fn, initial});
 }
 
 module.exports = reduce
