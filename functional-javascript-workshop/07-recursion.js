@@ -1,8 +1,18 @@
 const reduce = (arr, fn, initial) => {
   // SOLUTION GOES HERE
-  console.log({arr, fn: fn.toString(), initial});
+  // how to get index and currentValue
+  if (!arr.length) {
+    return initial
+  }
+  
+  let head = arr[0]
+  let tail = arr.slice(1)
+  let next = fn(initial, head)
+
+  return reduce(arr, fn, next)
+
 }
 
 module.exports = reduce
 
-  // return reduce(arr.shift(), fn, initial)
+// console.log({fn: fn.toString(), this:this, fnCall: fn(initial, arr[0])})
