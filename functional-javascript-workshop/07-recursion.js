@@ -5,16 +5,22 @@ const reduce = (arr, fn, initial) => {
     return initial
   }
 
-  // {fn: fn.toString()}
-
-  let head = arr[0]
-  let tail = arr.slice(1)
-  let next = fn(initial, head)
-
-  return reduce(tail, fn, next)
+  return reduce(arr.slice(1), fn, fn(initial, arr[0]))
 
 }
 
 module.exports = reduce
 
 // console.log({fn: fn.toString(), this:this, fnCall: fn(initial, arr[0])})
+
+// Model Answer
+
+// function reduce(arr, fn, initial) {
+//   return (function reduceOne(index, value) {
+//     if (index > arr.length - 1) return value // end condition
+//     return reduceOne(index + 1, fn(value, arr[index], index, arr)) // calculate & pass values to ne
+// xt step
+//   })(0, initial) // IIFE. kick off recursion with initial values
+// }
+//
+// module.exports = reduce
