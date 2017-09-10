@@ -9,8 +9,11 @@
 // String.prototype.replace()
 
 const spinalCase = str => {
+  // split at any of the four below cases:
+  console.log(str.split(/\ /))
+
   // check for:
-  
+
   // space before capital
   // replace with '-a'
 
