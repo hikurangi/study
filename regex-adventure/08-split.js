@@ -1,3 +1,1 @@
-module.exports = str => {
-  return str.split(/\s+\,\s+/)
-}
+module.exports = str => str.split(/\s*,\s*/)
