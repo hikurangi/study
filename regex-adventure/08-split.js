@@ -1,1 +1,3 @@
-module.exports = str => new RegExp(//).test(str)
+module.exports = str => {
+  return str.split(/\s+\,\s+/)
+}
