@@ -1,1 +1,1 @@
-module.exports = str => new RegExp(/\d+[^\W]\.jpe?g$/).test(str)
+module.exports = str => new RegExp(/\d+\w\.jpe?g$/).test(str) // \d vs \D, \w vs \W
