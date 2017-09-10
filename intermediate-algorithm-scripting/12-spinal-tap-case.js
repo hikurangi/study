@@ -9,12 +9,21 @@
 // String.prototype.replace()
 
 const spinalCase = str => {
+  // check for:
+  
+  // space before capital
+  // replace with '-a'
 
-  // is capital preceded by a space?
-  // simplest method is to add a space
-  // replace capitals with lowercase
-  // replace spaces and underscores with '-'s
-}
+  // space before regular letter
+  // replace space with '-'
+
+  // capital without space
+  // replace with '-a'
+
+  // existing spinal case
+  // do nothing
+
+  }
 
 
 
