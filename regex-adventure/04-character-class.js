@@ -1,4 +1,1 @@
-module.exports = str => {
-  const patt = new RegExp(/^[aeiou|0-9]/)
-  return patt.test(str)
-}
+module.exports = str => new RegExp(/^[aeiou|0-9]/).test(str)
