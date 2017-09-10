@@ -1,1 +1,1 @@
-module.exports = str => new RegExp(/^[aeiou|0-9]/).test(str)
+module.exports = str => new RegExp(/^[aeiou0-9]/).test(str)
