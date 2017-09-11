@@ -10,14 +10,10 @@
 
 const spinalCase = str => {
   // check for:
-  const match0 = new RegExp(/( )([A-Z])[a-z]*/) // space before capital - replace with '-a'
-
-  const match1 = new RegExp(/( )\w*/) // space before regular letter - replace space with '-'
-
-  const match2 = new RegExp(/[a-z]([A-Z])/) // capital without space - replace with '-a'
-
-  // split at any of the four below cases:
-  return str.replace()
+  const match = new RegExp(/[ _]/g)
+  return str
+    .replace(match, '-')
+    .toLowerCase()
   }
 
 
