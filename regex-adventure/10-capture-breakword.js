@@ -1,4 +1,5 @@
 module.exports = str => {
-  const m = new RegExp(/^\W+x=(\d+)/).exec(str) // the capture group (the regex within the parentheses) will be captured and available on the match object
+  const m = new RegExp(/\bx=(\d+)\b/).exec(str) // surrounding the literal string and capture group with breakwords
+  console.log({str, m});
   return m ? m[1] : null
 }
