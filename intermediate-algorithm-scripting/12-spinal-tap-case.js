@@ -8,32 +8,9 @@
 // RegExp
 // String.prototype.replace()
 
-const spinalCase = str => {
-  return str
-    .replace(/[ _]/g, '-')
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .toLowerCase()
-  }
-
-
+const spinalCase = str => str
+  .replace(/[ _]/g, '-')
+  .replace(/([a-z])([A-Z])/g, '$1-$2')
+  .toLowerCase()
 
 module.exports = spinalCase
-
-// Partially working .map solution
-
-// let letterStore = ''
-// let output
-// return str.split('').map((letter, array, index) => {
-//   if (letterStore === '') {
-//     output = letter
-//   } else if ((letter === "_") || (letter === " ")) {
-//     output = "-"
-//   } else if ((letter === letter.toUpperCase()) && ((letterStore !== ' ') && (letterStore !== '_') && (letterStore !== '-'))) {
-//     output = '-' + letter
-//   } else {
-//     output = letter
-//   }
-//   output = output.toLowerCase()
-//   letterStore = output.length > 1 ? output[1] : output
-//   return output
-// }).join('')
