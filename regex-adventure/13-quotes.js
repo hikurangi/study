@@ -1,1 +1,1 @@
-module.exports = str => str.match(/ /)
+module.exports = str => str.match(/"[\w\s]+"/g)
