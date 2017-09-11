@@ -9,25 +9,15 @@
 // String.prototype.replace()
 
 const spinalCase = str => {
-  // split at any of the four below cases:
-  console.log(str.split(/\ /))
-
   // check for:
+  const match0 = new RegExp(/( )([A-Z])[a-z]*/) // space before capital - replace with '-a'
 
-  // space before capital
-  // replace with '-a'
-  let match0 = new RegExp(/( )([A-Z])[a-z]*/g)
-  // space before regular letter
-  // replace space with '-'
-  let match1 = new RegExp(/-/g)
+  const match1 = new RegExp(/( )\w*/) // space before regular letter - replace space with '-'
 
-  // capital without space
-  // replace with '-a'
-  let match2 = new RegExp(/[a-z]([A-Z])/g)
+  const match2 = new RegExp(/[a-z]([A-Z])/) // capital without space - replace with '-a'
 
-  // existing spinal case
-  // do nothing
-
+  // split at any of the four below cases:
+  return str.replace()
   }
 
 
