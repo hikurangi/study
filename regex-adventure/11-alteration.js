@@ -1,4 +1,1 @@
-module.exports = str => {
-  console.log({str});
-  new RegExp(/^(cat|dog|robot)\d$/).test(str)
-}
+module.exports = str => new RegExp(/^(cat|dog|robot)\d+$/).test(str)
