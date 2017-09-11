@@ -9,10 +9,9 @@
 // String.prototype.replace()
 
 const spinalCase = str => {
-  // check for:
-  const match = new RegExp(/[ _]/g)
   return str
-    .replace(match, '-')
+    .replace(/[ _]/g, '-')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
     .toLowerCase()
   }
 
