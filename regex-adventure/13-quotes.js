@@ -1,1 +1,1 @@
-module.exports = str => str.match(/"[\w\s]+"/g)
+module.exports = str => str.match(/"[^"]*"/g)
