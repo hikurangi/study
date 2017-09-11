@@ -8,12 +8,19 @@
 // RegExp
 // String.prototype.replace()
 
+// What I was trying to get at, with a single 'replace' call
 const spinalCase = str => str
-  .replace(/[ _]/g, '-') // their regex is /\s+|_+/g
-  .replace(/([a-z])([A-Z])/g, '$1-$2')
+  .replace(/([a-z])([A-Z])|[_\s]+/g, '$1-$2') // since $1 and $2 only match the two capture groups and the [_\s]+ isn't referred to by the capture groups, it is replaced as if $1 and $2 don't exist, leaving only the '-' as the replacement string. Brilliant!
   .toLowerCase()
 
 module.exports = spinalCase
+
+// // My initial answer:
+
+// const spinalCase = str => str
+//   .replace(/[ _]/g, '-') // their regex is /\s+|_+/g
+//   .replace(/([a-z])([A-Z])/g, '$1-$2')
+//   .toLowerCase()
 
 // // Basic Code Solution
 
