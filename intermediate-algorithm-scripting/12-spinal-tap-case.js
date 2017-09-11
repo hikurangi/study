@@ -16,12 +16,14 @@ const spinalCase = str => {
 
   // space before capital
   // replace with '-a'
-
+  let match0 = new RegExp(/( )([A-Z])[a-z]*/g)
   // space before regular letter
   // replace space with '-'
+  let match1 = new RegExp(/-/g)
 
   // capital without space
   // replace with '-a'
+  let match2 = new RegExp(/[a-z]([A-Z])/g)
 
   // existing spinal case
   // do nothing
