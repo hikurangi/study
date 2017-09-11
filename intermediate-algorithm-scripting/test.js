@@ -522,3 +522,42 @@ test('2.12.4 - spinalCase("AllThe-small Things") should return "all-the-small-th
   const expected = 'all-the-small-things'
   expect(actual).toEqual(expected)
 })
+
+// 2.13 - Sum All Odd Fibonacci Numbers
+import sumFibs from './13-sum-all-odd-fibonacci-numbers'
+
+test('2.13.0 - sumFibs(1) should return a number.', () => {
+  const actual = typeof sumFibs(1)
+  const expected = 'number'
+  expect(actual).toEqual(expected)
+})
+
+test('2.13.1 - sumFibs(1000) should return 1785.', () => {
+  const actual = sumFibs(1000)
+  const expected = 1785
+  expect(actual).toEqual(expected)
+})
+
+test('2.13.2 - sumFibs(4000000) should return 4613732.', () => {
+  const actual = sumFibs(4000000)
+  const expected = 4613732
+  expect(actual).toEqual(expected)
+})
+
+test('2.13.3 - sumFibs(4) should return 5.', () => {
+  const actual = sumFibs(4)
+  const expected = 5
+  expect(actual).toEqual(expected)
+})
+
+test('2.13.4 - sumFibs(75024) should return 60696.', () => {
+  const actual = sumFibs(75024)
+  const expected = 60696
+  expect(actual).toEqual(expected)
+})
+
+test('2.13.5 - sumFibs(75025) should return 135721.', () => {
+  const actual = sumFibs(75025)
+  const expected = 135721
+  expect(actual).toEqual(expected)
+})
