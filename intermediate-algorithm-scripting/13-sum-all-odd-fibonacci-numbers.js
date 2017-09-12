@@ -12,7 +12,22 @@
 // Remainder
 
 const sumFibs = num => {
-  return num;
+  let fib = [0, 1]
+  let i = 2
+  while (fib[fib.length-1] < num) {
+    fib.push(fib[i-2]+fib[i-1])
+    i++
+  }
+  return fib.reduce((a, b) => a % 2 !== 0 ? a + b : b)
 }
 
 module.exports = sumFibs
+
+// const sumFibs = num => {
+//   let fib = [0, 1]
+//   for (let i = 2; i <= num; i++) {
+//     fib[i] = fib[i-2] + fib[i-1]
+//     console.log(fib[i]);
+//   }
+//   return fib.reduce((a, b) => a % 2 !== 0 ? a + b : b)
+// }
