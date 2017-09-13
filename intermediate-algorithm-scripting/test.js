@@ -561,3 +561,24 @@ test('2.13.5 - sumFibs(75025) should return 135721.', () => {
   const expected = 135721
   expect(actual).toEqual(expected)
 })
+
+// 2.14 - Sum All Primes
+import sumPrimes from './14-sum-all-primes'
+
+test('2.14.0 - sumPrimes(10) should return a number.', () => {
+  const actual = typeof sumPrimes(10)
+  const expected = 'number'
+  expect(actual).toEqual(expected)
+})
+
+test('2.14.1 - sumPrimes(10) should return a 17.', () => {
+  const actual = typeof sumPrimes(10)
+  const expected = 17
+  expect(actual).toEqual(expected)
+})
+
+test('2.14.2 - sumPrimes(977) should return a 73156.', () => {
+  const actual = typeof sumPrimes(977)
+  const expected = 73156
+  expect(actual).toEqual(expected)
+})
