@@ -19,28 +19,27 @@ const sumPrimes = num => {
   for (let i = 0; i < num; i++) {
     primes.push(i)
   }
+  
+  return primes
+    .filter(value => {
+      let start = 2
+      while (start <= Math.sqrt(value)) {
+        if (value % start++ < 1) return false
+      }
+      return value > 1
+    })
+    .reduce((a, b) => a + b)
 
-  const filtered = primes.filter(value => {
-    let start = 2
-    while (start <= Math.sqrt(value)) {
-      if (value % start++ < 1) return false
-    }
-    return value > 1
-  })
-  const reduced = filtered.reduce((a, b) => a + b)
-  console.log({primes, filtered, num, reduced});
-  return reduced
+  // const filtered = primes.filter(value => {
+  //   let start = 2
+  //   while (start <= Math.sqrt(value)) {
+  //     if (value % start++ < 1) return false
+  //   }
+  //   return value > 1
+  // })
+  // const reduced = filtered.reduce((a, b) => a + b)
+  // console.log({primes, filtered, num, reduced});
   // return reduced
-
-  // return primes
-  //   .filter(isPrime)
-  //   .reduce((a, b) => a + b)
-
-  // create array of numbers up to the given value
-  // create isPrime function
-  // filter the array of numbers up to the given value with isPrime
-  // return a reduced version of that array.
-
 
 }
 
