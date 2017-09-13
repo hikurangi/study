@@ -19,7 +19,7 @@ const sumFibs = num => {
     i++
   }
   let cheese = fib
-    .filter(n => (n % 2 !== 0) && (n < num))
+    .filter(n => (n % 2 !== 0) && (n <= num))
     .reduce((a, b) => a + b, 0)
   console.log({cheese, num, fib})
   return cheese
