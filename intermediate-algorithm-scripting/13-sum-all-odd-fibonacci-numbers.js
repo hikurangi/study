@@ -18,10 +18,11 @@ const sumFibs = num => {
     fib.push(fib[i-2]+fib[i-1])
     i++
   }
-  console.log({num, fib})
-  return fib
+  let cheese = fib
     .filter(n => (n % 2 !== 0) && (n < num))
-    .reduce((a, b) => a + b)
+    .reduce((a, b) => a + b, 0)
+  console.log({cheese, num, fib})
+  return cheese
 }
 
 module.exports = sumFibs
