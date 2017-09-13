@@ -13,19 +13,35 @@
 // Array.prototype.push()
 
 const sumPrimes = num => {
+
   const primes = []
-  // const isPrime = (value) => num % value === 0 ? false : true // uses side effects, not ideal functional programming. naughty boy.
-  // filter with isPrime
+
   for (let i = 0; i < num; i++) {
     primes.push(i)
   }
-  // const filtered = primes.filter(isPrime)
-  // const reduced = filtered.reduce((a, b) => a + b)
-  // console.log({primes, num, filtered, reduced});
+
+  const filtered = primes.filter(value => {
+    let start = 2
+    while (start <= Math.sqrt(value)) {
+      if (value % start++ < 1) return false
+    }
+    return value > 1
+  })
+  const reduced = filtered.reduce((a, b) => a + b)
+  console.log({primes, filtered, num, reduced});
+  return reduced
+  // return reduced
+
   // return primes
   //   .filter(isPrime)
   //   .reduce((a, b) => a + b)
-  // return reduced
+
+  // create array of numbers up to the given value
+  // create isPrime function
+  // filter the array of numbers up to the given value with isPrime
+  // return a reduced version of that array.
+
+
 }
 
 module.exports = sumPrimes
