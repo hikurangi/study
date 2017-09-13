@@ -572,13 +572,13 @@ test('2.14.0 - sumPrimes(10) should return a number.', () => {
 })
 
 test('2.14.1 - sumPrimes(10) should return a 17.', () => {
-  const actual = typeof sumPrimes(10)
+  const actual = sumPrimes(10)
   const expected = 17
   expect(actual).toEqual(expected)
 })
 
 test('2.14.2 - sumPrimes(977) should return a 73156.', () => {
-  const actual = typeof sumPrimes(977)
+  const actual = sumPrimes(977)
   const expected = 73156
   expect(actual).toEqual(expected)
 })
