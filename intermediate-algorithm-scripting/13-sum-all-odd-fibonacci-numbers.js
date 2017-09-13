@@ -15,14 +15,12 @@ const sumFibs = num => {
   let fib = [0, 1]
   let i = 2 // i represents our current array position (once we push the current fibonacci value to the array)
   while (fib[fib.length-1] < num) {
-    fib.push(fib[i-2]+fib[i-1])
+    fib.push(fib[i-2] + fib[i-1])
     i++
-  }
-  let cheese = fib
-    .filter(n => (n % 2 !== 0) && (n <= num))
+  } // create complete fibonacci sequence including one value which equals or exceeds num
+  return fib
+    .filter(n => (n % 2 !== 0) && (n <= num)) // get rid of even values and any which exceed num
     .reduce((a, b) => a + b, 0)
-  console.log({cheese, num, fib})
-  return cheese
 }
 
 module.exports = sumFibs
