@@ -13,12 +13,17 @@
 
 const sumFibs = num => {
   let fib = [0, 1]
-  let i = 2
-  while (fib[fib.length-1] < num) {
+  let i = 2 // i represents our current array position (once we push the current fibonacci value to the array)
+  while (fib[fib.length-1] <= num) {
+    console.log({fibAtI: fib[i]});
     fib.push(fib[i-2]+fib[i-1])
     i++
   }
-  return fib.reduce((a, b) => a % 2 !== 0 ? a + b : b)
+  console.log({num, fib})
+  return fib
+    .filter(n => n % 2 !== 0)
+    .reduce((a, b) => a + b)
+    - num
 }
 
 module.exports = sumFibs
