@@ -12,12 +12,20 @@
 // For Loops
 // Array.prototype.push()
 
-function sumPrimes(num) {
-  return num;
+const sumPrimes = num => {
+  const primes = []
+  // const isPrime = (value) => num % value === 0 ? false : true // uses side effects, not ideal functional programming. naughty boy.
+  // filter with isPrime
+  for (let i = 0; i < num; i++) {
+    primes.push(i)
+  }
+  // const filtered = primes.filter(isPrime)
+  // const reduced = filtered.reduce((a, b) => a + b)
+  // console.log({primes, num, filtered, reduced});
+  // return primes
+  //   .filter(isPrime)
+  //   .reduce((a, b) => a + b)
+  // return reduced
 }
 
-sumPrimes(10);
-
-sumPrimes(10) // => a number.
-sumPrimes(10) // => 17.
-sumPrimes(977) // => 73156.
+module.exports = sumPrimes
