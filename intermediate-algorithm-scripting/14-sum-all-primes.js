@@ -12,35 +12,61 @@
 // For Loops
 // Array.prototype.push()
 
+// My answer based off research and the Intermediate Code solution
 const sumPrimes = num => {
-
-  const primes = []
-
-  for (let i = 0; i < num; i++) {
-    primes.push(i)
+  const isPrime = val => {
+    let start = 2
+    while (start <= Math.sqrt(val)) {
+      if (val % start++ < 1) return false
+    }
+    return val > 1
   }
-  
-  return primes
-    .filter(value => {
-      let start = 2
-      while (start <= Math.sqrt(value)) {
-        if (value % start++ < 1) return false
-      }
-      return value > 1
-    })
-    .reduce((a, b) => a + b)
+  if (num === 1) {
+    return 0
+  }
 
-  // const filtered = primes.filter(value => {
-  //   let start = 2
-  //   while (start <= Math.sqrt(value)) {
-  //     if (value % start++ < 1) return false
-  //   }
-  //   return value > 1
-  // })
-  // const reduced = filtered.reduce((a, b) => a + b)
-  // console.log({primes, filtered, num, reduced});
-  // return reduced
+  if (isPrime(num) === false) {
+    return sumPrimes(num - 1 )
+  }
 
+  if (isPrime(num) === true) {
+    return num + sumPrimes(num-1)
+  }
 }
+
+// First Attempt
+
+// const sumPrimes = num => {
+//
+//   const primes = []
+//
+//   for (let i = 0; i < num; i++) {
+//     primes.push(i)
+//   }
+//
+//   return primes
+//     .filter(value => {
+//       let start = 2
+//       while (start <= Math.sqrt(value)) {
+//         if (value % start++ < 1) return false
+//       }
+//       return value > 1
+//     })
+//     .reduce((a, b) => a + b)
+//
+//   // // Debuggable version
+//
+//   // const filtered = primes.filter(value => {
+//   //   let start = 2
+//   //   while (start <= Math.sqrt(value)) {
+//   //     if (value % start++ < 1) return false
+//   //   }
+//   //   return value > 1
+//   // })
+//   // const reduced = filtered.reduce((a, b) => a + b)
+//   // console.log({primes, filtered, num, reduced});
+//   // return reduced
+//
+// }
 
 module.exports = sumPrimes
