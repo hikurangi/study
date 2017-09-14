@@ -14,7 +14,6 @@
 
 // My answer based off research and the Intermediate Code solution
 const sumPrimes = num => {
-
   const isPrime = val => { // return boolean value for primeness of an input number
     let start = 2
     while (start <= Math.sqrt(val)) {
@@ -22,15 +21,12 @@ const sumPrimes = num => {
     }
     return val > 1
   }
-
   if (num === 1) { // Base case
     return 0
   }
-
   if (isPrime(num)) { // include the prime in the addition
     return num + sumPrimes(num-1)
   }
-
   if (isPrime(num) === false) { // don't include the non-prime in the addition
     return sumPrimes(num - 1 )
   }
