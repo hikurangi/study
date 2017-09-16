@@ -584,7 +584,7 @@ test('2.14.2 - sumPrimes(977) should return 73156.', () => {
 })
 
 // 2.15 - Smallest Common Multiple
-import smallestCommon from './15-smallest-common-multiple'
+import smallestCommons from './15-smallest-common-multiple'
 
 test('2.15.0 - smallestCommons([1, 5]) should return a number.', () => {
   const actual = typeof smallestCommons([1, 5])
