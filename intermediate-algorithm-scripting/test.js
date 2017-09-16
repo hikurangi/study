@@ -571,14 +571,47 @@ test('2.14.0 - sumPrimes(10) should return a number.', () => {
   expect(actual).toEqual(expected)
 })
 
-test('2.14.1 - sumPrimes(10) should return a 17.', () => {
+test('2.14.1 - sumPrimes(10) should return 17.', () => {
   const actual = sumPrimes(10)
   const expected = 17
   expect(actual).toEqual(expected)
 })
 
-test('2.14.2 - sumPrimes(977) should return a 73156.', () => {
+test('2.14.2 - sumPrimes(977) should return 73156.', () => {
   const actual = sumPrimes(977)
   const expected = 73156
+  expect(actual).toEqual(expected)
+})
+
+// 2.15 - Smallest Common Multiple
+import smallestCommon from './15-smallest-common-multiple'
+
+test('2.15.0 - smallestCommons([1, 5]) should return a number.', () => {
+  const actual = typeof smallestCommons([1, 5])
+  const expected = 'number'
+  expect(actual).toEqual(expected)
+})
+
+test('2.15.1 - smallestCommons([1, 5]) should return 60.', () => {
+  const actual = smallestCommons([1, 5])
+  const expected = 60
+  expect(actual).toEqual(expected)
+})
+
+test('2.15.2 - smallestCommons([5, 1]) should return 60.', () => {
+  const actual = smallestCommons([5, 1])
+  const expected = 60
+  expect(actual).toEqual(expected)
+})
+
+test('2.15.3 - smallestCommons([1, 13]) should return 360360.', () => {
+  const actual = smallestCommons([1, 13])
+  const expected = 360360
+  expect(actual).toEqual(expected)
+})
+
+test('2.15.4 - smallestCommons([23, 18]) should return 6056820.', () => {
+  const actual = smallestCommons([23, 18])
+  const expected = 6056820
   expect(actual).toEqual(expected)
 })
