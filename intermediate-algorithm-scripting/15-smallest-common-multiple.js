@@ -13,7 +13,8 @@
 // Smallest Common Multiple
 
 const smallestCommons = arr => {
-  return arr;
+  return arr.sort((a, b) => a - b) // sort the array by smallest to largest
+
 }
 
 module.exports = smallestCommons
