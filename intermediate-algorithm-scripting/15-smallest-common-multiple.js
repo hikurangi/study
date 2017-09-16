@@ -13,11 +13,19 @@
 // Smallest Common Multiple
 
 const smallestCommons = arr => {
-  const smallest = arr[0] < arr[1] ? arr[0] : arr[1]
-  const largest = arr[1] > arr[0] ? arr[1] : arr[0]
-  const range = []
-  for (let i = smallest; i < largest; i++) { // populate the range of integers
-    range.push(i)
+  const lcm = (...all) => {
+    const range = []
+    if (all.length === 2) { // check if array has 1) length 2 and 2) the values are next to each other
+      const smallest = all[0] < all[1] ? all[0] : all[1]
+      const largest = all[1] > all[0] ? all[1] : all[0]
+      for (let i = smallest; i < largest; i++) { // populate the range of integers
+        range.push(i) // will this bug out when presented with an array of two neighbouring numbers?
+      }
+    }
+    const gcd = (a, b) => { // find the greatest common divisor using the euclidean algorithm
+      if (!b) { return a }
+      return gcd(b, a % b)
+    }
   }
   console.log({smallest, largest, range});
 
