@@ -13,11 +13,13 @@
 // Smallest Common Multiple
 
 const smallestCommons = arr => {
+  const smallest = arr[0] < arr[1] ? arr[0] : arr[1]
+  const largest = arr[1] > arr[0] ? arr[1] : arr[0]
   const range = []
-  for (let i = arr[0] < arr[1] ? arr[0] : arr[1]; i = arr[1] > arr[0] ? arr[1] : arr[0]; i++) { // populate the range of integers
+  for (let i = smallest; i < largest; i++) { // populate the range of integers
     range.push(i)
   }
-  console.log({range});
+  console.log({smallest, largest, range});
 
 }
 
