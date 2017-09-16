@@ -27,7 +27,7 @@ const sumPrimes = num => {
   if (isPrime(num)) { // include the prime in the addition
     return num + sumPrimes(num-1)
   }
-  if (isPrime(num) === false) { // don't include the non-prime in the addition
+  if (!isPrime(num)) { // don't include the non-prime in the addition
     return sumPrimes(num - 1 )
   }
 }
