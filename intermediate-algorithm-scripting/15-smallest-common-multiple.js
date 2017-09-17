@@ -12,25 +12,24 @@
 //
 // Smallest Common Multiple
 
-const smallestCommons = (...arr) => { // destructuring unnecessary
+const smallestCommons = (arr) => {
   const gcd = (a, b) => { // find the greatest common divisor using the euclidean algorithm
     if (!b) { return a }
     return gcd(b, a % b)
   }
   const lcm = (a, b) => a * b / gcd(a, b) // find the lowest common multiple
   const range = []
-  const args = arr.length === 1 ? arr[0] : arr // the function is passed an array - this accesses the array within the array
-  if ((args.length === 2) && (args[0] - args[1] !== -1) && (args[0] - args[1] !== 1)) { // check if array has 1) length 2 and 2) the values are not to each other
-    const smallest = args[0] < args[1] ? args[0] : args[1]
-    const largest = args[1] > args[0] ? args[1] : args[0]
+  if ((arr.length === 2) && (arr[0] - arr[1] !== -1) && (arr[0] - arr[1] !== 1)) { // check if array has 1) length 2 and 2) the values are not to each other
+    const smallest = arr[0] < arr[1] ? arr[0] : arr[1]
+    const largest = arr[1] > arr[0] ? arr[1] : arr[0]
     for (let i = smallest; i <= largest; i++) { // populate the range of integers
       range.push(i)
     }
   }
-  if ((args.length === 2) && (args[0] - args[1] === -1) || (args[0] - args[1] === 1)) {
-    return lcm(args[0], args[1])
+  if ((arr.length === 2) && (arr[0] - arr[1] === -1) || (arr[0] - arr[1] === 1)) {
+    return lcm(arr[0], arr[1])
   } else {
-    const nextArr = range.length ? range : args
+    const nextArr = range.length ? range : arr
     const head = nextArr[0]
     return lcm(head, smallestCommons(nextArr.slice(1)))
   }
