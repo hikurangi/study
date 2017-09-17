@@ -13,10 +13,7 @@
 // Smallest Common Multiple
 
 const smallestCommons = (arr) => {
-  const gcd = (a, b) => { // find the greatest common divisor using the euclidean algorithm
-    if (!b) { return a }
-    return gcd(b, a % b)
-  }
+  const gcd = (a, b) => !b ? a : gcd(b, a % b) // Nifty one-line implementation of the Euclidean Algorithm
   const lcm = (a, b) => a * b / gcd(a, b) // find the lowest common multiple
   const range = []
   if ((arr.length === 2) && (arr[0] - arr[1] !== -1) && (arr[0] - arr[1] !== 1)) { // check if array has 1) length 2 and 2) the values are not to each other
