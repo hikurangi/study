@@ -14,14 +14,20 @@
 // Array.prototype.shift()
 // Array.prototype.slice()
 
+// Recursive implementation
 const dropElements = (arr, func) => {
-  let counter = 0
-  let bool = false
-  while (counter < arr.length) {
-    bool = func(arr[counter])
-    if (bool) { return arr.slice(counter) }
-    counter++
-  }
-}
+  return func(arr[0]) ? arr : dropElements(arr.slice(1), func)
+} // SO close
+
+// Loop implementation
+// const dropElements = (arr, func) => {
+//   let counter = 0
+//   let bool = false
+//   while (counter < arr.length) {
+//     bool = func(arr[counter])
+//     if (bool) { return arr.slice(counter) }
+//     counter++
+//   }
+// }
 
 module.exports = dropElements
