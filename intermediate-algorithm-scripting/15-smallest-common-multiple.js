@@ -24,7 +24,7 @@ const smallestCommons = (...arr) => {
     const smallest = args[0] < args[1] ? args[0] : args[1]
     const largest = args[1] > args[0] ? args[1] : args[0]
     for (let i = smallest; i <= largest; i++) { // populate the range of integers
-      range.push(i) // will this bug out when presented with an array of two neighbouring numbers?
+      range.push(i)
     }
   }
   if ((args.length === 2) && (args[0] - args[1] === -1) || (args[0] - args[1] === 1)) {
