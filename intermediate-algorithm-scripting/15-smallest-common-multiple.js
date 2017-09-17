@@ -12,7 +12,7 @@
 //
 // Smallest Common Multiple
 
-const smallestCommons = (...arr) => {
+const smallestCommons = (...arr) => { // destructuring unnecessary
   const gcd = (a, b) => { // find the greatest common divisor using the euclidean algorithm
     if (!b) { return a }
     return gcd(b, a % b)
