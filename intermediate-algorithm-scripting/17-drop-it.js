@@ -15,8 +15,13 @@
 // Array.prototype.slice()
 
 const dropElements = (arr, func) => {
-  // Drop them elements.
-  return arr;
+  let counter = 0
+  let bool = false
+  while (bool === false) {
+    bool = func(arr[counter])
+    counter++
+  }
+  return arr.slice(counter)
 }
 
 module.exports = dropElements
