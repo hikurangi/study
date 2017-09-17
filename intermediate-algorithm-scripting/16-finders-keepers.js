@@ -8,8 +8,6 @@
 //
 // Array.prototype.filter()
 
-const findElement = (arr, func) => {
-  return arr.filter(func)[0]
-}
+const findElement = (arr, func) => arr.filter(func)[0]
 
 module.exports = findElement
