@@ -9,8 +9,7 @@
 // Array.prototype.filter()
 
 const findElement = (arr, func) => {
-  var num = 0;
-  return num;
+  return arr.filter(func)[0]
 }
 
 module.exports = findElement
