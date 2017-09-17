@@ -21,18 +21,18 @@ const smallestCommons = (...arr) => {
     const largest = args[1] > args[0] ? args[1] : args[0]
     for (let i = smallest; i <= largest; i++) { // populate the range of integers
       range.push(i) // will this bug out when presented with an array of two neighbouring numbers?
+    } else if ((args.length === 2) && (args[0] - args[1] === -1) || (args[0] - args[1] === 1)) {
+      return lcm(args[0], args[1])
+    } else {
+      const head = args[0]
+      return lcm(head, smallestCommons(args.slice(1)))
     }
   }
-
   const gcd = (a, b) => { // find the greatest common divisor using the euclidean algorithm
     if (!b) { return a }
     return gcd(b, a % b)
   }
-
   const lcm = (a, b) => a * b / gcd(a, b) // find the lowest common multiple
-
-  
-
 }
 
 module.exports = smallestCommons
