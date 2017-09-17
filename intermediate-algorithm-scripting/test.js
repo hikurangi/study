@@ -617,7 +617,7 @@ test('2.15.4 - smallestCommons([23, 18]) should return 6056820.', () => {
 })
 
 // 2.16 - Finders Keepers
-import findElement from '16-finders-keepers'
+import findElement from './16-finders-keepers'
 
 test('2.16.0 - findElement([1, 3, 5, 8, 9, 10], function(num) { return num % 2 === 0; }) should return 8.', () => {
   const actual = findElement([1, 3, 5, 8, 9, 10], function(num) { return num % 2 === 0; })
@@ -627,6 +627,6 @@ test('2.16.0 - findElement([1, 3, 5, 8, 9, 10], function(num) { return num % 2 =
 
 test('2.16.1 - findElement([1, 3, 5, 9], function(num) { return num % 2 === 0; }) should return undefined.', () => {
   const actual = findElement([1, 3, 5, 9], function(num) { return num % 2 === 0; })
-  const expected = 'undefined'
+  const expected = undefined
   expect(actual).toEqual(expected)
 })
