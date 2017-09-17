@@ -637,35 +637,35 @@ import dropElements from './17-drop-it'
 test('2.17.0 - dropElements([1, 2, 3, 4], function(n) {return n >= 3;}) should return [3, 4].', () => {
   const actual = dropElements([1, 2, 3, 4], function(n) {return n >= 3;})
   const expected = [3, 4]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.17.1 - dropElements([0, 1, 0, 1], function(n) {return n === 1;}) should return [1, 0, 1].', () => {
   const actual = dropElements([0, 1, 0, 1], function(n) {return n === 1;})
   const expected = [1, 0, 1]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.17.2 - dropElements([1, 2, 3], function(n) {return n > 0;}) should return [1, 2, 3].', () => {
   const actual = dropElements([1, 2, 3], function(n) {return n > 0;})
   const expected = [1, 2, 3]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.17.3 - dropElements([1, 2, 3, 4], function(n) {return n > 5;}) should return [].', () => {
   const actual = dropElements([1, 2, 3, 4], function(n) {return n > 5;})
   const expected = []
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.17.4 - dropElements([1, 2, 3, 7, 4], function(n) {return n > 3;}) should return [7, 4].', () => {
   const actual = dropElements([1, 2, 3, 7, 4], function(n) {return n > 3;})
   const expected = [7, 4]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
 
 test('2.17.5 - dropElements([1, 2, 3, 9, 2], function(n) {return n > 2;}) should return [3, 9, 2].', () => {
   const actual = dropElements([1, 2, 3, 9, 2], function(n) {return n > 2;})
   const expected = [3, 9, 2]
-  expect(actual).toEqual(expected)
+  expect(actual).toEqual(expect.arrayContaining(expected))
 })
