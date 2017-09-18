@@ -15,7 +15,7 @@
 // Array.prototype.reduce()
 
 const uniteUnique = (...args) => args
-  .reduce((array, accumulator) => array.concat(accumulator), [])
+  .reduce((acc, arr) => acc.concat(arr), [])
   .filter((item, position, array) => array.indexOf(item) === position)
 
 module.exports = uniteUnique
