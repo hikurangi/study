@@ -8,9 +8,7 @@
 //
 // Array.isArray()
 
-const steamrollArray = arr => {
-  // I'm a steamroller, baby
-  return arr;
-}
+const steamrollArray = arr => arr
+  .reduce((flattened, current) => flattened.concat(Array.isArray(current) ? steamrollArray(current) : current), [])
 
 module.exports = steamrollArray
