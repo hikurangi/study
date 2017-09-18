@@ -15,15 +15,15 @@
 // Array.prototype.slice()
 
 // Recursive implementation
-// const dropElements = (arr,func) => !arr.length || func(arr[0]) ? arr : dropElements(arr.slice(1), func)
+const dropElements = (arr,func) => !arr.length || func(arr[0]) ? arr : dropElements(arr.slice(1), func)
 
 // // Loop implementation
-const dropElements = (arr, func) => {
-  let counter = 0
-  while (counter < arr.length) {
-    if (func(arr[counter])) { return arr.slice(counter) }
-    counter++
-  }
-}
+// const dropElements = (arr, func) => {
+//   let counter = 0
+//   while (counter < arr.length) {
+//     if (func(arr[counter])) { return arr.slice(counter) }
+//     counter++
+//   }
+// }
 
 module.exports = dropElements
