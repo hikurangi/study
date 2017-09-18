@@ -14,12 +14,22 @@
 // Array.prototype.shift()
 // Array.prototype.slice()
 
-// Recursive implementation
-const dropElements = (arr, func) => {
-  return func(arr[0]) ? arr : dropElements(arr.slice(1), func)
-} // SO close
+// Working recursive implementation - could use refactoring?
+const dropElements = (arr,func) => {
+  if (!arr.length) {
+    return []
+  } else if (func(arr[0])) {
+    return arr
+  } else {
+    return dropElements(arr.slice(1), func)
+  }
+}
 
-// Loop implementation
+// // Recursive implementation - one-liner which only works IF there is definitely a true value in the array.
+// const dropElements = (arr, func) => func(arr[0]) ? arr : dropElements(arr.slice(1), func) // SO close
+
+
+// // Loop implementation
 // const dropElements = (arr, func) => {
 //   let counter = 0
 //   let bool = false
