@@ -27,3 +27,11 @@ const dropElements = (arr,func) => !arr.length || func(arr[0]) ? arr : dropEleme
 // }
 
 module.exports = dropElements
+
+// // Model Answer - Advanced Code solution
+// function dropElements(arr, func) {
+//   while(arr.length > 0 && !func(arr[0])) {
+//     arr.shift();
+//   }
+//   return arr;
+// }
