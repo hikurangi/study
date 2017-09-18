@@ -669,3 +669,30 @@ test('2.17.5 - dropElements([1, 2, 3, 9, 2], function(n) {return n > 2;}) should
   const expected = [3, 9, 2]
   expect(actual).toEqual(expect.arrayContaining(expected))
 })
+
+// 2.18 - Steamroller
+import steamrollArray from './18-steamroller'
+
+test('2.18.0 - steamrollArray([[["a"]], [["b"]]]) should return ["a", "b"].', () => {
+  const actual = steamrollArray([[["a"]], [["b"]]])
+  const expected = ["a", "b"]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
+
+test('2.18.1 - steamrollArray([1, [2], [3, [[4]]]]) should return [1, 2, 3, 4].', () => {
+  const actual = steamrollArray([1, [2], [3, [[4]]]])
+  const expected = [1, 2, 3, 4]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
+
+test('2.18.2 - steamrollArray([1, [], [3, [[4]]]]) should return [1, 3, 4].', () => {
+  const actual = steamrollArray([1, [], [3, [[4]]]])
+  const expected = [1, 3, 4]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
+
+test('2.18.3 - steamrollArray([1, {}, [3, [[4]]]]) should return [1, {}, 3, 4].', () => {
+  const actual = steamrollArray([1, {}, [3, [[4]]]])
+  const expected = [1, {}, 3, 4]
+  expect(actual).toEqual(expect.arrayContaining(expected))
+})
