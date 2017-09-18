@@ -11,8 +11,9 @@
 // String.prototype.charCodeAt()
 // String.fromCharCode()
 
-const binaryAgent = str => {
-  return str;
-}
+const binaryAgent = str => str
+  .split(' ')
+  .map(word => String.fromCharCode(parseInt(word, 2)))
+  .join('')
 
 module.exports = binaryAgent
