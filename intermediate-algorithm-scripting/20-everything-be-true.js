@@ -4,9 +4,6 @@
 //
 // Remember, you can access object properties through either dot notation or [] notation.
 
-const truthCheck = (collection, pre) => {
-  // Is everyone being true?
-  return pre;
-}
+const truthCheck = (collection, pre) => collection.every(item => item[pre])
 
 module.exports = truthCheck
