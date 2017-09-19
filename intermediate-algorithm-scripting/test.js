@@ -700,7 +700,7 @@ test('2.18.3 - steamrollArray([1, {}, [3, [[4]]]]) should return [1, {}, 3, 4].'
 // 2.19 - Binary Agents
 import binaryAgent from './19-binary-agents'
 
-test('2.19.0 - binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111") should return "Aren\'t bonfires fun!?".', () => {
+test('2.19.0 - binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111") should return true.', () => {
   const actual = binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111")
   const expected = "Aren't bonfires fun!?"
   expect(actual).toEqual(expected)
@@ -709,5 +709,62 @@ test('2.19.0 - binaryAgent("01000001 01110010 01100101 01101110 00100111 0111010
 test('2.19.1 - binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001") should return "I love FreeCodeCamp!".', () => {
   const actual = binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001")
   const expected = "I love FreeCodeCamp!"
+  expect(actual).toEqual(expected)
+})
+
+// 2.20 - Everything Be True
+import truthCheck from './20-everything-be-true'
+
+test('2.20.0 - truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex") should return true.', () => {
+  const actual = truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex")
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.1 - truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex") should return false.', () => {
+  const actual = truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex")
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.2 - truthCheck([{"user": "Tinky-Winky", "sex": "male", "age": 0}, {"user": "Dipsy", "sex": "male", "age": 3}, {"user": "Laa-Laa", "sex": "female", "age": 5}, {"user": "Po", "sex": "female", "age": 4}], "age") should return false.', () => {
+  const actual = truthCheck([{"user": "Tinky-Winky", "sex": "male", "age": 0}, {"user": "Dipsy", "sex": "male", "age": 3}, {"user": "Laa-Laa", "sex": "female", "age": 5}, {"user": "Po", "sex": "female", "age": 4}], "age")
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.3 - truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true}, {"name": "FastFoward", "onBoat": null}], "onBoat") should return false.', () => {
+  const actual = truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true}, {"name": "FastFoward", "onBoat": null}], "onBoat")
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.4 - truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true, "alias": "Repete"}, {"name": "FastFoward", "onBoat": true}], "onBoat") should return true.', () => {
+  const actual = truthCheck([{"name": "Pete", "onBoat": true}, {"name": "Repeat", "onBoat": true, "alias": "Repete"}, {"name": "FastFoward", "onBoat": true}], "onBoat")
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.5 - truthCheck([{"single": "yes"}], "single") should return true.', () => {
+  const actual = truthCheck([{"single": "yes"}], "single")
+  const expected = true
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.6 - truthCheck([{"single": ""}, {"single": "double"}], "single") should return false.', () => {
+  const actual = truthCheck([{"single": ""}, {"single": "double"}], "single")
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.7 - truthCheck([{"single": "double"}, {"single": undefined}], "single") should return false.', () => {
+  const actual = truthCheck([{"single": "double"}, {"single": undefined}], "single")
+  const expected = false
+  expect(actual).toEqual(expected)
+})
+
+test('2.20.8 - truthCheck([{"single": "double"}, {"single": NaN}], "single") should return false.', () => {
+  const actual = truthCheck([{"single": "double"}, {"single": NaN}], "single")
+  const expected = false
   expect(actual).toEqual(expected)
 })
