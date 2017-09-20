@@ -35,3 +35,16 @@ const addTogether = (...args) => { // works for any length of array
 module.exports = addTogether
 
 // const addTogether = (...a) => a.length > 1 ? a.reduce((a, b) => a + b) : b => !isNaN(a) && !isNaN(b) ? a + b : undefined
+
+// Model Answer - Advanced - uses ternaries instead of if/else, makes things succinct but perhaps less readable
+
+// function addTogether() {
+//   var args = Array.from(arguments);
+//   return args.some(n => typeof n !== 'number') ?
+//     undefined:
+//     args.length > 1 ?
+//       args.reduce((acc, n) => acc += n, 0):
+//       (n) => typeof n === "number" ?
+//         n + args[0]:
+//         undefined;
+// }
