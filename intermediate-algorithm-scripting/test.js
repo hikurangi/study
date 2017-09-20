@@ -768,3 +768,36 @@ test('2.20.8 - truthCheck([{"single": "double"}, {"single": NaN}], "single") sho
   const expected = false
   expect(actual).toEqual(expected)
 })
+
+// 2.21 - Arguments Optional
+import addTogether from './21-arguments-optional'
+
+test('2.21.0 - addTogether(2, 3) should return 5.', () => {
+  const actual = addTogether(2, 3)
+  const expected = 5
+  expect(actual).toEqual(expected)
+})
+
+test('2.21.1 - addTogether(2)(3) should return 5.', () => {
+  const actual = addTogether(2)(3)
+  const expected = 5
+  expect(actual).toEqual(expected)
+})
+
+test('2.21.2 - addTogether("http://bit.ly/IqT6zt") should return undefined.', () => {
+  const actual = addTogether("http://bit.ly/IqT6zt")
+  const expected = undefined
+  expect(actual).toEqual(expected)
+})
+
+test('2.21.3 - addTogether(2, "3") should return undefined.', () => {
+  const actual = addTogether(2, "3")
+  const expected = undefined
+  expect(actual).toEqual(expected)
+})
+
+test('2.21.4 - addTogether(2)([3]) should return undefined.', () => {
+  const actual = addTogether(2)([3])
+  const expected = undefined
+  expect(actual).toEqual(expected)
+})
