@@ -19,8 +19,19 @@
 // Closures
 // Arguments object
 
-const addTogether = () => {
-  return false;
+// Slightly ugly ES6 solution
+const addTogether = (...args) => { // works for any length of array
+  if (args.every(value => typeof value === 'number')) { // is every item in args a number?
+    if (args.length === 1) {
+      return val => typeof val === 'number' ? args[0] + val : undefined
+    } else {
+      return args.reduce((a, b) => a + b)
+    }
+  } else {
+    return undefined
+  }
 }
 
 module.exports = addTogether
+
+// const addTogether = (...a) => a.length > 1 ? a.reduce((a, b) => a + b) : b => !isNaN(a) && !isNaN(b) ? a + b : undefined
