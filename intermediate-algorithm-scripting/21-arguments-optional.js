@@ -19,7 +19,7 @@
 // Closures
 // Arguments object
 
-// Slightly ugly ES6 solution
+// Slightly ugly ES6-ish solution
 const addTogether = (...args) => { // works for any length of array
   if (args.every(value => typeof value === 'number')) { // is every item in args a number?
     if (args.length === 1) {
