@@ -23,3 +23,5 @@ const telephoneCheck = str => {
   const regex = new RegExp(/1?[- ]?\d{3}[- ]?\d{3}[- ]?\d{4}/)
   return regex.test(str)
 }
+
+module.exports = telephoneCheck
