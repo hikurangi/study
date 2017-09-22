@@ -20,7 +20,7 @@
 
 const telephoneCheck = str => {
   // Good luck!
-  const regex = new RegExp(/^[1]?[- ]?\d{3}[- ]?\d{3}[- ]?[\d]{4}$/)
+  const regex = new RegExp(/^1?[- ]?\d{3}[- ]?\d{3}[- ]?[\d]{4}$/)
   return regex.test(str)
 }
 
