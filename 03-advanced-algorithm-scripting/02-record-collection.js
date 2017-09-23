@@ -58,4 +58,4 @@ const updateRecords = (id, prop, value) => {
   return collection;
 }
 
-export default collectionCopy
+export default updateRecords
