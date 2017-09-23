@@ -23,7 +23,7 @@ const sumFibs = num => {
     .reduce((a, b) => a + b, 0)
 }
 
-module.exports = sumFibs
+export default sumFibs
 
 // Model Answers
 

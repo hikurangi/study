@@ -13,7 +13,7 @@ const spinalCase = str => str
   .replace(/([a-z])([A-Z])|[_\s]+/g, '$1-$2') // since $1 and $2 only match the two capture groups and the [_\s]+ isn't referred to by the capture groups, it is replaced as if $1 and $2 don't exist, leaving only the '-' as the replacement string. Brilliant!
   .toLowerCase()
 
-module.exports = spinalCase
+export default spinalCase
 
 // // My initial answer:
 

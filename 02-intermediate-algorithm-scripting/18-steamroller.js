@@ -11,7 +11,7 @@
 const steamrollArray = arr => arr
   .reduce((flattened, current) => flattened.concat(Array.isArray(current) ? steamrollArray(current) : current), [])
 
-module.exports = steamrollArray
+export default steamrollArray
 
 // // Basic Code Solution
 // function steamrollArray(arr) {

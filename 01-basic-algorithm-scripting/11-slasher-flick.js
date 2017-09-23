@@ -13,7 +13,7 @@
 
 const slasher = (arr, howMany) => howMany.length >= arr.length ? [] : arr.slice(howMany)
 
-module.exports = slasher
+export default slasher
 
 // Model answer... slightly embarrassing
 

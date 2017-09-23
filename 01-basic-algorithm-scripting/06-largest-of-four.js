@@ -12,4 +12,4 @@
 
 const largestOfFour = arr => arr.map(sub => sub.reduce((a, b) => a >= b ? a : b))
 
-module.exports = largestOfFour
+export default largestOfFour

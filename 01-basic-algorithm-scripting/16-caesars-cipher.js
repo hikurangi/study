@@ -80,4 +80,4 @@ const rot13 = str => str
 
 // https://forum.freecodecamp.org/t/freecodecamp-algorithm-challenge-guide-caesars-cipher/16003
 
-module.exports = rot13
+export default rot13

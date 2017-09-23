@@ -6,4 +6,4 @@
 
 const truthCheck = (collection, pre) => collection.every(item => item[pre])
 
-module.exports = truthCheck
+export default truthCheck

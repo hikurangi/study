@@ -65,4 +65,4 @@ const convertToRoman = num => {
   return output.join('')
 }
 
-module.exports = convertToRoman
+export default convertToRoman

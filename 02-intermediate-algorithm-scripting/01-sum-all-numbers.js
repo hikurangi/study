@@ -34,4 +34,4 @@ function sumAll(arr) {
 // sumAll([5, 10]) // // => 45.
 // sumAll([10, 5]) // // => 45.
 
-module.exports = sumAll
+export default sumAll

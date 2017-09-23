@@ -11,4 +11,4 @@
 
 const booWho = bool => bool === Boolean(bool) // typeof bool === 'boolean'
 
-module.exports = booWho
+export default booWho

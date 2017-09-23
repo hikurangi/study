@@ -32,7 +32,7 @@ const addTogether = (...args) => { // works for any length of array
   }
 }
 
-module.exports = addTogether
+export default addTogether
 
 // const addTogether = (...a) => a.length > 1 ? a.reduce((a, b) => a + b) : b => !isNaN(a) && !isNaN(b) ? a + b : undefined
 

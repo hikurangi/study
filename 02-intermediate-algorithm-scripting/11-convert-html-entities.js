@@ -114,4 +114,4 @@ const convertHTML = str => {
 //   }).join('');
 // }
 
-module.exports = convertHTML
+export default convertHTML
