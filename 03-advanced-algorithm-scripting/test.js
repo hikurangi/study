@@ -175,49 +175,43 @@ test('3.1.27 - Validate US Telephone Numbers: telephoneCheck("(555)5(55?)-5555")
 import updateRecords from './02-record-collection'
 
 test('3.2.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA".', () => {
-  updateRecords(5439, "artist", "ABBA").then(collection => {
-    const actual = collection[5439].artist
-    const expected = "ABBA"
-    expect(actual).toBe(expected)
-  })
+  const closure = updateRecords(5439, "artist", "ABBA")
+  const actual = closure[5439].artist
+  const expected = "ABBA"
+  expect(actual).toBe(expected)
 })
 
 test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" array on id "5439" should have "Take a Chance on Me" as the last element.', () => {
-  updateRecords(5439, "tracks", "Take a Chance on Me").then(collection => {
-    const actual = collection[5439].tracks[collection[5439].tracks.length-1]
-    const expected = "Take a Chance on Me"
-    expect(actual).toBe(expected)
-  })
-})
+  const closure = updateRecords(5439, "tracks", "Take a Chance on Me")
+  const actual = closure[5439].tracks[closure[5439].tracks.length-1]
+  const expected = "Take a Chance on Me"
+  expect(actual).toBe(expected)
+}) // still a problem
 
 test('3.2.2 - After updateRecords(2548, "artist", ""), the "artist" property on id "2548" should be undefined.', () => {
-  updateRecords(2548, "artist", "").then(collection => {
-    const actual = collection[2548].artist
-    const expected = undefined
-    expect(actual).toBe(expected)
-  })
+  const closure = updateRecords(2548, "artist", "")
+  const actual = closure[2548].artist
+  const expected = undefined
+  expect(actual).toBe(expected)
 })
 
 test('3.2.3 - After updateRecords(1245, "tracks", "Addicted to Love"), the "tracks" property on id "1245" have "Addicted to Love" as the last element.', () => {
-  updateRecords(1245, "tracks", "Addicted to Love").then(collection => {
-    const actual = collection[1245].tracks[collection[1245].tracks.length-1]
-    const expected = "Addicted to Love"
-    expect(actual).toBe(expected)
-  })
+  const closure = updateRecords(1245, "tracks", "Addicted to Love")
+  const actual = closure[1245].tracks[closure[1245].tracks.length-1]
+  const expected = "Addicted to Love"
+  expect(actual).toBe(expected)
 })
 
 test('3.2.4 - After updateRecords(2468, "tracks", "Free"), the "tracks" property on id "2468" have "1999" as the first element.', () => {
-  updateRecords(2468, "tracks", "Free").then(collection => {
-    const actual = collection[2468].tracks[0]
-    const expected = "Free"
-    expect(actual).toBe(expected)
-  })
+  const closure = updateRecords(2468, "tracks", "Free")
+  const actual = closure[2468].tracks[0]
+  const expected = "Free"
+  expect(actual).toBe(expected)
 })
 
 test('3.2.5 - After updateRecords(2548, "tracks", ""), the "tracks" property on id "2548" should be undefined.', () => {
-  updateRecords(2548, "tracks", "").then(collection => {
-    const actual = collection[2548].tracks
-    const expected = undefined
-    expect(actual).toBe(expected)
-  })
+  const closure = updateRecords(2548, "tracks", "")
+  const actual = closure[2548].tracks
+  const expected = undefined
+  expect(actual).toBe(expected)
 })
