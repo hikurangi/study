@@ -174,7 +174,7 @@ test('3.1.27 - Validate US Telephone Numbers: telephoneCheck("(555)5(55?)-5555")
 // 3.2 - Record Collection
 import updateRecords from './02-record-collection'
 
-test('3.2.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA"', () => {
+test('3.2.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA".', () => {
   updateRecords(5439, "artist", "ABBA").then(collection => {
     const actual = collection[5439].artist
     const expected = "ABBA"
@@ -182,7 +182,7 @@ test('3.2.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on
   })
 })
 
-test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" array on id "5439" should have "Take a Chance on Me" as the last element', () => {
+test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" array on id "5439" should have "Take a Chance on Me" as the last element.', () => {
   updateRecords(5439, "tracks", "Take a Chance on Me").then(collection => {
     const actual = collection[5439].tracks[collection[5439].tracks.length-1]
     const expected = "Take a Chance on Me"
@@ -190,7 +190,7 @@ test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "t
   })
 })
 
-test('3.2.2 - After updateRecords(2548, "artist", ""), the "artist" property on id "2548" should be undefined', () => {
+test('3.2.2 - After updateRecords(2548, "artist", ""), the "artist" property on id "2548" should be undefined.', () => {
   updateRecords(2548, "artist", "").then(collection => {
     const actual = collection[2548].artist
     const expected = undefined
