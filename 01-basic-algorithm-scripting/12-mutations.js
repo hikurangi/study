@@ -11,7 +11,7 @@
 
 const mutation = arr => arr[1].toLowerCase().split('').every(targetLetter => arr[0].toLowerCase().split('').some(matchLetter => matchLetter === targetLetter))
 
-module.exports = mutation
+export default mutation
 
 // Model answer - array comparison method unnecessary when looking inside of a string.
 

@@ -22,7 +22,7 @@ const truncateString = (str, num) => {
   }
 }
 
-module.exports = truncateString
+export default truncateString
 
 // FCC Model Answer ft. neat use of a ternary inside the slice method
 

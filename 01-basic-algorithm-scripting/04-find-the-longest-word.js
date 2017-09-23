@@ -13,4 +13,4 @@
 
 const findLongestWord = str => str.split(' ').reduce((first, second) => first.length > second.length ? first : second).length
 
-module.exports = findLongestWord
+export default findLongestWord

@@ -44,7 +44,7 @@ const pairElement = str => {
   return arr;
 }
 
-module.exports = pairElement
+export default pairElement
 
 // Model Answer - basic
 // function pairElement(str) {

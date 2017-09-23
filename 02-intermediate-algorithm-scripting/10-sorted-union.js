@@ -18,7 +18,7 @@ const uniteUnique = (...args) => args
   .reduce((acc, arr) => acc.concat(arr), [])
   .filter((item, position, array) => array.indexOf(item) === position)
 
-module.exports = uniteUnique
+export default uniteUnique
 
 // Model Answer - Intermediate - like mine but nests the filter within the reduce. Nifty.
 

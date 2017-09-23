@@ -47,6 +47,6 @@ const repeatStringNumTimes = (str, num) => {
   return num < 0 ? '' : str.repeat(num)
 }
 
-module.exports = repeatStringNumTimes
+export default repeatStringNumTimes
 
 // next try a recursive method with external tracker variable

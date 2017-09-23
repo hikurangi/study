@@ -65,4 +65,4 @@ const myReplace = (str, before, after) => {
 //   char.toUpperCase() !== char ? arr.push(false) : arr.push(true)
 // }
 
-module.exports = myReplace
+export default myReplace

@@ -10,4 +10,4 @@
 
 const findElement = (arr, func) => arr.filter(func)[0]
 
-module.exports = findElement
+export default findElement

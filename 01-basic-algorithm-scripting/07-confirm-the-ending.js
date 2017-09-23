@@ -13,4 +13,4 @@
 
 const confirmEnding = (str, target) => str.substr(-target.length) === target
 
-module.exports = confirmEnding
+export default confirmEnding

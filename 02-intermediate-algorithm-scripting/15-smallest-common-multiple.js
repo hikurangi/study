@@ -32,4 +32,4 @@ const smallestCommons = (arr) => {
   }
 }
 
-module.exports = smallestCommons
+export default smallestCommons

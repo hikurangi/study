@@ -17,7 +17,7 @@ const chunkArrayInGroups = (arr, size) => {
   return newArr
 }
 
-module.exports = chunkArrayInGroups
+export default chunkArrayInGroups
 
 // Neato model answers
 

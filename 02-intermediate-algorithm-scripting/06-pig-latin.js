@@ -27,7 +27,7 @@ const isVowel = letter => {
   return ['a', 'e', 'i', 'o', 'u'].indexOf(letter.toLowerCase()) !== -1
 }
 
-module.exports = translatePigLatin
+export default translatePigLatin
 
 // translatePigLatin("california") should return "aliforniacay".
 // translatePigLatin("paragraphs") should return "aragraphspay".

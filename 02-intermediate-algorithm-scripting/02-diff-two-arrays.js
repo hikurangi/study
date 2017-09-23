@@ -18,7 +18,7 @@ const diffArray = (arr1, arr2) => {
   return newArr;
 }
 
-module.exports = diffArray
+export default diffArray
 
 // Intermediate (Declarative Solution)
 // const diffArray = (arr1, arr2) => {

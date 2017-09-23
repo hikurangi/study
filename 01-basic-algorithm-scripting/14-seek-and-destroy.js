@@ -29,4 +29,4 @@ const destroyer = (...args) => args[0].filter(initialItem => !args.slice(1).some
 //   });
 // }
 
-module.exports = destroyer
+export default destroyer

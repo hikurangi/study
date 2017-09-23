@@ -10,7 +10,7 @@
 
 const bouncer = arr => arr.filter(item => item)
 
-module.exports = bouncer
+export default bouncer
 
 // Model Answer - this is a chin-scratcher
 

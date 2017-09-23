@@ -26,7 +26,7 @@ const dropElements = (arr,func) => !arr.length || func(arr[0]) ? arr : dropEleme
 //   }
 // }
 
-module.exports = dropElements
+export default dropElements
 
 // // Model Answer - Advanced Code solution
 // function dropElements(arr, func) {

@@ -1,3 +1,5 @@
+// 3 - Advanced Algorithm Scripting
+
 // 3.1 - Validate US Telephone Numbers
 import telephoneCheck from './01-validate-us-telephone-numbers';
 
@@ -168,3 +170,27 @@ test('3.1.27 - Validate US Telephone Numbers: telephoneCheck("(555)5(55?)-5555")
   const expected = false
   expect(actual).toBe(expected)
 })
+
+// 3.2 - Record Collection
+import updateRecords from './02-record-collection'
+import collection from './02-record-collection'
+
+test('3.1.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA"', () => {
+  updateRecords(5439, "artist", "ABBA")
+  const actual = "ABBA"
+  const expected = collection[5439][artist]
+  expect(actual).toEqual(expected)
+})
+
+test('3.1.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" value on id "5439" should be "Take a Chance on Me"', () => {
+  updateRecords(5439, "artist", "Take a Chance on Me")
+  const actual = "Take a Chance on Me"
+  const expected = collection[5439][tracks]
+  expect(actual).toEqual(expected)
+})
+
+// After updateRecords(5439, "tracks", "Take a Chance on Me"), tracks should have "Take a Chance on Me" as the last element.
+// After updateRecords(2548, "artist", ""), artist should not be set
+// After updateRecords(1245, "tracks", "Addicted to Love"), tracks should have "Addicted to Love" as the last element.
+// After updateRecords(2468, "tracks", "Free"), tracks should have "1999" as the first element.
+// After updateRecords(2548, "tracks", ""), tracks should not be set

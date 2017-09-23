@@ -28,4 +28,4 @@ const getIndexToIns = (arr, num) => {
 // const getIndexToIns = (arr, num) => arr.concat(num).sort((a,b) => a-b).indexOf(num)
 
 
-module.exports = getIndexToIns
+export default getIndexToIns

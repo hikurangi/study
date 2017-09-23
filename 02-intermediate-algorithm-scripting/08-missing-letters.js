@@ -21,7 +21,7 @@ const fearNotLetter = str => {
   return output === "\u0000" ? undefined : output // if the filter doesn't receive a value, it becomes the unicode for a space. Change that to undefined, otherwise just return the processed output value
 }
 
-module.exports = fearNotLetter
+export default fearNotLetter
 
 // Model Answer - Basic
 

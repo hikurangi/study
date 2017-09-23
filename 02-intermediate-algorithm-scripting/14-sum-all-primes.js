@@ -67,4 +67,4 @@ const sumPrimes = num => {
 //
 // }
 
-module.exports = sumPrimes
+export default sumPrimes
