@@ -173,24 +173,51 @@ test('3.1.27 - Validate US Telephone Numbers: telephoneCheck("(555)5(55?)-5555")
 
 // 3.2 - Record Collection
 import updateRecords from './02-record-collection'
-import collection from './02-record-collection'
 
-test('3.1.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA"', () => {
-  updateRecords(5439, "artist", "ABBA")
-  const actual = "ABBA"
-  const expected = collection[5439][artist]
-  expect(actual).toEqual(expected)
+test('3.2.0 - After updateRecords(5439, "artist", "ABBA"), the "artist" value on id "5439" should be "ABBA"', () => {
+  updateRecords(5439, "artist", "ABBA").then(collection => {
+    const actual = collection[5439]["artist"]
+    const expected = 'ABBA'
+    expect(actual).toBe(expected)
+  })
 })
 
-test('3.1.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" value on id "5439" should be "Take a Chance on Me"', () => {
-  updateRecords(5439, "artist", "Take a Chance on Me")
-  const actual = "Take a Chance on Me"
-  const expected = collection[5439][tracks]
-  expect(actual).toEqual(expected)
+test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "tracks" array on id "5439" should have "Take a Chance on Me" as the last element', () => {
+  updateRecords(5439, "tracks", "Take a Chance on Me").then(collection => {
+    const actual = collection[5439].tracks[collection[5439].tracks.length-1]
+    const expected = "Take a Chance on Me"
+    expect(actual).toBe(expected)
+  })
 })
 
-// After updateRecords(5439, "tracks", "Take a Chance on Me"), tracks should have "Take a Chance on Me" as the last element.
-// After updateRecords(2548, "artist", ""), artist should not be set
-// After updateRecords(1245, "tracks", "Addicted to Love"), tracks should have "Addicted to Love" as the last element.
-// After updateRecords(2468, "tracks", "Free"), tracks should have "1999" as the first element.
-// After updateRecords(2548, "tracks", ""), tracks should not be set
+test('3.2.2 - After updateRecords(2548, "artist", ""), the "artist" property on id "2548" should be undefined', () => {
+  updateRecords(2548, "artist", "").then(collection => {
+    const actual = collection[2548][artist]
+    const expected = undefined
+    expect(actual).toBe(expected)
+  })
+})
+
+test('3.2.3 - After updateRecords(1245, "tracks", "Addicted to Love"), the "tracks" property on id "1245" have "Addicted to Love" as the last element.', () => {
+  updateRecords(1245, "tracks", "Addicted to Love").then(collection => {
+    const actual = collection[1245].tracks[collection[1245].tracks.length-1]
+    const expected = "Addicted to Love"
+    expect(actual).toBe(expected)
+  })
+})
+
+test('3.2.4 - After updateRecords(2468, "tracks", "Free"), the "tracks" property on id "2468" have "1999" as the first element.', () => {
+  updateRecords(2468, "tracks", "Free").then(collection => {
+    const actual = collection[2468].tracks[0]
+    const expected = "Free"
+    expect(actual).toBe(expected)
+  })
+})
+
+test('3.2.5 - After updateRecords(2548, "tracks", ""), the "tracks" property on id "2548" should be undefined.', () => {
+  updateRecords(2548, "tracks", "").then(collection => {
+    const actual = collection[2548].tracks
+    const expected = undefined
+    expect(actual).toBe(expected)
+  })
+})
