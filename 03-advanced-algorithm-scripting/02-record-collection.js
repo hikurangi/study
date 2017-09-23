@@ -55,6 +55,16 @@ const collectionCopy = JSON.parse(JSON.stringify(collection));
 
 // Only change code below this line
 const updateRecords = (id, prop, value) => {
+  // If prop is "tracks" but the album doesn't have a "tracks" property,
+  if (prop !== 'tracks') {
+    collection[id][prop] = value
+  } else if (prop === 'tracks') {
+    collection[id][prop] ? collection[id][prop].push(value) : collection[id][prop] = [...value] // if the 'tracks' array exists, push the value to it. if not, create a new array with that value in it.
+  }
+  // if updateRecords is passed an empty string in place of a value argument
+  if (id && prop && value === "") { // best to check whether we have id & prop
+    delete collection[id][prop]
+  }
   return collection;
 }
 

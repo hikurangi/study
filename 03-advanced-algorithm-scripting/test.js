@@ -186,7 +186,7 @@ test('3.2.1 - After updateRecords(5439, "tracks", "Take a Chance on Me"), the "t
   const actual = closure[5439].tracks[closure[5439].tracks.length-1]
   const expected = "Take a Chance on Me"
   expect(actual).toBe(expected)
-}) // still a problem
+})
 
 test('3.2.2 - After updateRecords(2548, "artist", ""), the "artist" property on id "2548" should be undefined.', () => {
   const closure = updateRecords(2548, "artist", "")
