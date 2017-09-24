@@ -215,3 +215,66 @@ test('3.2.5 - After updateRecords(2548, "tracks", ""), the "tracks" property on 
   const expected = undefined
   expect(actual).toBe(expected)
 })
+
+// 3.3 - Symmetric Difference
+import sym from './03-symmetric-difference'
+
+test('3.3.0 - sym([1, 2, 3], [5, 2, 1, 4]) should return [3, 4, 5].', () => {
+  const actual = sym([1, 2, 3], [5, 2, 1, 4])
+  const expected = [3, 4, 5]
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.1 - sym([1, 2, 3], [5, 2, 1, 4]) should contain only three elements.', () => {
+  const actual = sym([1, 2, 3], [5, 2, 1, 4]).length
+  const expected = 3
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.2 - sym([1, 2, 5], [2, 3, 5], [3, 4, 5]) should return [1, 4, 5].', () => {
+  const actual = sym([1, 2, 5], [2, 3, 5], [3, 4, 5])
+  const expected = [1, 4, 5]
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.3 - sym([1, 2, 5], [2, 3, 5], [3, 4, 5]) should contain only three elements.', () => {
+  const actual = sym([1, 2, 5], [2, 3, 5], [3, 4, 5]).length
+  const expected = 3
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.4 - sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) should return [1, 4, 5].', () => {
+  const actual = sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5])
+  const expected = [1, 4, 5]
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.5 - sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]) should contain only three elements.', () => {
+  const actual = sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5]).length
+  const expected = 3
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.6 - sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]) should return [2, 3, 4, 6, 7].', () => {
+  const actual = sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])
+  const expected = [2, 3, 4, 6, 7]
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.7 - sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]) should contain only five elements.', () => {
+  const actual = sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]).length
+  const expected = 5
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.8 - sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) should return [1, 2, 4, 5, 6, 7, 8, 9].', () => {
+  const actual = sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1])
+  const expected = [1, 2, 4, 5, 6, 7, 8, 9]
+  expect(actual).toEqual(expected)
+})
+
+test('3.3.9 - sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]) should contain only eight elements.', () => {
+  const actual = sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]).length
+  const expected = 8
+  expect(actual).toEqual(expected)
+})
