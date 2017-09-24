@@ -11,13 +11,17 @@
 // Array.prototype.reduce()
 // Symmetric Difference
 
-const sym = args => {
+const sym = (...args) => {
   // use a reduce / object counter on a concatenated version of both arrays - return only the values which are recorded number of arrays passed - 1 times
-  const counter = args.reduce(a => a++, 0) // should count the number of arrays
-  console.log({counter});
-  const concat = [...args] // => should be a one-dimensional array containing all args
+  const total = args.length // should count the number of arrays
+  // const symmetric = args[0].reduce((a, b) => a.b ? a.b++ : a[b], {})
+  console.log({args, total});
   // might also need to count the number of arrays in args
-  return args;
+  // Step 1. Make this work for args[0] and args[1]
+  console.log(args[0].concat(args[1]) // looking awfully recursive!
+    .reduce((a, b) => a.b ? a.b++ : a.b, {})
+  )
+  return args
 }
 
 export default sym
