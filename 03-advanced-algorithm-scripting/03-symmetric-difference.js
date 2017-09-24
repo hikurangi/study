@@ -19,7 +19,7 @@ const sym = (...args) => {
   // might also need to count the number of arrays in args
   // Step 1. Make this work for args[0] and args[1]
   console.log(args[0].concat(args[1]) // looking awfully recursive!
-    .reduce((a, b) => a.b ? a.b++ : a.b, {})
+    .reduce((a, b) => a[b] ? a[b]++ : a[b], {})
   )
   return args
 }
