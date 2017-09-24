@@ -13,7 +13,7 @@
 
 const sym = args => {
   // use a reduce / object counter on a concatenated version of both arrays - return only the values which are recorded number of arrays passed - 1 times
-  counter = args.reduce(a => a++, 0) // should count the number of arrays
+  const counter = args.reduce(a => a++, 0) // should count the number of arrays
   console.log({counter});
   const concat = [...args] // => should be a one-dimensional array containing all args
   // might also need to count the number of arrays in args
