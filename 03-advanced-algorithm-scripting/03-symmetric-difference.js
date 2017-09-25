@@ -15,26 +15,32 @@ const sym = (...args) => {
   // use a reduce / object counter on a concatenated version of both arrays - return only the values which are recorded number of arrays passed - 1 times
   // Step 1. Make this work for args[0] and args[1]
   console.log({args});
-  const tally = args[0].concat(args[1])
-    .reduce((obj, val) => {
+
+  const tally = arr => {
+    arr.reduce((obj, val) => {
       obj[val] = (obj[val] || 0) + 1 // could be worth a refactor
       return obj
     }, {})
-  // turn symmetric to an array where the values appear only once
-  const symmetric = []
-  for (let key in tally) {
-    if (tally[key] === 1) {
-      symmetric.push(key)
-    }
   }
-  
+
+  const unique = obj => {
+    const arr = []
+    for (let key in obj) {
+      if (obj[key] === 1) {
+        arr.push(key)
+      }
+    }
+    return arr
+  }
+
+  const called = unique(tally(args[0].concat(args[1])))
   // IMPORTANT
   // also filter every array in args if it has multiple instances of the same number so the tally will work
 
   if (args.length > 2) {
-    return sym(symmetric, ...args.slice(2))
+    return sym(called, ...args.slice(2))
   } else if (args.length === 2) {
-    return symmetric
+    return called
   } else {
     return args
   }
