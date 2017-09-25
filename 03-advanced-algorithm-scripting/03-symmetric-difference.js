@@ -27,6 +27,9 @@ const sym = (...args) => {
       symmetric.push(key)
     }
   }
+  
+  // IMPORTANT
+  // also filter every array in args if it has multiple instances of the same number so the tally will work
 
   if (args.length > 2) {
     return sym(symmetric, ...args.slice(2))
