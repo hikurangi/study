@@ -14,14 +14,25 @@
 const sym = (...args) => {
   // use a reduce / object counter on a concatenated version of both arrays - return only the values which are recorded number of arrays passed - 1 times
   const total = args.length // should count the number of arrays
-  // const symmetric = args[0].reduce((a, b) => a.b ? a.b++ : a[b], {})
-  console.log({args, total});
-  // might also need to count the number of arrays in args
   // Step 1. Make this work for args[0] and args[1]
-  console.log(args[0].concat(args[1]) // looking awfully recursive!
-    .reduce((a, b) => a[b] ? a[b]++ : a[b], {})
-  )
-  return args
+  const tally = args[0].concat(args[1]).reduce((a, b) => {
+    a[b] = (a[b] || 0) + 1
+    return a
+  }, {}) // looking awfully recursive!
+  // turn symmetric to an array where the values appear only once
+  const symmetric = []
+
+  for (let key in tally) {
+    if (tally[key] === 1) {
+      symmetric.push(key)
+    }
+  }
+
+  if (args.length > 2) {
+    return sym(symmetric, args.slice(2))
+  } else {
+    return symmetric
+  }
 }
 
 export default sym
