@@ -30,8 +30,10 @@ const sym = (...args) => {
 
   if (args.length > 2) {
     return sym(symmetric, ...args.slice(2))
-  } else {
+  } else if (args.length === 2) {
     return symmetric
+  } else {
+    return args
   }
 }
 
