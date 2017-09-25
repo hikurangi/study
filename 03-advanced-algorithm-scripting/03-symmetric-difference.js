@@ -16,6 +16,10 @@ const sym = (...args) => {
   // Step 1. Make this work for args[0] and args[1]
   console.log({args});
 
+  const filtered = arr => {
+    return arr.filter((int, index) => indexOf(int) === index ) // each array should only have one instance of each integer - I think this is what's going wrong at present. what i've written however is supposedly a 'naive' approach
+  }
+
   const tally = arr => {
     arr.reduce((obj, val) => {
       obj[val] = (obj[val] || 0) + 1 // could be worth a refactor
@@ -33,7 +37,7 @@ const sym = (...args) => {
     return arr
   }
 
-  const called = unique(tally(args[0].concat(args[1])))
+  const called = unique(tally(filtered(args[0].concat(args[1]))))
   // IMPORTANT
   // also filter every array in args if it has multiple instances of the same number so the tally will work
 
