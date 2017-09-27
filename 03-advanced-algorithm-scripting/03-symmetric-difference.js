@@ -17,7 +17,7 @@ const sym = (...args) => {
   console.log({args});
 
   const filtered = arr => {
-    return arr.filter((int, index) => indexOf(int) === index ) // each array should only have one instance of each integer - I think this is what's going wrong at present. what i've written however is supposedly a 'naive' approach
+    return arr.filter((int, index, array) => array.indexOf(int) === index ) // each array should only have one instance of each integer - I think this is what's going wrong at present. what i've written however is supposedly a 'naive' approach
   }
 
   const tally = arr => {
