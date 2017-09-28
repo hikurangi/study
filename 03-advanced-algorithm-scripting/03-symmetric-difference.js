@@ -12,20 +12,13 @@
 // Symmetric Difference
 
 const sym = (...args) => {
-  // use a reduce / object counter on a concatenated version of both arrays - return only the values which are recorded number of arrays passed - 1 times
-  // Step 1. Make this work for args[0] and args[1]
-  console.log({args});
 
-  const filtered = arr => {
-    return arr.filter((int, index, array) => array.indexOf(int) === index ) // each array should only have one instance of each integer - I think this is what's going wrong at present. what i've written however is supposedly a 'naive' approach
-  }
+  const filtered = arr => [...new Set(arr)]
 
-  const tally = arr => {
-    arr.reduce((obj, val) => {
-      obj[val] = (obj[val] || 0) + 1 // could be worth a refactor
-      return obj
-    }, {})
-  }
+  const tally = arr => arr.reduce((obj, val) => {
+    obj[val] = (obj[val] || 0) + 1
+    return obj
+  }, {})
 
   const unique = obj => {
     const arr = []
@@ -38,8 +31,8 @@ const sym = (...args) => {
   }
 
   const called = unique(tally(filtered(args[0].concat(args[1]))))
-  // IMPORTANT
-  // also filter every array in args if it has multiple instances of the same number so the tally will work
+
+  console.log({called, args});
 
   if (args.length > 2) {
     return sym(called, ...args.slice(2))
