@@ -12,14 +12,11 @@
 // Symmetric Difference
 
 const sym = (...args) => {
-
   const noDupes = args.map(arr => [...new Set(arr)])
-
   const tally = arr => arr.reduce((obj, val) => {
     obj[val] = (obj[val] || 0) + 1
     return obj
   }, {})
-  
   const unique = obj => {
     const arr = []
     for (let key in obj) {
@@ -29,9 +26,7 @@ const sym = (...args) => {
     }
     return arr
   }
-
   const called = unique(tally(noDupes[0].concat(noDupes[1])))
-
   if (args.length > 2) {
     return sym(called, ...args.slice(2))
   } else if (args.length === 2) {
