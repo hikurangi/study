@@ -13,7 +13,7 @@
 
 const sym = (...args) => {
 
-  const filtered = arr => [...new Set(arr)]
+  const noDupes = args.map(arr => [...new Set(arr)])
 
   const tally = arr => arr.reduce((obj, val) => {
     obj[val] = (obj[val] || 0) + 1
@@ -24,15 +24,13 @@ const sym = (...args) => {
     const arr = []
     for (let key in obj) {
       if (obj[key] === 1) {
-        arr.push(key)
+        arr.push(+key)
       }
     }
     return arr
   }
 
-  const called = unique(tally(filtered(args[0].concat(args[1]))))
-
-  console.log({called, args});
+  const called = unique(tally(noDupes[0].concat(noDupes[1])))
 
   if (args.length > 2) {
     return sym(called, ...args.slice(2))
