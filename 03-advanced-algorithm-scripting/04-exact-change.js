@@ -17,6 +17,9 @@
 const checkCashRegister = (price, cash, cid) => {
   let change;
   // Here is your change, ma'am.
+  // Easiest is sufficient funds/closed check first
+  // 1. add contents of CID arrays
+  const tid = cid.reduce((a, b) => a + b[1], 0) // works
   return change;
 }
 
