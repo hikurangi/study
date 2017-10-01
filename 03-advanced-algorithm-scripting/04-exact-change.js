@@ -15,7 +15,7 @@
 // Global Object
 
 const checkCashRegister = (price, cash, cid) => {
-  let change;
+  const change = []
   // Here is your change, ma'am.
   // Easiest is sufficient funds/closed check first
   // 1. add contents of CID arrays
