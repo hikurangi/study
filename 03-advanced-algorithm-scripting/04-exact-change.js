@@ -15,16 +15,25 @@
 // Global Object
 
 const checkCashRegister = (price, cash, cid) => {
-  const change = []
-  const diff = price - cash
-  // Here is your change, ma'am.
-  // Easiest is sufficient funds/closed check first
-  // 1. add contents of CID arrays
-  const tid = cid.reduce((a, b) => a + b[1], 0) // works
-  if (diff - tid === 0) {
+  const tid = cid.reduce((a, b) => a + b[1], 0)
+  let change = -(price - cash)
+  console.log({
+    price,
+    cash,
+    cid,
+    change,
+    tid
+  });
+  if (change === tid) {
     return 'Closed'
-  } else if (diff - tid < 0) {
+  } else if (change > tid) { // gives false positives
     return 'Insufficient Funds'
+  } else if (change < tid) {
+    // iterate through CID, from largest to smallest
+    const sorted = cid.reverse()
+    change = []
+    // is item[0] less than change due?
+    // if so, push one of it to the change array
   }
   return change;
 }
