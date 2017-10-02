@@ -16,25 +16,40 @@
 
 const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
-  let change = -(price - cash)
+  let diff = -(price - cash)
+  let change = []
+  const denoms = {
+    'PENNY': 0.01,
+    'NICKEL': 0.05,
+    'DIME': 0.10,
+    'QUARTER': 0.25,
+    'ONE': 1,
+    'FIVE': 5,
+    'TEN': 10,
+    'TWENTY': 20,
+    'ONE HUNDRED': 100
+  }
+  if (diff === tid) {
+    return 'Closed'
+  } else if (diff > tid) { // gives false positives
+    return 'Insufficient Funds'
+  } else if (diff < tid) {
+    // iterate through CID, from largest to smallest
+    const sorted = cid.reverse()
+    // is item[0] less than change due (diff)?
+    cid.forEach(item => {
+      if (item[1] <= diff) change.push([item[0], denoms[item[0]]])
+    })
+    // if so, push one of it to the change array
+  }
   console.log({
     price,
     cash,
     cid,
-    change,
-    tid
+    diff,
+    tid,
+    change
   });
-  if (change === tid) {
-    return 'Closed'
-  } else if (change > tid) { // gives false positives
-    return 'Insufficient Funds'
-  } else if (change < tid) {
-    // iterate through CID, from largest to smallest
-    const sorted = cid.reverse()
-    change = []
-    // is item[0] less than change due?
-    // if so, push one of it to the change array
-  }
   return change;
 }
 
