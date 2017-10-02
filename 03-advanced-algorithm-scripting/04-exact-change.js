@@ -16,10 +16,16 @@
 
 const checkCashRegister = (price, cash, cid) => {
   const change = []
+  const diff = price - cash
   // Here is your change, ma'am.
   // Easiest is sufficient funds/closed check first
   // 1. add contents of CID arrays
   const tid = cid.reduce((a, b) => a + b[1], 0) // works
+  if (diff - tid === 0) {
+    return 'Closed'
+  } else if (diff - tid < 0) {
+    return 'Insufficient Funds'
+  }
   return change;
 }
 
