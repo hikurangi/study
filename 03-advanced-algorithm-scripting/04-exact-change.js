@@ -16,8 +16,8 @@
 
 const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
-  let diff = -(price - cash)
-  let change = []
+  const diff = -(price - cash)
+  const change = []
   const denoms = {
     'PENNY': 0.01,
     'NICKEL': 0.05,
@@ -31,8 +31,6 @@ const checkCashRegister = (price, cash, cid) => {
   }
   if (diff === tid) {
     return 'Closed'
-  } else if (diff > tid) { // gives false positives
-    return 'Insufficient Funds'
   } else if (diff < tid) {
     // iterate through CID, from largest to smallest
     const sorted = cid.reverse()
@@ -41,6 +39,8 @@ const checkCashRegister = (price, cash, cid) => {
       if (item[1] <= diff) change.push([item[0], denoms[item[0]]])
     })
     // if so, push one of it to the change array
+  } else { // just 'else'?
+    return 'Insufficient Funds'
   }
   console.log({
     price,
