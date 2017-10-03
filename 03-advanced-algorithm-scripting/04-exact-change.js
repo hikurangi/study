@@ -29,14 +29,19 @@ const checkCashRegister = (price, cash, cid) => {
     'TWENTY': 20,
     'ONE HUNDRED': 100
   }
-  if (diff === tid) {
+  if (diff === tid) { // denominations don't matter
     return 'Closed'
   } else if (diff < tid) {
     // iterate through CID, from largest to smallest
     const sorted = cid.reverse()
     // is item[0] less than change due (diff)?
     cid.forEach(item => {
-      if (item[1] <= diff) change.push([item[0], denoms[item[0]]])
+      if (item[1] === diff) {
+        return 'Closed'
+      } else if (item[1] < diff) {
+        // figure out how many times the denomination fits into diff
+        change.push([item[0], denoms[item[0]] * item[1] / denoms[item[0]]])
+      }
     })
     // if so, push one of it to the change array
   } else { // just 'else'?
