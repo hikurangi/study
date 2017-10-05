@@ -38,11 +38,11 @@ const checkCashRegister = (price, cash, cid) => {
     cid.forEach((item, index, array) => {
       if (index === array.length - 1) {
         return 'Insufficient Funds'
-      } else if (item[1] === diff) {
-        return 'Closed'
       } else if (item[1] < diff && item[1] !== 0) {
-        // figure out how many times the denomination fits into diff
-        change.push([item[0], item[1]])
+        const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
+        const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
+        console.log({multiple, maxValue});
+        change.push([item[0], maxValue])
       }
     })
   }
