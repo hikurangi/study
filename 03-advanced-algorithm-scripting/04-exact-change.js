@@ -33,18 +33,17 @@ const checkCashRegister = (price, cash, cid) => {
     return 'Closed'
   } else if (diff < tid) {
     // iterate through CID, from largest to smallest
-    const sorted = cid.reverse()
-    // is item[0] less than change due (diff)?
-    cid.forEach((item, index, array) => {
-      if (index === array.length - 1) {
-        return 'Insufficient Funds'
-      } else if (item[1] < diff && item[1] !== 0) {
-        const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
-        const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
-        console.log({multiple, maxValue});
-        change.push([item[0], maxValue])
-      }
-    })
+    cid.reverse()
+      .forEach((item, index, array) => {
+        if (index === array.length - 1) {
+          return 'Insufficient Funds'
+        } else if (item[1] < diff && item[1] !== 0) {
+          const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
+          const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
+          console.log({sorted, multiple, target: [item[0], maxValue]});
+          change.push([item[0], maxValue])
+        }
+      })
   }
   console.log({
     price,
