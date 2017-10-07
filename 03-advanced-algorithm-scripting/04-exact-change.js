@@ -35,8 +35,11 @@ const checkCashRegister = (price, cash, cid) => {
   if (tid === diff) {
     return 'Closed'
   }
-  const reversed = cid.reverse() // does the largest fit into the difference?
-  const largest = cid.reduce((a, b, index) => Math.max(a[1], b[1]))
+  
+  const largest = arr => arr.reduce((a, b, index) => Math.max(a[1], b[1]))
+
+  const biggestDenom = largest(cid)
+
 }
 
 module.exports = checkCashRegister
