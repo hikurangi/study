@@ -40,7 +40,7 @@ const checkCashRegister = (price, cash, cid) => {
         } else if (item[1] < diff && item[1] !== 0) {
           const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
           const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
-          console.log({sorted, multiple, target: [item[0], maxValue]});
+          console.log({multiple, target: [item[0], maxValue]});
           change.push([item[0], maxValue])
         }
       })
@@ -57,3 +57,15 @@ const checkCashRegister = (price, cash, cid) => {
 }
 
 module.exports = checkCashRegister
+
+// cid.reverse()
+//   .forEach((item, index, array) => {
+//     if (index === array.length - 1) {
+//       return 'Insufficient Funds'
+//     } else if (item[1] < diff && item[1] !== 0) {
+//       const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
+//       const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
+//       console.log({sorted, multiple, target: [item[0], maxValue]});
+//       change.push([item[0], maxValue])
+//     }
+//   })
