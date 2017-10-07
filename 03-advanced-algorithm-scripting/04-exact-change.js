@@ -17,7 +17,7 @@
 const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
   const diff = cash - price
-  const change = []
+  let change = []
   const denoms = {
     'PENNY': 0.01,
     'NICKEL': 0.05,
@@ -29,31 +29,14 @@ const checkCashRegister = (price, cash, cid) => {
     'TWENTY': 20,
     'ONE HUNDRED': 100
   }
-  if (diff === tid) { // denominations don't matter
+  // if () {
+  //   return 'Insufficient Funds'
+  // }
+  if (tid === diff) {
     return 'Closed'
-  } else if (diff < tid) {
-    // iterate through CID, from largest to smallest
-    cid.reverse()
-      .forEach((item, index, array) => {
-        if (index === array.length - 1) {
-          return 'Insufficient Funds'
-        } else if (item[1] < diff && item[1] !== 0) {
-          const multiplier = Math.floor(diff / denoms[item[0]]) // how many times can that denomination fit into diff
-          const maxValue = multiplier * denoms[item[0]] < diff ? multiplier * denoms[item[0]] : item[1]
-          console.log({multiple, target: [item[0], maxValue]});
-          change.push([item[0], maxValue])
-        }
-      })
   }
-  console.log({
-    price,
-    cash,
-    cid,
-    diff,
-    tid,
-    change
-  });
-  return change;
+  const reversed = cid.reverse() // does the largest fit into the difference?
+  const largest = cid.reduce((a, b, index) => Math.max(a[1], b[1]))
 }
 
 module.exports = checkCashRegister
