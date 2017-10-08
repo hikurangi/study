@@ -40,9 +40,7 @@ const checkCashRegister = (price, cash, cid) => {
     const biggest = cid.reduce((a, b) => Math.max(a[1], b[1]) === a[1] ? a : b) // return the sub-array with the largest numeric value
     const multiples = cid.map(denom => denom[1] = Math.floor(denom[1] / denoms[denom[0]])) // for all the cash in the drawer, show how many of each denomination there is, as opposed to its absolute numerical value
     console.log({biggest, multiples, cid, tid});
-
-  }
-
+  }  
 }
 
 module.exports = checkCashRegister
