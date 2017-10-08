@@ -18,6 +18,7 @@ const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
   const diff = cash - price
   let change = []
+
   const denoms = {
     'PENNY': 0.01,
     'NICKEL': 0.05,
@@ -29,16 +30,18 @@ const checkCashRegister = (price, cash, cid) => {
     'TWENTY': 20,
     'ONE HUNDRED': 100
   }
-  // if () {
-  //   return 'Insufficient Funds'
-  // }
-  if (tid === diff) {
-    return 'Closed'
-  }
-  
-  const largest = arr => arr.reduce((a, b, index) => Math.max(a[1], b[1]))
 
-  const biggestDenom = largest(cid)
+  if (!cid) { //
+    return 'Insufficient Funds'
+  } else if (tid === diff) {
+    return 'Closed'
+  } else {
+    // get the biggest value
+    const biggest = cid.reduce((a, b) => Math.max(a[1], b[1]) === a[1] ? a : b) // return the sub-array with the largest numeric value
+    const multiples = cid.map(denom => denom[1] = Math.floor(denom[1] / denoms[denom[0]])) // for all the cash in the drawer, show how many of each denomination there is, as opposed to its absolute numerical value
+    console.log({biggest, multiples, cid, tid});
+
+  }
 
 }
 
