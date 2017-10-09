@@ -36,7 +36,7 @@ const checkCashRegister = (price, cash, cid) => {
     // get the biggest value
     const biggest = cid.reduce((a, b, index) => Math.max(a[1], b[1]) === a[1] ? a : b) // return the sub-array with the largest numeric value
     let multiple = Math.floor(biggest[1] / denoms[biggest[0]]) // how many of the denomination is in the drawer?
-    
+
   }
     // while (multiple) {
     //   if (diff < 0) {
@@ -51,7 +51,6 @@ const checkCashRegister = (price, cash, cid) => {
     // subtract the biggest (biggest) denomination in the drawer from the change amount due (diff) multiples times
 
     // checkCashRegister(newPrice, newCash, newCid)
-  }
 }
 
 module.exports = checkCashRegister
