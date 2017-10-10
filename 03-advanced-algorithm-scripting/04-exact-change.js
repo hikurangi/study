@@ -14,6 +14,7 @@
 //
 // Global Object
 
+// My approach does not assume an ordered array smallest to largest
 const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
   let diff = cash - price
@@ -36,8 +37,16 @@ const checkCashRegister = (price, cash, cid) => {
     // get the biggest value
     const biggest = cid.reduce((a, b, index) => Math.max(a[1], b[1]) === a[1] ? a : b) // return the sub-array with the largest numeric value
     let multiple = Math.floor(biggest[1] / denoms[biggest[0]]) // how many of the denomination is in the drawer?
-    const cheese = []
 
+    if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
+      if (multiple > 1) {
+        // take away one item (denoms[biggest[0]]) from biggest[1] and try again (return checkCashRegister called with chopped off array)
+      } else { // if multiple is NOT greater than 1
+        // chop off the biggest denomination and try again
+      }
+    } else {
+      // remove biggest from cid and return array with it and checkCashRegister called with the shortened cid in the next place.
+    }
   }
     // while (multiple) {
     //   if (diff < 0) {
