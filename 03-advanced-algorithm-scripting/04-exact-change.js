@@ -43,8 +43,15 @@ const checkCashRegister = (price, cash, cid) => {
     if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
       if (multiple > 1) {
         // take away one item (denoms[biggest[0]]) from biggest[1] and try again (return checkCashRegister called with chopped off array)
-        // const subtracted = cid[bigIndex][1] - denoms[biggest[0]] > 0 ? cid[bigIndex][1] - denoms[biggest[0]] : cid 
+        const subtracted = [...cid.slice(bigIndex, 1), cid[bigIndex][1] - denoms[biggest[0]]]
+
+        const adjPrice = price - biggest[1]
+        const adjCash = cash - biggest[1]
+        // also remove the relevant amount from 'price' and 'cash'
+        return [[biggest[0], biggest[1] - denoms[biggest[0]]],  ...checkCashRegister(adjPrice, adjCash, subtracted)] // not quite right!
+
       } else { // if multiple is NOT greater than 1
+
         // chop off the biggest denomination and try again
       }
     } else {
