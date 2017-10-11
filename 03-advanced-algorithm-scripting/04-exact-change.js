@@ -39,11 +39,11 @@ const checkCashRegister = (price, cash, cid) => {
     let multiple = Math.floor(biggest[1] / denoms[biggest[0]]) // how many of the denomination is in the drawer?
     const bigIndex = cid.indexOf(biggest)
     console.log({biggest, multiple, bigIndex})
-    
-    if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
 
+    if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
       if (multiple > 1) {
         // take away one item (denoms[biggest[0]]) from biggest[1] and try again (return checkCashRegister called with chopped off array)
+        // const subtracted = cid[bigIndex][1] - denoms[biggest[0]] > 0 ? cid[bigIndex][1] - denoms[biggest[0]] : cid 
       } else { // if multiple is NOT greater than 1
         // chop off the biggest denomination and try again
       }
