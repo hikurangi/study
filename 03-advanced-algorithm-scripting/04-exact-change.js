@@ -45,6 +45,8 @@ const checkCashRegister = (price, cash, cid) => {
         // take away one item (denoms[biggest[0]]) from biggest[1] and try again (return checkCashRegister called with chopped off array)
         const subtracted = [...cid.slice(bigIndex, 1), cid[bigIndex][1] - denoms[biggest[0]]]
 
+        // for a recursive solution, must deal with entire denomination in one swoop, not as below!
+
         const adjPrice = price - biggest[1]
         const adjCash = cash - biggest[1]
         // also remove the relevant amount from 'price' and 'cash'
