@@ -29,7 +29,7 @@ const checkCashRegister = (price, cash, cid) => {
     'TWENTY': 20,
     'ONE HUNDRED': 100
   }
-  if (!cid) { // may need refining
+  if (cid.length === 0) { // may need refining
     return 'Insufficient Funds'
   } else if (tid === diff) {
     return 'Closed'
@@ -42,8 +42,8 @@ const checkCashRegister = (price, cash, cid) => {
 
     if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
       if (multiple > 1) {
-        // take away one item (denoms[biggest[0]]) from biggest[1] and try again (return checkCashRegister called with chopped off array)
-        const subtracted = [...cid.slice(bigIndex, 1), cid[bigIndex][1] - denoms[biggest[0]]]
+        // take away denoms[biggest[0]] 'multiple' times, add that to the change to be returned 'multiple' times
+        const subtracted = [...cid.slice(bigIndex, 1), cid[bigIndex][1] - (multiple * denoms[biggest[0]])]
 
         // for a recursive solution, must deal with entire denomination in one swoop, not as below!
 
@@ -53,8 +53,7 @@ const checkCashRegister = (price, cash, cid) => {
         return [[biggest[0], biggest[1] - denoms[biggest[0]]],  ...checkCashRegister(adjPrice, adjCash, subtracted)] // not quite right!
 
       } else { // if multiple is NOT greater than 1
-
-        // chop off the biggest denomination and try again
+        return [checkCashRegister(price, cash, cid.slice(bigIndex, 1))]// chop off the biggest denomination and try again
       }
     } else {
       // remove biggest from cid and return array with it and checkCashRegister called with the shortened cid in the next place.
