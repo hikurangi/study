@@ -18,6 +18,7 @@
 const checkCashRegister = (price, cash, cid) => {
   const tid = cid.reduce((a, b) => a + b[1], 0)
   let diff = cash - price
+  let change = []
   const denoms = {
     'PENNY': 0.01,
     'NICKEL': 0.05,
@@ -50,10 +51,10 @@ const checkCashRegister = (price, cash, cid) => {
         const adjPrice = price - biggest[1]
         const adjCash = cash - biggest[1]
         // also remove the relevant amount from 'price' and 'cash'
-        return [[biggest[0], biggest[1] - denoms[biggest[0]]],  ...checkCashRegister(adjPrice, adjCash, subtracted)] // not quite right!
+        change.concat([[biggest[0], biggest[1] - denoms[biggest[0]]], checkCashRegister(adjPrice, adjCash, subtracted)]) // not quite right!
 
       } else { // if multiple is NOT greater than 1
-        return [checkCashRegister(price, cash, cid.slice(bigIndex, 1))]// chop off the biggest denomination and try again
+        change.concat([checkCashRegister(price, cash, cid.slice(bigIndex, 1))])// chop off the biggest denomination and try again
       }
     } else {
       // remove biggest from cid and return array with it and checkCashRegister called with the shortened cid in the next place.
@@ -72,6 +73,7 @@ const checkCashRegister = (price, cash, cid) => {
     // subtract the biggest (biggest) denomination in the drawer from the change amount due (diff) multiples times
 
     // checkCashRegister(newPrice, newCash, newCid)
+    return typeof change[0] === 'string' ? change[0] : change
 }
 
 module.exports = checkCashRegister
