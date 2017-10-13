@@ -25,7 +25,26 @@ const checkCashRegister = (price, cash, cid) => {
   } else if (tid === change) { // 2) if cash in drawer is equal to the change due,
     return 'Closed'
   } else { // 3) if cash in drawer is greater than the change due
-    return ordered.reduce((filtered, denom) => filtered.push(denom), []) // reduce with an array to map and filter simultaneously
+    const lookup = {
+      'PENNY': 0.01,
+      'NICKEL': 0.05,
+      'DIME': 0.10,
+      'QUARTER': 0.25,
+      'ONE': 1,
+      'FIVE': 5,
+      'TEN': 10,
+      'TWENTY': 20,
+      'ONE HUNDRED': 100
+    }
+    return ordered.reduce((filtered, denom) => {
+      const subtracted = denom[1] - lookup[denom[0]]
+      if (denom[1] < cashDue) {
+        return filtered.push(denom) // needs some way of keeping track of the running total of change
+      } else if (denom[1] > change) {
+        // first, remove lookup[denom[0]] from denom[1]
+        return filtered //
+      }
+    }, []) // reduce with an array to map and filter simultaneously
   }
 }
 
