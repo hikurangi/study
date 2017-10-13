@@ -37,14 +37,14 @@ const checkCashRegister = (price, cash, cid) => {
       'ONE HUNDRED': 100
     }
     return ordered.reduce((filtered, denom) => {
-      const subtracted = denom[1] - lookup[denom[0]]
-      if (denom[1] < cashDue) {
+      const multiple = denom[1] / lookup[denom[0]] // Math.floor unnecessary, will always be an integer
+      if (denom[1] < filtered[0]) {
         return filtered.push(denom) // needs some way of keeping track of the running total of change
-      } else if (denom[1] > change) {
+      } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
         return filtered //
       }
-    }, []) // reduce with an array to map and filter simultaneously
+    }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure
   }
 }
 
