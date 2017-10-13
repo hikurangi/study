@@ -44,12 +44,13 @@ const checkCashRegister = (price, cash, cid) => {
     if (biggest[1] > diff) { // if the full amount of the biggest denomination is more than the difference, is multiple greater than one?
       if (multiple > 1) {
         // take away denoms[biggest[0]] 'multiple' times, add that to the change to be returned 'multiple' times
-        const subtracted = [...cid.slice(bigIndex, 1), cid[bigIndex][1] - (multiple * denoms[biggest[0]])]
+        const subtracted = [cid.slice(bigIndex, 1), cid[bigIndex][1] - (multiple * denoms[biggest[0]])]
 
         // for a recursive solution, must deal with entire denomination in one swoop, not as below!
-
         const adjPrice = price - biggest[1]
         const adjCash = cash - biggest[1]
+
+        console.log({subtracted, adjPrice, adjCash});
         // also remove the relevant amount from 'price' and 'cash'
         change.concat([[biggest[0], biggest[1] - denoms[biggest[0]]], checkCashRegister(adjPrice, adjCash, subtracted)]) // not quite right!
 
@@ -73,6 +74,7 @@ const checkCashRegister = (price, cash, cid) => {
     // subtract the biggest (biggest) denomination in the drawer from the change amount due (diff) multiples times
 
     // checkCashRegister(newPrice, newCash, newCid)
+    console.log({price, cash, cid, change});
     return typeof change[0] === 'string' ? change[0] : change
 }
 
