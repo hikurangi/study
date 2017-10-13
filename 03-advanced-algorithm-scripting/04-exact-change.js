@@ -24,10 +24,9 @@ const checkCashRegister = (price, cash, cid) => {
     return 'Insufficient Funds'
   } else if (tid === change) { // 2) if cash in drawer is equal to the change due,
     return 'Closed'
-  } else { // tid > change
-
+  } else { // 3) if cash in drawer is greater than the change due
+    return ordered.reduce((filtered, denom) => filtered.push(denom), []) // reduce with an array to map and filter simultaneously
   }
-
 }
 
 module.exports = checkCashRegister
