@@ -16,7 +16,18 @@
 
 // My approach does not assume an ordered array smallest to largest
 const checkCashRegister = (price, cash, cid) => {
+  const change = cash - price
   const ordered = cid.reverse()
+  const tid = cid.reduce((a, b) => a + b[1], 0)
+  // three part conditional:
+  if (tid < change) { // 1) if cash in drawer is less than the change due:
+    return 'Insufficient Funds'
+  } else if (tid === change) { // 2) if cash in drawer is equal to the change due,
+    return 'Closed'
+  } else { // tid > change
+
+  }
+
 }
 
 module.exports = checkCashRegister
