@@ -38,11 +38,15 @@ const checkCashRegister = (price, cash, cid) => {
         'TWENTY': 20,
         'ONE HUNDRED': 100
       }
-      const multiple = denom[1] / lookup[denom[0]] // Math.floor unnecessary, will always be an integer
+      const increment = lookup[denom[0]]
+      const multiple = Math.floor(denom[1] / increment)
+      const changeTracker = filtered[0]
+      
       if (denom[1] < filtered[0]) {
-        return filtered.push(denom) // needs some way of keeping track of the running total of change
+        return filtered.push(denom)
       } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
+
         return filtered //
       }
     }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
