@@ -26,6 +26,7 @@ const checkCashRegister = (price, cash, cid) => {
     return 'Closed'
   } else { // 3) if cash in drawer is greater than the change due
     return ordered.reduce((filtered, denom) => {
+      console.log({filtered});
       const lookup = {
         'PENNY': 0.01,
         'NICKEL': 0.05,
@@ -45,7 +46,6 @@ const checkCashRegister = (price, cash, cid) => {
         return filtered //
       }
     }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
-    console.log({filtered});
   }
 }
 
