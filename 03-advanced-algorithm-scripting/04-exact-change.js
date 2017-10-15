@@ -45,6 +45,7 @@ const checkCashRegister = (price, cash, cid) => {
         return filtered //
       }
     }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
+    console.log({filtered});
   }
 }
 
