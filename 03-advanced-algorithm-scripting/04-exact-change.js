@@ -25,7 +25,7 @@ const checkCashRegister = (price, cash, cid) => {
   } else if (tid === change) { // 2) if cash in drawer is equal to the change due,
     return 'Closed'
   } else { // 3) if cash in drawer is greater than the change due
-    return ordered.reduce((filtered, denom) => {
+    const output = ordered.reduce((filtered, denom) => {
       console.log({filtered});
       const lookup = {
         'PENNY': 0.01,
@@ -41,15 +41,17 @@ const checkCashRegister = (price, cash, cid) => {
       const increment = lookup[denom[0]]
       const multiple = Math.floor(denom[1] / increment)
       const changeTracker = filtered[0]
-      
-      if (denom[1] < filtered[0]) {
-        return filtered.push(denom)
+
+      if (denom[1] < changeTracker) {
+        return filtered.push(increment)
       } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
 
         return filtered //
       }
     }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
+    console.log({output});
+    return output
   }
 }
 
