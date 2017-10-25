@@ -15,8 +15,7 @@
 // String.prototype.charCodeAt()
 // String.fromCharCode()
 
-const rot13 = str => str
-  .split('')
+const rot13 = str => str.split('')
   .map(letter => letter.charCodeAt(0) > 64 && letter.charCodeAt(0) < 91 ? String.fromCharCode((letter.charCodeAt(0) - 13) < 65 ? 91 - (65 - (letter.charCodeAt(0) - 13)) : letter.charCodeAt(0) - 13) : letter)
   .join('')
 
