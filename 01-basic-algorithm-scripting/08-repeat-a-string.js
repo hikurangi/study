@@ -43,9 +43,7 @@
 // }
 
 // Ideal FCC answer using .repeat() method
-const repeatStringNumTimes = (str, num) => {
-  return num < 0 ? '' : str.repeat(num)
-}
+const repeatStringNumTimes = (str, num) => num < 0 ? '' : str.repeat(num)
 
 export default repeatStringNumTimes
 
