@@ -17,7 +17,7 @@ const sumPrimes = num => {
   const isPrime = val => { // return boolean value for primeness of an input number
     let start = 2
     while (start <= Math.sqrt(val)) {
-      if (val % start++ < 1) return false // postcrement increments value after the statement has been evaluated
+      if (val % start++ < 1) return false // postcrement increments value after the statement has been evaluated - used in loops
     }
     return val > 1
   }
