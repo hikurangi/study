@@ -18,9 +18,7 @@ const sumFibs = num => {
     fib.push(fib[i-2] + fib[i-1])
     i++
   } // create complete fibonacci sequence including one value which equals or exceeds num
-  return fib
-    .filter(n => (n % 2 !== 0) && (n <= num)) // get rid of even values and any which exceed num
-    .reduce((a, b) => a + b, 0)
+  return fib.reduce((a, n) => n % 2 !== 0 && n <= num ? a + n : a)
 }
 
 export default sumFibs
