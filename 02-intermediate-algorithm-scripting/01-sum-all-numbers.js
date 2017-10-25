@@ -15,9 +15,9 @@
 // My first answer
 
 function sumAll(arr) {
-  arr.sort((a, b) => a - b)
+  const sorted = arr.sort((a, b) => a - b)
   let total = 0
-  for ( let i = arr[0]; i <= arr[1]; i++ ) {
+  for ( let i = sorted[0]; i <= sorted[1]; i++ ) {
     total += i
   }
   return total
