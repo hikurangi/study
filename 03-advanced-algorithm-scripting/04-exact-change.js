@@ -44,12 +44,13 @@ const checkCashRegister = (price, cash, cid) => {
 
       if (denom[1] < changeTracker) {
         console.log('denom[1] < changeTracker path');
-        return filtered.push(increment) // this is not happening
+        console.log('filtered before push', filtered);
+        filtered.push(increment) // this is not happening
+        console.log('filtered after push', filtered);
       } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
-
-        return filtered //
       }
+      return filtered // mutate the array, THEN return it
     }, [change]).shift() // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
     console.log({output});
     return output
