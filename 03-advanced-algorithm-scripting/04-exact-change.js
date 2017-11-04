@@ -45,7 +45,7 @@ const checkCashRegister = (price, cash, cid) => {
       if (denom[1] < changeTracker) {
         console.log('denom[1] < changeTracker path');
         console.log('filtered before push', filtered);
-        filtered.push(increment) // this is not happening
+        filtered.push([denom[0], increment]) // this is not happening
         console.log('filtered after push', filtered);
       } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
