@@ -17,7 +17,6 @@
 // My approach does not assume an ordered array smallest to largest
 const checkCashRegister = (price, cash, cid) => {
   const change = cash - price
-  const ordered = cid.reverse()
   const tid = cid.reduce((a, b) => a + b[1], 0)
   // three part conditional:
   if (tid < change) { // 1) if cash in drawer is less than the change due:
@@ -25,7 +24,7 @@ const checkCashRegister = (price, cash, cid) => {
   } else if (tid === change) { // 2) if cash in drawer is equal to the change due,
     return 'Closed'
   } else { // 3) if cash in drawer is greater than the change due
-    const output = ordered.reduce((filtered, denom) => {
+    const output = cid.reverse().reduce((filtered, denom) => {
       console.log({filtered});
       const lookup = {
         'PENNY': 0.01,
@@ -45,7 +44,7 @@ const checkCashRegister = (price, cash, cid) => {
       if (denom[1] < changeTracker) {
         console.log('denom[1] < changeTracker path');
         console.log('filtered before push', filtered);
-        filtered.push([denom[0], increment]) // this is not happening
+        filtered.push([denom[0], increment]) // this works
         console.log('filtered after push', filtered);
       } else if (denom[1] > filtered[0]) {
         // first, remove lookup[denom[0]] from denom[1]
