@@ -51,7 +51,7 @@ const checkCashRegister = (price, cash, cid) => {
           // first, remove lookup[denom[0]] from denom[1]
         }
         return filtered // mutate the array, THEN return it
-      }, [change]).slice(1) // reduce with an array to map and filter simultaneously. including change and removing it at the end with .shift() makes it hacky, but also makes it pure, and gives us access to an extra, mutable value
+      }, [change]).slice(1)
       console.log({output});
       return output
     }
