@@ -1,7 +1,5 @@
-const getShortMessages = messages => {
-  return messages
-    .map(obj => obj.message) // no block = implicit return
-    .filter(message => message.length < 50)
-}
+const getShortMessages = messages => messages
+  .filter(obj => obj.message.length < 50)
+  .map(obj => obj.message)
 
 module.exports = getShortMessages

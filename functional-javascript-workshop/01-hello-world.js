@@ -1,5 +1,3 @@
-const upperCaser = input => {
-  return input.toUpperCase()
-}
+const upperCaser = input => input.toUpperCase()
 
 module.exports = upperCaser
