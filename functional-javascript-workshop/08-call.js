@@ -1,8 +1,10 @@
 // My Answer
-const duckCount = (...args) => args.reduce((acc, arg) => {
-  if (Object.prototype.hasOwnProperty.call(arg, 'quack'))++acc
-  return acc
-}, 0)
+const duckCount = (...args) =>
+  args.reduce((acc, arg) =>
+    Object.prototype.hasOwnProperty.call(arg, 'quack')
+      ? ++acc
+      : acc,
+    0)
 
 module.exports = duckCount
 
