@@ -1,5 +1,3 @@
-const slice = Array.prototype.slice
-
 // My Answer - cheating with ES6
 const logger = namespace =>
   (...text) =>
@@ -11,7 +9,8 @@ const logger = namespace =>
 module.exports = logger
 
 // Model Answer
-// var slice = Array.prototype.slice
+
+var slice = Array.prototype.slice
 
 function loggerAnswer(namespace) {
   return function () {
