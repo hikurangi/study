@@ -1,2 +1,2 @@
-# fcc-solutions
-all of my freecodecamp solutions in one place
+# kata-algorithms
+Learning repo, motly with freecodecamp solutions.
