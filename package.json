@@ -19,10 +19,13 @@
     "url": "https://github.com/hikurangi/fcc-solutions/issues"
   },
   "homepage": "https://github.com/hikurangi/fcc-solutions#readme",
+  "dependencies": {},
   "devDependencies": {
-    "babel-jest": "^20.0.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.1.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "jest": "^20.0.4"
+    "jest": "^24.1.0"
   }
 }
