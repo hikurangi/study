@@ -19,10 +19,10 @@ const updateInventory = (arr1, arr2) => {
   }
 
   const sorted = arr1.sort((a, b) => {
-    const firstName = a[1]
-    const secondName = b[1]
-    if (firstName < secondName) { return -1 }
-    if (firstName > secondName) { return 1 }
+    const name1 = a[1]
+    const name2 = b[1]
+    if (name1 < name2) { return -1 }
+    if (name1 > name2) { return 1 }
     return 0
   })
 
