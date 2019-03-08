@@ -14,7 +14,7 @@ const updateInventory = (arr1, arr2) => {
     const updateIndex = arr1.findIndex(existingItem => existingItem[1] === updateName)
     
     updateIndex > -1 // if the updated item is already in the inventory
-      ? arr1[updateIndex][0] += updateCount // add the extra items
+      ? arr1[updateIndex][0] += updateCount // update their total
       : arr1.push(updateItem) // otherwise add these items as new
   }
 
