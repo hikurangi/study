@@ -1,2 +1,2 @@
 # kata-algorithms
-Learning repo, motly with freecodecamp solutions.
+Learning repo, mostly with freecodecamp solutions.
