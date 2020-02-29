@@ -4,52 +4,54 @@ namespace HiLow
 {
   class Program
   {
-    // TODO: instantiate class with basically all of these as parameters
-    // for testing, but also for the good stuff
-    private static Int16 min = 0;
-    private static Int16 max = 100;
-    private static string guess = "";
-    private static Int16 parsedGuess;
-    // instantiate Random separately so we don't run into 'random' duplicates
-    private static Random generator = new Random();
+    // TODO: instantiate class with parameters below
+    // for testing purposes, but also for user config
+    
+    // immutable fields which will in future be class parameters
+    private static readonly Int16 min = 0;
+    private static readonly Int16 max = 100;
 
+    // instantiate Random separately so we don't run into 'random' duplicates
+    private static readonly Random generator = new Random();
+    private static readonly Int16 targetNumber = (Int16)(generator.Next(min, max + 1)); // we add one to max to make our minmax range inclusive
+
+    // mutable state fields
+    private static string message = $"Oh flip, it's the high-low game! Try to guess the number. It's between {min.ToString()} and {max.ToString()}";
+    private static bool isValid;
     // TODO: count guesses! have a limit.
     // private static Int16 guessCount = 0;
     // private static Int16 guessLimit = 10;
 
-    private static string message = $"Oh flip, it's the high-low game! Try to guess the number. It's between {min.ToString()} and {max.ToString()}";
-
-    // we add one to max to make our minmax range inclusive
-    private static Int16 targetNumber = (Int16)(generator.Next(min, max + 1));
+    private static string guess = "";
+    private static Int16 parsedGuess;
 
     // TODO: Tests
     static void Main(string[] args)
     {
-      while ((guess == null) || (parsedGuess != targetNumber))
+      // post welcome message before first iteration
+      Console.WriteLine(message);
+
+      while (parsedGuess != targetNumber)
       {
-        if (guess == null)
-        {
-          // first iteration
-          // message is initialised with the first message
-          // should implement guess counting, and use that as the source of truth (knowing that we're at the first step) instead
-          Console.WriteLine(message);
-          guess = Console.ReadLine();
-        }
-        else if (parsedGuess == targetNumber)
-        {
-          // correct answer
-          Console.WriteLine($"You win! {parsedGuess.ToString()} is the correct number!");
-        }
-        else if (parsedGuess > targetNumber)
-        {
-          Console.WriteLine($"{parsedGuess.ToString()} is too high.");
-          guess = Console.ReadLine();
-        }
-        else if (parsedGuess < targetNumber)
-        {
-          Console.WriteLine($"{parsedGuess.ToString()} is too low.");
-          guess = Console.ReadLine();
-        }
+        // Console.WriteLine($"Target number is: {targetNumber.ToString()}"); // sanity check
+
+        guess = Console.ReadLine();
+        setIsValidAndValidationMessage(); // also sets parsedGuess value!
+
+          if (isValid && (parsedGuess == targetNumber))
+          {
+            message = $"You win! {parsedGuess.ToString()} is the correct number!";
+          }
+          else if (isValid && (parsedGuess > targetNumber))
+          {
+            message = $"{parsedGuess.ToString()} is too high. Please try again.";
+          }
+          else if (isValid && (parsedGuess < targetNumber))
+          {
+            message = $"{parsedGuess.ToString()} is too low. Please try again.";
+          }
+
+        Console.WriteLine(message);
       }
     }
 
@@ -61,24 +63,24 @@ namespace HiLow
 
     private static bool getIsInteger()
     {
-      // note, this function also has a side effect -> it sets parsedGuess value
+      // as noted above, this function also has a side effect -> it sets parsedGuess value
       return Int16.TryParse(guess, out parsedGuess);
     }
 
-    private static void getValidationAndMessage(string guessToValidate)
+    private static void setIsValidAndValidationMessage()
     {
-      // validate
-      if (guess == "")
-      {
-        if (!getIsWithinRange())
-        {
-          Console.WriteLine($"Invalid input, please enter a number between {min.ToString()} and {max.ToString()}!");
-        }
+      isValid = true;
 
-        if (!getIsInteger())
-        {
-          Console.WriteLine($"Invalid input, please enter a number!");
-        }
+      if (!getIsWithinRange())
+      {
+        isValid = false;
+        message = $"Invalid input, please enter a number between {min.ToString()} and {max.ToString()}!";
+      }
+
+      if (!getIsInteger())
+      {
+        isValid = false;
+        message = $"Invalid input, please enter a number!";
       }
     }
   }
