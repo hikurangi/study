@@ -37,23 +37,23 @@ namespace HiLow
           message = $"Invalid input, please enter a number!";
         }
 
-        if ((parsedGuess < Min) || (parsedGuess > Max))
+        if (parsedGuess < Min || parsedGuess > Max)
         {
           isValid = false;
           message = $"Invalid input, please enter a number between {Min.ToString()} and {Max.ToString()}!";
         }
 
         // actual comparison
-        if (isValid && parsedGuess == targetNumber) // double check order of operation
+        if (isValid && parsedGuess == targetNumber)
         {
 
           message = $"You win! {parsedGuess.ToString()} is the correct number!";
         }
-        else if (isValid && (parsedGuess > targetNumber))
+        else if (isValid && parsedGuess > targetNumber)
         {
           message = $"{parsedGuess.ToString()} is too high. Please try again.";
         }
-        else if (isValid && (parsedGuess < targetNumber))
+        else if (isValid && parsedGuess < targetNumber)
         {
           message = $"{parsedGuess.ToString()} is too low. Please try again.";
         }
