@@ -30,7 +30,7 @@ namespace HiLow
       {
         guess = Console.ReadLine();
 
-        // validate
+        // validate: set parsedGuess with zero or valid parsed value
         if (!int.TryParse(guess, out parsedGuess))
         {
           isValid = false;
