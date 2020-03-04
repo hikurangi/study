@@ -6,82 +6,65 @@ namespace HiLow
   {
     // TODO: instantiate class with parameters below
     // for testing purposes, but also for user config
-    
+
     // immutable fields which will in future be class parameters
-    private static readonly Int16 min = 0;
-    private static readonly Int16 max = 100;
+    private const int Min = 0;
+    private const int Max = 100;
+    private static readonly string initialMessage = $"Oh flip, it's the high-low game! Try to guess the number. It's between {Min.ToString()} and {Max.ToString()}";
 
     // instantiate Random separately so we don't run into 'random' duplicates
     private static readonly Random generator = new Random();
-    private static readonly Int16 targetNumber = (Int16)(generator.Next(min, max + 1)); // we add one to max to make our minmax range inclusive
+    private static int targetNumber = (int)(generator.Next(Min, Max + 1)); // we add one to max to make our minmax range inclusive
 
-    // mutable state fields
-    private static string message = $"Oh flip, it's the high-low game! Try to guess the number. It's between {min.ToString()} and {max.ToString()}";
-    private static bool isValid;
-    // TODO: count guesses! have a limit.
-    // private static Int16 guessCount = 0;
-    // private static Int16 guessLimit = 10;
-
-    private static string guess = "";
-    private static Int16 parsedGuess;
-
-    // TODO: Tests
     static void Main(string[] args)
     {
+      var message = initialMessage;
+      var isValid = true;
+      string guess;
+      int parsedGuess;
+
       // post welcome message before first iteration
       Console.WriteLine(message);
 
-      while (parsedGuess != targetNumber)
+      do
       {
-        // Console.WriteLine($"Target number is: {targetNumber.ToString()}"); // sanity check
-
         guess = Console.ReadLine();
-        setIsValidAndValidationMessage(); // also sets parsedGuess value!
 
-          if (isValid && (parsedGuess == targetNumber))
-          {
-            message = $"You win! {parsedGuess.ToString()} is the correct number!";
-          }
-          else if (isValid && (parsedGuess > targetNumber))
-          {
-            message = $"{parsedGuess.ToString()} is too high. Please try again.";
-          }
-          else if (isValid && (parsedGuess < targetNumber))
-          {
-            message = $"{parsedGuess.ToString()} is too low. Please try again.";
-          }
+        // validate
+        if (!int.TryParse(guess, out parsedGuess))
+        {
+          isValid = false;
+          message = $"Invalid input, please enter a number!";
+        }
+
+        if ((parsedGuess < Min) || (parsedGuess > Max))
+        {
+          isValid = false;
+          message = $"Invalid input, please enter a number between {Min.ToString()} and {Max.ToString()}!";
+        }
+
+        // actual comparison
+        if (isValid && parsedGuess == targetNumber) // double check order of operation
+        {
+
+          message = $"You win! {parsedGuess.ToString()} is the correct number!";
+        }
+        else if (isValid && (parsedGuess > targetNumber))
+        {
+          message = $"{parsedGuess.ToString()} is too high. Please try again.";
+        }
+        else if (isValid && (parsedGuess < targetNumber))
+        {
+          message = $"{parsedGuess.ToString()} is too low. Please try again.";
+        }
 
         Console.WriteLine(message);
-      }
-    }
-
-    // helpers
-    private static bool getIsWithinRange()
-    {
-      return (parsedGuess >= min) && (parsedGuess <= max);
-    }
-
-    private static bool getIsInteger()
-    {
-      // as noted above, this function also has a side effect -> it sets parsedGuess value
-      return Int16.TryParse(guess, out parsedGuess);
-    }
-
-    private static void setIsValidAndValidationMessage()
-    {
-      isValid = true;
-
-      if (!getIsWithinRange())
-      {
-        isValid = false;
-        message = $"Invalid input, please enter a number between {min.ToString()} and {max.ToString()}!";
-      }
-
-      if (!getIsInteger())
-      {
-        isValid = false;
-        message = $"Invalid input, please enter a number!";
-      }
+      } while (parsedGuess != targetNumber);
     }
   }
 }
+
+// conditions to consider
+// user guesses ""
+// user guesses text
+// user guesses number out of bounds
