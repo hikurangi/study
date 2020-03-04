@@ -2,9 +2,9 @@
 using Xunit;
 using HiLow;
 
-namespace Test
+namespace HiLow
 {
-    public class UnitTests
-    {
-    }
+  public class UnitTests
+  {
+  }
 }
