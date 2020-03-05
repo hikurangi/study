@@ -21,6 +21,11 @@ namespace HiLow
       _initialMessage = initialMessage ?? $"Oh flip, it's the high-low game! Try to guess the number. It's between {min.ToString()} and {max.ToString()}";
       _targetNumber = targetNumber ?? (int)(_generator.Next(_min, _max + 1));
     }
+    public string Guess(int guess)
+    {
+      // validate guess
+      return "";
+    }
 
     public void Run()
     {
