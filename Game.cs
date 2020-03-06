@@ -25,7 +25,22 @@ namespace HiLow
     
     public string Guess(int guess)
     {
-      return "";
+      var message = "Invalid input, please try again!";
+
+      if (guess == _targetNumber)
+      {
+        message = $"You win! {guess.ToString()} is the correct number!";
+      }
+      else if (guess > _targetNumber)
+      {
+        message = $"{guess.ToString()} is too high. Please try again.";
+      }
+      else if (guess < _targetNumber)
+      {
+        message = $"{guess.ToString()} is too low. Please try again.";
+      }
+      
+      return message;
     }
 
     public void Run()
