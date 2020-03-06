@@ -9,6 +9,7 @@ namespace HiLow
     private readonly int _targetNumber;
     private readonly string _initialMessage;
     private static readonly Random _generator = new Random();
+    
     public Game(
       int min = 0,
       int max = 100,
@@ -21,9 +22,9 @@ namespace HiLow
       _initialMessage = initialMessage ?? $"Oh flip, it's the high-low game! Try to guess the number. It's between {min.ToString()} and {max.ToString()}";
       _targetNumber = targetNumber ?? (int)(_generator.Next(_min, _max + 1));
     }
+    
     public string Guess(int guess)
     {
-      // validate guess
       return "";
     }
 
