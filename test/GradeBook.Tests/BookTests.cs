@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace GradeBoo k.Tests
+namespace GradeBook.Tests
 {
     public class BookTests
     {
