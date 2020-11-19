@@ -5,7 +5,7 @@ namespace GradeBook.Tests
     public class TypeTests
     {
         [Fact]
-        public void Test()
+        public void GetBookReturnsDifferentObjects()
         { 
           var book1 = GetBook("Book 1");
           var book2 = GetBook("Book 2");
