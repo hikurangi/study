@@ -6,12 +6,12 @@ namespace  GradeBook
   public class Book
   {
     private List<double> Grades;
-    private string Name;
+    public string Name;
 
     public Book(string name)
     {
       Grades = new List<double>();
-      this.Name = name;
+      Name = name;
     }
 
     public void AddGrade(double grade)
