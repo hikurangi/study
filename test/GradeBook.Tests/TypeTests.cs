@@ -5,6 +5,14 @@ namespace GradeBook.Tests
 {
   public class TypeTests
   {
+    [Fact]
+    public void CSharpCanPassByRef()
+    {
+      var book1 = GetBook("Book 1");
+      GetBookSetNameByRef(ref book1, "New Name");
+
+      Assert.Equal("New Name", book1.Name);
+    }
 
     [Fact]
     public void CSharpIsPassByValue()
@@ -54,7 +62,12 @@ namespace GradeBook.Tests
       book = new Book(name);
       book.Name = name;
     }
-    
+
+    private void GetBookSetNameByRef(ref Book book, string name)
+    {
+      book = new Book(name);
+    }
+
     private void SetName(Book book, string name)
     {
       book.Name = name;
