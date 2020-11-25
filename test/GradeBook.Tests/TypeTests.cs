@@ -6,6 +6,24 @@ namespace GradeBook.Tests
   public class TypeTests
   {
     [Fact]
+    public void StringsBehaveLikeValueTypes()
+    {
+      string name = "Santa's Little Helper";
+      var upper = MakeUppercase(name);
+      
+      Assert.Equal("SANTA'S LITTLE HELPER", upper);
+    }
+
+    [Fact]
+    public void ValueTypesAlsoPassByValue()
+    {
+      var x = GetInt();
+      SetInt(ref x);
+
+      Assert.Equal(42, x);
+    }
+
+    [Fact]
     public void CSharpCanPassByRef()
     {
       var book1 = GetBook("Book 1");
@@ -71,6 +89,21 @@ namespace GradeBook.Tests
     private void SetName(Book book, string name)
     {
       book.Name = name;
+    }
+
+    private string MakeUppercase(string parameter)
+    {
+      return parameter.ToUpper();
+    }
+
+    private void SetInt(ref int x)
+    {
+      x = 42;
+    }
+
+    private int GetInt()
+    {
+      return 3;
     }
   }
 }
