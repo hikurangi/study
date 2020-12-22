@@ -8,23 +8,34 @@ namespace GradeBook
     {
       var book = new Book("A gradebook");
 
-      Console.WriteLine("Welcome to the Gradeinator Deluxe. Please enter a grade to add to the book, or press 'q' to finish.");
+      while (true)
+      {
+        Console.WriteLine("Welcome to the Gradeinator Deluxe. Please enter a grade to add to the book, or press 'q' to finish.");
 
-      var input = Console.ReadLine();
+        var input = Console.ReadLine();
 
-      while (input != "q") {
-        if (double.TryParse(input, out double grade)) {
-          book.AddGrade(grade);
+        if (input == "q")
+        {
+          break;
+        }
 
-        } else {
-          Console.WriteLine($"{input} is not a valid grade, please try again!");
-
-        };
-
-        Console.WriteLine("Please enter a grade to add to the book, or press 'q' to finish.");
-
-        input = Console.ReadLine();
-
+try
+{
+  var grade = double.Parse(input);
+  book.AddGrade(grade);
+}
+catch (ArgumentException ex)
+{
+  Console.WriteLine(ex.Message);
+}
+catch (FormatException ex)
+{
+  Console.WriteLine(ex.Message);
+}
+finally
+{
+  Console.WriteLine("**");
+}
       }
 
       var stats = book.GetStatistics();
