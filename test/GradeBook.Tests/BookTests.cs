@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace GradeBook.Tests
@@ -28,8 +29,9 @@ namespace GradeBook.Tests
         {
           var book = new Book("");
           book.AddGrade(90.2);
-          book.AddGrade(105);
-
+        
+          Assert.Throws<ArgumentException>(() => book.AddGrade(105));
+          
           var stats = book.GetStatistics();
 
           Assert.True(stats.Average == 90.2);

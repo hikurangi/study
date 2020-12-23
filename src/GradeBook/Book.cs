@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
+  public delegate void GradeAddedDelegate(object sender, EventArgs args);
   public class Book
   {
     private List<double> Grades;
@@ -14,7 +15,7 @@ namespace GradeBook
       Name = name;
     }
 
-    public void AddLetterGrade(char letter)
+    public void AddGrade(char letter)
     {
       switch (letter)
       {
@@ -35,6 +36,7 @@ namespace GradeBook
           break;
       }
     }
+
     public void AddGrade(double grade)
     {
       // Validation "layer"
@@ -48,6 +50,8 @@ namespace GradeBook
       }
     }
 
+    public GradeAddedDelegate GradeAdded;
+    
     public Statistics GetStatistics()
     {
       var result = new Statistics();
