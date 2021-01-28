@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace GradeBook
 {
   public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
   public class Book
   {
     private List<double> Grades;
@@ -43,6 +44,11 @@ namespace GradeBook
       if (grade <= 100 && grade >= 0)
       {
         Grades.Add(grade);
+
+        if (GradeAdded != null)
+        {
+          GradeAdded(this, new EventArgs());
+        }
       }
       else
       {
@@ -50,8 +56,8 @@ namespace GradeBook
       }
     }
 
-    public GradeAddedDelegate GradeAdded;
-    
+    public event GradeAddedDelegate GradeAdded;
+
     public Statistics GetStatistics()
     {
       var result = new Statistics();
