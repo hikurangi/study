@@ -19,11 +19,35 @@ namespace GradeBook
     }
   }
 
-  public class Book : NamedObject
+  public interface IBook
+  {
+    void AddGrade(double grade);
+    Statistics GetStatistics();
+    string Name { get; }
+    event GradeAddedDelegate GradeAdded;
+  }
+
+  public abstract class Book : NamedObject, IBook
+  {
+    protected Book(string name) : base(name)
+    {
+    }
+
+    public virtual event GradeAddedDelegate GradeAdded;
+
+    public abstract void AddGrade(double grade);
+
+    public virtual Statistics GetStatistics()
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class InMemoryBook : Book
   {
     private List<double> Grades;
 
-    public Book(string name) : base(name)
+    public InMemoryBook(string name) : base(name)
     {
       Grades = new List<double>();
       Name = name;
@@ -33,7 +57,7 @@ namespace GradeBook
     {
       switch (letter)
       {
-        case 'A': 
+        case 'A':
           AddGrade(90);
           break;
 
@@ -51,9 +75,8 @@ namespace GradeBook
       }
     }
 
-    public void AddGrade(double grade)
+    public override void AddGrade(double grade)
     {
-      // Validation "layer"
       if (grade <= 100 && grade >= 0)
       {
         Grades.Add(grade);
@@ -69,9 +92,9 @@ namespace GradeBook
       }
     }
 
-    public event GradeAddedDelegate GradeAdded;
+    public override event GradeAddedDelegate GradeAdded;
 
-    public Statistics GetStatistics()
+    public override Statistics GetStatistics()
     {
       var result = new Statistics();
 
@@ -90,7 +113,8 @@ namespace GradeBook
 
       result.Average /= Grades.Count;
 
-      switch(result.Average) {
+      switch (result.Average)
+      {
         case var d when d >= 90.0:
           result.Letter = 'A';
           break;
@@ -106,7 +130,7 @@ namespace GradeBook
         case var d when d >= 60.0:
           result.Letter = 'D';
           break;
-          
+
         default:
           result.Letter = 'F';
           break;
