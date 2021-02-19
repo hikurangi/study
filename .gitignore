@@ -265,3 +265,6 @@ FakesAssemblies/
 # Ionide
 .fake
 .ionide
+
+# Generated files
+/*.txt
