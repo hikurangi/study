@@ -92,7 +92,14 @@ namespace GradeBook
 
     public override Statistics GetStatistics()
     {
-      return new Statistics(Grades);
+      var result = new Statistics();
+
+      for (var i = 0; i < Grades.Count; i++)
+      {
+        result.Add(Grades[i]);
+      }
+
+      return result;
     }
   }
 

@@ -5,43 +5,49 @@ namespace GradeBook
 {
   public class Statistics
   {
-    public Statistics(List<double> grades)
+    public double Average
     {
-      for (var i = 0; i < grades.Count; i++)
+      get
       {
-        var grade = grades[i];
-        Low = Math.Min(grade, Low);
-        High = Math.Max(grade, High);
-        Average += grade;
-      }
-      Average /= grades.Count;
-
-      switch (Average)
-      {
-        case var d when d >= 90.0:
-          Letter = 'A';
-          break;
-
-        case var d when d >= 80.0:
-          Letter = 'B';
-          break;
-
-        case var d when d >= 70.0:
-          Letter = 'C';
-          break;
-
-        case var d when d >= 60.0:
-          Letter = 'D';
-          break;
-
-        default:
-          Letter = 'F';
-          break;
+        return Sum / Count;
       }
     }
-    public double Average = 0.0;
-    public double High = double.MinValue;
-    public double Low = double.MaxValue;
-    public char Letter;
+    public double High;
+    public double Low;
+    public double Sum;
+    public int Count;
+    public char Letter
+    {
+      get
+      {
+        switch (Average)
+        {
+          case var d when d >= 90.0:
+            return 'A';
+          case var d when d >= 80.0:
+            return 'B';
+          case var d when d >= 70.0:
+            return 'C';
+          case var d when d >= 60.0:
+            return 'D';
+          default:
+            return 'F';
+        }
+      }
+    }
+    public void Add(double number)
+    {
+      Sum += number;
+      Count += 1;
+      Low = Math.Min(number, Low);
+      High = Math.Max(number, High);
+    }
+    public Statistics()
+    {
+      Count = 0;
+      Sum = 0.0;
+      High = double.MinValue;
+      Low = double.MaxValue;
+    }
   }
 }
