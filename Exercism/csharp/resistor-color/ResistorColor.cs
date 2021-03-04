@@ -7,7 +7,7 @@ public static class ResistorColor
       _colors = new List<string> { "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white" };
     }
 
-    private static List<string> _colors;
+    private readonly static List<string> _colors;
 
     public static List<string> Colors() => _colors;
 
