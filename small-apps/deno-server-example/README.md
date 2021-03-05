@@ -33,7 +33,7 @@ deno run --config ./tsconfig.json ./my-exceptional-code.ts # also the -c flag wo
 deno run --watch --unstable ./my-exceptional-code.ts
 ````
 
-- You can run `deno` without a mask, just breathing all those microbes in as if you don't even care. This disables TypeScript typechecking which speeds up compilation in watch mode. Probs only do this if you're hitting an editor that supports you with its own typechecking, ie: vscode. Be real, what else are you using?
+- You can run `deno` without a mask, just huffing all those microbes in like you desperately want to kill your dear grandma. This disables TypeScript typechecking which speeds up compilation in watch mode. Probs only do this if you're using an editor that supports you with its own typechecking, ie: vscode. Just use vscode already.
 ```bash
 deno run --watch --no-check ./my-exceptional-code.ts ./my-exceptional-code.ts
 ````
