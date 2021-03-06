@@ -1,4 +1,11 @@
 # A basic introduction to `deno`
+This information comes from [Deno: Getting Started course](https://app.pluralsight.com/library/courses/a226fcad-788f-43d1-9dc5-c39d4a6dd4b8/table-of-contents) on Pluralsight. This repo contains a toy app based on what's explained in this course.
+
+To run this server, [install `deno`](https://deno.land/manual/getting_started/installation) and use:
+```bash
+deno run --allow-net ./simple_server.ts
+```
+We need the `--allow-net` flag because `deno` is locked down by its Secure by default approach, detailed above. This flag grants us network access.
 
 ## א. I'll bite, what's `deno`?
 `deno` is a young runtime (as of early 2021) and essentially is an implementation of [Node.js](https://nodejs.org) with the  [TypeScript](https://www.typescriptlang.org/) compiler built in. It:
@@ -91,7 +98,7 @@ import { getDataUrl, getThresholdPrice } from "./deps.ts"
 import { getDataUrl } from "data_sources"
 import { getThresholdPrice } from "prices"
 ```
-### Surely someone can swoop in and switch these URL-referenced modules on us?
+### Surely someone can swoop in and switch these modules on us?
 This is where we need to rely on the `deno` cache. Usually `deno` caches its data in the operating system's default caching location. We can however manually set `deno`'s cache to b anywhere, for example in our project directory itself.
 ```bash
 export DENO_DIR=. # or set DENO_DIR=. on Windows
@@ -108,14 +115,28 @@ To run from this cache, we will in turn be using something like:
 deno run --allow-net --allow-write --lock=lock.json process_affiliate_data.ts 5
 ````
 
-
-## ג. The server example
-The example in the neighbouring `simple_server.ts` file comes directly from the [Deno: Getting Started course](https://app.pluralsight.com/library/courses/a226fcad-788f-43d1-9dc5-c39d4a6dd4b8/table-of-contents) on Pluralsight.
-
-To run this server, [install `deno`](https://deno.land/manual/getting_started/installation) and use:
-```bash
-deno run --allow-net ./simple_server.ts
+To verify this, if I make a change to the module's source code (`pricing_rules.ts` for example), then delete the generated `deps` folder, I will get the following validation error:
 ```
-We need the `--allow-net` flag because `deno` is locked down by its Secure by default approach, detailed above. This flag grants us network access.
+Download https://my-app-url/affiliate_data.ts
+The source code is invalid, as it does not match the expected hash in the lock file.
+  Specifier: https://my-app-url/pricing_rules.ts
+  Lock file: lock.json
+```
+The cache was gone, so `deno` had to redownload modules over the wire. These modules did not match the expected hash so they were considered invalid.
 
-For more information, visit [https://deno.land](deno.land) for more information.
+### What if someone just deletes the module?
+As of this commit, the only way to be safe in this scenario is to check your `deno` cache into source control.
+
+If I am confident in them and I want to update the modules I have, I can just use the `--lock-write` option as above.
+
+Finally, we can also refresh our cache like so:
+```bash
+deno cache --reload my-program-name-here.ts
+```
+
+### Where do I get the modules from?!
+1.  [deno.land/x](https://deno.land/x) - their 'official' third party module repository. Check the [info section](https://deno.land/x#info) for more.
+2. unpkg.com - this CDN is not specifically designed to work with `deno`, but since `deno` supports js and ts, it should just work.
+3. 
+
+## ו. Building a REST API with `deno` and `oak`
