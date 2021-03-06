@@ -39,7 +39,7 @@ deno run --watch --no-check ./my-exceptional-code.ts
 ```
 
 ## ד. `deno` Runtime Permissions
-When running a program using `deno`'s runtime API, one can:
+As mentioned before, `deno` runs secure by default. When running a program using `deno`'s runtime API, one can:
 - Enable all permissions:
 ```bash
 deno run --allow-all program.ts
