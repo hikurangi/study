@@ -1,4 +1,4 @@
-# `deno`
+# A basic introduction to `deno`
 
 ## א. I'll bite, what's `deno`?
 `deno` is a young runtime (as of early 2021) and essentially is an implementation of [Node.js](https://nodejs.org) with the  [TypeScript](https://www.typescriptlang.org/) compiler built in. It:
@@ -31,12 +31,34 @@ deno run --config ./tsconfig.json ./my-exceptional-code.ts # also the -c flag wo
 - `deno` can be run in watch mode. This is considered unstable.
 ```bash
 deno run --watch --unstable ./my-exceptional-code.ts
-````
+```
 
 - You can run `deno` without a mask, just huffing all those microbes in like you desperately want to kill your dear grandma. This disables TypeScript typechecking which speeds up compilation in watch mode. Probs only do this if you're using a good TypeScript aware editor that supports you with its own typechecking for example, vscode. Just use vscode already.
 ```bash
-deno run --watch --no-check ./my-exceptional-code.ts ./my-exceptional-code.ts
-````
+deno run --watch --no-check ./my-exceptional-code.ts
+```
+
+## ד. `deno` Runtime Permissions
+When running a program using `deno`'s runtime API, one can:
+- Enable all permissions:
+```bash
+deno run --allow-all program.ts
+```
+- Allow network access only:
+```bash
+deno run --allow-network program.ts
+```
+- Allow network access to a comma-separated list of domains:
+```bash
+deno run --allow-network=ice.gov,breitbart.com a-totally-innocuous-and-very-safe-script.ts
+```
+- Allow filesystem writes to a comma-separated list of locations:
+```bash
+deno run --allow-write=. program.ts
+```
+
+## ה. Using External Modules
+
 
 ## ג. The server example
 The example in the neighbouring `simple_server.ts` file comes directly from the [Deno: Getting Started course](https://app.pluralsight.com/library/courses/a226fcad-788f-43d1-9dc5-c39d4a6dd4b8/table-of-contents) on Pluralsight.
