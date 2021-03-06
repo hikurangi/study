@@ -1,6 +1,5 @@
 import { Product } from "./product.ts"
-import { getDataUrl } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/affiliate_data.ts"
-import { getThresholdPrice } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/pricing_rules.ts"
+import { getDataUrl, getThresholdPrice } from "./deps.ts"
 
 const affiliateID: number = parseInt(Deno.args[0])
 const data_url: string = getDataUrl(affiliateID)

@@ -1,0 +1,2 @@
+export { getDataUrl } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/affiliate_data.ts"
+export { getThresholdPrice } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/pricing_rules.ts"
