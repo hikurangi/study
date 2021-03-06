@@ -140,3 +140,11 @@ deno cache --reload my-program-name-here.ts
 3. 
 
 ## ו. Building a REST API with `deno` and `oak`
+See `affiliate_data_server.ts`. Run it with:
+```
+deno --allow-net --allow-read affiliate_data_server.ts
+```
+
+Be sure to run `process_affiliate_data.ts` first in order to have `affiliate_products.json` available for use.
+
+## ז. The `deno` standard library
