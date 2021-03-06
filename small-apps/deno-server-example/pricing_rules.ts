@@ -1,7 +1,7 @@
 export const getThresholdPrice = (affiliateId: number): number => {
   switch (affiliateId) {
     case 1:
-      return 100;
+      return 101;
     case 2:
       return 50;
     default:
