@@ -13,7 +13,7 @@
 - Common Web API objects. Not all of the standard ones [as seen on MDN](https://developer.mozilla.org/en-US/docs/Web/API), but `deno`'s website outlines the available subset [here](https://doc.deno.land/https/raw.githubusercontent.com/denoland/deno/master/cli/dts/lib.deno.shared_globals.d.ts).
 - `Deno` namespace functionality. Includes tools for filesystem manipulation and other common tasks.
 - the [`WebAssembly`](https://webassembly.org/) namespace. Yes, friendo. [You can](https://deno.land/manual/getting_started/webassembly).
-[Knock yourself out](https://doc.deno.land/builtin/stable).
+- As for the rest? [Knock yourself out](https://doc.deno.land/builtin/stable).
 
 ## ג. TypeScript?
 As per my previous email, `deno` includes the TypeScript compiler. It also supports regular Javascript. The 'strict' TypesScript settings are generally enabled by default in `deno`. Additionally:
