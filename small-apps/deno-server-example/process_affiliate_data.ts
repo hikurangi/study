@@ -1,12 +1,15 @@
 import { Product } from "./product.ts"
+import { getDataUrl } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/affiliate_data.ts"
+import { getThresholdPrice } from "https://raw.githubusercontent.com/hikurangi/study/main/small-apps/deno-server-example/pricing_rules.ts"
 
 const affiliateID: number = parseInt(Deno.args[0])
-const data_url: string = "https://raw.githubusercontent.com/hikurangi/study/abb9c7e9ca201f718ed86b7331cd102a640a02d6/small-apps/deno-server-example/products.json"
+const data_url: string = getDataUrl(affiliateID)
+const threshold_price: number = getThresholdPrice(affiliateID)
 
 const response = await fetch(data_url)
 const data = await response.json() as Product[]
 
-const affiliate_products: Product[] = data.reduce((products, product) => product.price > 40
+const affiliate_products: Product[] = data.reduce((products, product) => product.price > threshold_price
   ? [...products, {
     ...product,
     affiliateID
