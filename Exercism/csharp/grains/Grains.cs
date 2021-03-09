@@ -8,3 +8,4 @@ public static class Grains
       : throw new ArgumentOutOfRangeException();
 
     public static ulong Total() => (ulong)Enumerable.Range(1, 64).Select(i => (long)Square(i)).Sum();
+}
