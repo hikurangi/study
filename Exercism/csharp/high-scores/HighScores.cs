@@ -7,7 +7,7 @@ public class HighScores
 
     public HighScores(List<int> list)
     {
-        _scores = list ?? new List<int>(); // guard against nullable reference type
+        _scores = list ?? new List<int>(); // guard against nullable list param
     }
 
     public List<int> Scores() => _scores.ToList();
