@@ -10,7 +10,7 @@ public static class Hamming
           : firstStrand == secondStrand // avoid unnecessary work
           ? 0
           : firstStrand // actually measure the hamming distance
-              .Zip(secondStrand)
-              .Aggregate(0, (state, comparison) => comparison.First == comparison.Second ? state : state + 1);
+              .Zip(secondStrand, (f, s) => f == s ? 0 : 1)
+              .Sum();
     }
 }
