@@ -103,7 +103,7 @@ public class PhoneNumberTests
         Assert.Throws<ArgumentException>(() => PhoneNumber.Clean(phrase));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Invalid_if_area_code_starts_with_0_on_valid_11_digit_number()
     {
         var phrase = "1 (023) 456-7890";
