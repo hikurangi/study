@@ -7,7 +7,7 @@ let sum (numbers: int list) (upperBound: int): int =
         [ 1 .. upperBound - 1 ]
         |> List.filter
             (fun candidate ->
-                candidate <> 0
-                && (List.exists (fun factor -> factor <> 0 && candidate % factor = 0) numbers))
+                candidate > 0
+                && (numbers |> List.exists (fun factor -> factor > 0 && candidate % factor = 0)))
         |> List.sum
 
