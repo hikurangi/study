@@ -1,13 +1,8 @@
 ﻿module SumOfMultiples
 
-let sum (numbers: int list) (upperBound: int): int =
-    if upperBound = 1 then
-        0
-    else
-        [ 1 .. upperBound - 1 ]
-        |> List.filter
-            (fun candidate ->
-                candidate > 0
-                && (numbers |> List.exists (fun factor -> factor > 0 && candidate % factor = 0)))
-        |> List.sum
-
+let sum numbers upperBound =
+    numbers
+    |> Seq.filter (fun n -> n > 0)
+    |> Seq.collect (fun n -> [ n .. n .. upperBound - 1 ]) // starting from n, move up in increments of n to upperBound - 1
+    |> Seq.distinct // guard against any duplicate multiples
+    |> Seq.sum
