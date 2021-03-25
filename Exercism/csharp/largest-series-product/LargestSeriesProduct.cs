@@ -6,8 +6,11 @@ using System.Text.RegularExpressions;
 public static class LargestSeriesProduct
 {
     private static bool IsNotDigits(string digits) => Regex.IsMatch(digits, @"[^\d]");
+    
     private static IEnumerable<int> ToIntEnumerable(string digits) => digits.Select(d => int.Parse(d.ToString())); // TODO: parse should fail appropriately
+
     private static int ToProduct(IEnumerable<int> digits) => digits.Aggregate((state, n) => n * state);
+
     private static string Validate((string, int) v) => v switch
     {
         (_, int) t when t.Item2 < 0 => "The span must be positive",
@@ -19,25 +22,16 @@ public static class LargestSeriesProduct
 
     public static long GetLargestProduct(string digits, int span)
     {
-        if (span == 0)
-        {
-            return 1;
-        }
+        if (span == 0) return 1;
 
         var message = Validate((digits, span));
-
-        if (message != "")
-        {
-            throw new ArgumentException(message);
-        }
+        if (message != "") throw new ArgumentException(message);
 
         var spans = new List<string>();
 
         for (int i = 0; i <= digits.Length - span; i++)
         {
-            var substring = digits.Substring(i, span);
-
-            spans.Add(substring);
+            spans.Add(digits.Substring(i, span));
         };
 
         var largestProduct = spans
