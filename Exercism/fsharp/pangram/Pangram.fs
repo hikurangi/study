@@ -1,8 +1,7 @@
 ﻿module Pangram
 
-let isPangram (input: string): bool =
+let isPangram input =
     input
-    |> Seq.toList
-    |> List.map System.Char.ToLowerInvariant
-    |> Set.ofList
-    |> Set.isSubset (Set.ofList [ 'a' .. 'z' ])
+    |> Seq.map System.Char.ToLowerInvariant
+    |> Set.ofSeq
+    |> Set.isSubset (Set.ofSeq [ 'a' .. 'z' ])
