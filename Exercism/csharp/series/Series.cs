@@ -4,9 +4,14 @@ using System.Linq;
 
 public static class Series
 {
-    private static IEnumerable<string> GetSlices(string numbers, int sliceLength, IEnumerable<string> slices) => numbers.Length == 0 || numbers.Length < sliceLength
-      ? slices
-      : GetSlices(numbers.Substring(1), sliceLength, slices.Append(String.Concat(numbers.Take(sliceLength))));
+    private static IEnumerable<string> GetSlices(string numbers, int sliceLength, IEnumerable<string> slices) =>
+      numbers.Length == 0 || numbers.Length < sliceLength
+        ? slices
+        : GetSlices(
+            numbers.Substring(1),
+            sliceLength,
+            slices.Append(String.Concat(numbers.Take(sliceLength)))
+          );
 
     public static string[] Slices(string numbers, int sliceLength)
     {
