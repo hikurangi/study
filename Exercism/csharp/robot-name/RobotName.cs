@@ -20,6 +20,5 @@ public class Robot
 
     private string _name = GenerateName();
     public string Name => _name;
-
     public void Reset() { _name = GenerateName(); }
 }
