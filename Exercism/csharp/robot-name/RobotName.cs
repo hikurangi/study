@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class Robot
 {
-    // this must be static so all robots register their name
+    // This must be static so all robots register their name using the same list
     private static readonly HashSet<string> _usedNames = new HashSet<string>();
+
     private static Random _random = new Random();
-    
     private static char D() => (char)('0' + _random.Next(10));
     private static char L() => (char)('A' + _random.Next(26));
 
