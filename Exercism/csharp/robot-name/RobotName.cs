@@ -23,5 +23,5 @@ public class Robot
 {
     private string _name = RobotNames.Generate();
     public string Name => _name;
-    public void Reset() { _name = RobotNames.Generate(); }
+    public void Reset() => _name = RobotNames.Generate();
 }
