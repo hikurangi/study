@@ -2,30 +2,28 @@ using System;
 using System.Collections.Generic;
 
 public static class Strain
-{   
-    private static IEnumerable<T> WhereFor<T>(IEnumerable<T> collection, Func<T, bool> predicate, bool condition) {
+{
+    private static IEnumerable<T> WhereFor<T>(ICollection<T> collection, Func<T, bool> predicate, bool condition)
+    {
+        if (collection.Count == 0)
+        {
+            return collection;
+        }
 
-      var castCollection = collection as ICollection<T>; // only cast when necessary
+        var kept = new List<T>();
 
-      if (castCollection.Count == 0)
-      {
-          return collection;
-      }
+        foreach (var item in collection)
+        {
+            if (predicate(item) == condition) // xplicit
+            {
+                kept.Add(item);
+            }
+        }
 
-      var kept = new List<T>();
-
-      foreach (var item in castCollection)
-      {
-          if (predicate(item) == condition) // xplicit
-          {
-              kept.Add(item);
-          }
-      }
-
-      return kept;
+        return kept;
     }
 
-    public static IEnumerable<T> Keep<T>(this IEnumerable<T> collection, Func<T, bool> predicate) => WhereFor(collection, predicate, true);
+    public static IEnumerable<T> Keep<T>(this IEnumerable<T> collection, Func<T, bool> predicate) => WhereFor(collection as ICollection<T>, predicate, true);
 
-    public static IEnumerable<T> Discard<T>(this IEnumerable<T> collection, Func<T, bool> predicate) => WhereFor(collection, predicate, false);
+    public static IEnumerable<T> Discard<T>(this IEnumerable<T> collection, Func<T, bool> predicate) => WhereFor(collection as ICollection<T>, predicate, false);
 }
