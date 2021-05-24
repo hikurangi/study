@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+[Flags]
 public enum Allergen
 {
     Eggs = 1,
@@ -16,30 +17,16 @@ public enum Allergen
 
 public class Allergies
 {
-    private readonly int _mask = 0;
+    private readonly Allergen _mask;
     private readonly Allergen[] _allergens;
-    private static readonly List<int> _values = Enum.GetValues(typeof(Allergen)).Cast<int>().ToList();
 
     public Allergies(int mask)
     {
-        _mask = mask;
-        _allergens = ListAllergens(_mask, new HashSet<Allergen>());
+        _mask = (Allergen)mask;
+        _allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().ToList().Where(IsAllergicTo).ToArray();
     }
 
-    private Allergen[] ListAllergens(int mask, HashSet<Allergen> allergens) {
-
-        if (mask == 0) {
-          return Enumerable.Reverse(allergens).ToArray();
-        }
-
-        var largestFit = _values.Where(v => v <= mask).Max();
-
-        allergens.Add((Allergen)largestFit);
-
-        return ListAllergens(mask - largestFit, allergens);
-    }
-
-    public bool IsAllergicTo(Allergen allergen) => Array.IndexOf(_allergens, allergen) > -1;
+    public bool IsAllergicTo(Allergen allergen) => _mask.HasFlag(allergen);
 
     public Allergen[] List() => _allergens;
 }
