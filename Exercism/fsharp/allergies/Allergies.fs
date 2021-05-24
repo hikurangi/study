@@ -18,5 +18,5 @@ let allergicTo codedAllergies allergen =
 
 let list codedAllergies =
     (Enum.GetValues(typeof<Allergen>) :?> (Allergen [])) // unsafe runtime downcast - the confidence we have is that we wrote the enum ourselves.
+    |> Array.filter (fun v -> allergicTo codedAllergies v)
     |> Array.toList
-    |> List.filter (fun v -> allergicTo codedAllergies v)
