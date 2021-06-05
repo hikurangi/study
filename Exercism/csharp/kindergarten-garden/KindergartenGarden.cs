@@ -7,18 +7,17 @@ public enum Plant { Violets = 'V', Radishes = 'R', Clover = 'C', Grass = 'G' }
 public class KindergartenGarden
 {
     private enum Student { Alice, Bob, Charlie, David, Eve, Fred, Ginny, Harriet, Ileana, Joseph, Kincaid, Larry };
-
-    private readonly Dictionary<Student, IEnumerable<Plant>> _plantsByStudent = new Dictionary<Student, IEnumerable<Plant>>();
+    
+    private readonly IEnumerable<string> _gardenRows;
 
     public KindergartenGarden(string diagram)
     {
-        _plantsByStudent = diagram
-          .Split('\n')
-          .SelectMany(row => Enumerable.Range(0, row.Length / 2).Select((integer, position) => (Student: (Student)position, Plants: row.Substring(integer * 2, 2).Select(p => (Plant)p))))
-          .GroupBy(t => t.Student, t => t.Plants)
-          .Select(g => (g.Key, g.SelectMany(i => i)))
-          .ToDictionary(t => t.Item1, t => t.Item2);
+        _gardenRows = diagram.Split('\n');
     }
 
-    public IEnumerable<Plant> Plants(string student) => _plantsByStudent[(Student)Enum.Parse(typeof(Student), student)];
+    public IEnumerable<Plant> Plants(string student) =>
+      _gardenRows.SelectMany(row => Enumerable
+          .Range((int)Enum.Parse(typeof(Student), student) * 2, 2)
+          .Select(index => (Plant)row[index])
+      );
 }
