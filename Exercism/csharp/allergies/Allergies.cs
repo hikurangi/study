@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 [Flags]
@@ -17,15 +18,15 @@ public enum Allergen
 public class Allergies
 {
     private readonly Allergen _mask;
-    private readonly Allergen[] _allergens;
+    private readonly IEnumerable<Allergen> _allergens;
 
     public Allergies(int mask)
     {
         _mask = (Allergen)mask;
-        _allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().ToList().Where(IsAllergicTo).ToArray();
+        _allergens = Enum.GetValues(typeof(Allergen)).Cast<Allergen>().Where(IsAllergicTo);
     }
 
     public bool IsAllergicTo(Allergen allergen) => _mask.HasFlag(allergen);
 
-    public Allergen[] List() => _allergens;
+    public IEnumerable<Allergen> List() => _allergens;
 }
