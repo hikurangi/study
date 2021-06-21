@@ -1,22 +1,19 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 
 public static class Triangle
 {
-    private static int CountUniqueElements<T>(IEnumerable<T> elems) => new HashSet<T>(elems).Count;
-    
-    public static bool IsScalene(double side1, double side2, double side3)
-    {
-        throw new NotImplementedException("You need to implement this function.");
-    }
+    private static int CountUniqueSides(params double[] triangle) =>
+      triangle.ToHashSet().Count();
 
-    public static bool IsIsosceles(double side1, double side2, double side3) 
-    {
-        throw new NotImplementedException("You need to implement this function.");
-    }
+    private static bool IsTriangleInequalityViolation(params double[] triangle) =>
+      triangle.OrderByDescending(i => i).Skip(1).Sum() < triangle.Max();
 
-    public static bool IsEquilateral(double side1, double side2, double side3) {
-      // can I use params?
-      var elems =  new List<double>{side1, side2, side3};
-    }
+    public static bool IsScalene(params double[] triangle) =>
+      CountUniqueSides(triangle) == 3 && !IsTriangleInequalityViolation(triangle);
+
+    public static bool IsIsosceles(params double[] triangle) =>
+      IsEquilateral(triangle) || CountUniqueSides(triangle) == 2 && !IsTriangleInequalityViolation(triangle);
+
+    public static bool IsEquilateral(params double[] triangle) =>
+      CountUniqueSides(triangle) == 1 && (triangle.Average() != 0);
 }
