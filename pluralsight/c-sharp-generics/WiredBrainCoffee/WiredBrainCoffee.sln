@@ -1,7 +1,9 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiredBrainCoffee.StackApp", "WiredBrainCoffee.StackApp\WiredBrainCoffee.StackApp.csproj", "{5A8253AB-6298-4C19-8832-8024AFA18B63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiredBrainCoffee.StorageApp", "WiredBrainCoffee.StorageApp\WiredBrainCoffee.StorageApp.csproj", "{867B33C9-6A92-4BAA-BE18-0C428E2C4CAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +15,9 @@ Global
 		{5A8253AB-6298-4C19-8832-8024AFA18B63}.Debug|anycpu.Build.0 = Debug|anycpu
 		{5A8253AB-6298-4C19-8832-8024AFA18B63}.Release|anycpu.ActiveCfg = Release|anycpu
 		{5A8253AB-6298-4C19-8832-8024AFA18B63}.Release|anycpu.Build.0 = Release|anycpu
+		{867B33C9-6A92-4BAA-BE18-0C428E2C4CAE}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{867B33C9-6A92-4BAA-BE18-0C428E2C4CAE}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{867B33C9-6A92-4BAA-BE18-0C428E2C4CAE}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{867B33C9-6A92-4BAA-BE18-0C428E2C4CAE}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
