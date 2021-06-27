@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public static class BeerSong
@@ -21,6 +22,13 @@ public static class BeerSong
 
     private static string Verse(int n) => $"{Count(n, isStart: true)} of beer on the wall, {Count(n)} of beer.\n{Action(n)}, {Count(n - 1)} of beer on the wall.";
 
-    public static string Recite(int startBottles, int takeDown) =>
-    string.Join("\n\n", Enumerable.Range(startBottles - takeDown + 1, takeDown).Reverse().Select(Verse));
+    public static string Recite(int startBottles, int takeDown) => Enumerable
+      .Range(startBottles - takeDown + 1, takeDown)
+      .Reverse()
+      .Select(Verse)
+      .Join("\n\n");  
+}
+
+public static class WeirdlyOmittedFromLINQ { // See discussion here: https://stackoverflow.com/questions/934635/is-there-a-linq-equivalent-of-string-joinstring-string
+    public static string Join(this IEnumerable<string> s, string separator) => string.Join(separator, s);
 }
