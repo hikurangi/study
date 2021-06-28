@@ -1,8 +1,6 @@
 ﻿module ProteinTranslation
-open System
 
-let codonToProtein =
-    function
+let codonToProtein = function
     | "AUG" -> "Methionine"
     | "UUU" | "UUC" -> "Phenylalanine"
     | "UUA" | "UUG" -> "Leucine"
@@ -11,11 +9,11 @@ let codonToProtein =
     | "UGU" | "UGC" -> "Cysteine"
     | "UGG" -> "Tryptophan"
     | "UAA" | "UAG" | "UGA" -> "Stop"
-    | _ -> failwith "Invalid codon supplied"
+    | n -> failwith $"Invalid codon '{n}' supplied"
 
 let proteins rna =
     rna
-      |> Seq.chunkBySize 3
-      |> Seq.map (String >> codonToProtein)
-      |> Seq.takeWhile ((<>) "Stop")
-      |> List.ofSeq
+    |> Seq.chunkBySize 3
+    |> Seq.map (System.String >> codonToProtein)
+    |> Seq.takeWhile ((<>) "Stop")
+    |> List.ofSeq
