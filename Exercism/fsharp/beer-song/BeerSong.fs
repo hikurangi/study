@@ -17,11 +17,11 @@ let private verse n =
     [ $"{count n} of beer on the wall, {(count n).ToLower()} of beer."
       $"{action n}, {(count (n - 1)).ToLower()} of beer on the wall." ]
 
+let private foldVerses state index =
+    match state with
+    | [] -> verse index
+    | _ -> state @ [ "" ] @ verse index
+
 let recite startBottles takeDown =
     [ startBottles .. -1 .. startBottles - takeDown + 1 ]
-    |> List.fold
-        (fun s i ->
-            match s with
-            | [] -> verse i
-            | _ -> s @ [ "" ] @ verse i)
-        []
+    |> List.fold foldVerses []
