@@ -1,11 +1,10 @@
 ﻿module BeerSong
 
-let private count isStart =
+let private count =
     function
     | n when n > 1 -> $"{n} bottles"
     | 1 -> "1 bottle"
-    | 0 when isStart -> "No more bottles"
-    | 0 -> "no more bottles"
+    | 0 -> "No more bottles"
     | _ -> "99 bottles"
 
 let private action =
@@ -15,12 +14,14 @@ let private action =
     | _ -> "Take one down and pass it around"
 
 let private verse n =
-    [ $"{count true n} of beer on the wall, {count false n} of beer."
-      $"{action n}, {count false (n - 1)} of beer on the wall." ]
+    [ $"{count n} of beer on the wall, {(count n).ToLower()} of beer."
+      $"{action n}, {(count (n - 1)).ToLower()} of beer on the wall." ]
 
 let recite startBottles takeDown =
-    [ for i = startBottles downto startBottles - takeDown + 1 do
-          if i <> startBottles then
-              yield! "" :: verse i
-          else
-              yield! verse i ]
+    [ startBottles .. -1 .. startBottles - takeDown + 1 ]
+    |> List.fold
+        (fun s i ->
+            match s with
+            | [] -> verse i
+            | _ -> s @ [ "" ] @ verse i)
+        []
