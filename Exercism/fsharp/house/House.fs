@@ -16,7 +16,7 @@ let private subjects =
 
 let rec private verse v =
     function
-    | i when i > -1 -> verse (v + " the " + subjects.[i]) (i - 1)
+    | i when i > -1 -> verse ([ v; subjects.[i] ] |> String.concat " the ") (i - 1)
     | _ -> v
 
 let recite startVerse endVerse =
