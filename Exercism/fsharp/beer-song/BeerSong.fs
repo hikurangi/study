@@ -1,23 +1,26 @@
 ﻿module BeerSong
 
-let beerVerse =
+let private count isStart =
     function
-    | 2 ->
-        [ "2 bottles of beer on the wall, 2 bottles of beer."
-          "Take one down and pass it around, 1 bottle of beer on the wall." ]
-    | 1 ->
-        [ "1 bottle of beer on the wall, 1 bottle of beer."
-          "Take it down and pass it around, no more bottles of beer on the wall." ]
-    | 0 ->
-        [ "No more bottles of beer on the wall, no more bottles of beer."
-          "Go to the store and buy some more, 99 bottles of beer on the wall." ]
-    | n ->
-        [ $"{n} bottles of beer on the wall, {n} bottles of beer."
-          $"Take one down and pass it around, {n - 1} bottles of beer on the wall." ]
+    | n when n > 1 -> $"{n} bottles"
+    | 1 -> "1 bottle"
+    | 0 when isStart -> "No more bottles"
+    | 0 -> "no more bottles"
+    | _ -> "99 bottles"
+
+let private action =
+    function
+    | 1 -> "Take it down and pass it around"
+    | 0 -> "Go to the store and buy some more"
+    | _ -> "Take one down and pass it around"
+
+let private verse n =
+    [ $"{count true n} of beer on the wall, {count false n} of beer."
+      $"{action n}, {count false (n - 1)} of beer on the wall." ]
 
 let recite startBottles takeDown =
-    [ for i = startBottles downto startBottles - (takeDown - 1) do
+    [ for i = startBottles downto startBottles - takeDown + 1 do
           if i <> startBottles then
-              yield! "" :: beerVerse i
+              yield! "" :: verse i
           else
-              yield! beerVerse i ]
+              yield! verse i ]
