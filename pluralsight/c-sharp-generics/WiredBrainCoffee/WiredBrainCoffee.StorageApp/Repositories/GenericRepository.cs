@@ -6,7 +6,8 @@ namespace WiredBrainCoffee.StorageApp.Repositories
 {
     public class GenericRepository<T>
     {
-        private readonly List<T> _items = new();
+        // the protected keyword is slightly more permissive than the private keyword, allowing us to access the protected field from a subclass / inheritor
+        protected readonly List<T> _items = new();
 
         public void Add(T item)
         {
@@ -21,4 +22,14 @@ namespace WiredBrainCoffee.StorageApp.Repositories
             }
         }
     }
+
+    public class GenericRepositoryWithRemove<T> : GenericRepository<T>
+    {
+        public void Remove(T item)
+        {
+            _items.Remove(item);
+        }
+    }
 }
+
+
