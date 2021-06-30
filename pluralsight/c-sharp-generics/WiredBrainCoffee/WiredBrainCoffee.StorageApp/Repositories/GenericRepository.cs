@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using WiredBrainCoffee.StorageApp.Entities;
 
 namespace WiredBrainCoffee.StorageApp.Repositories
 {
-    public class GenericRepository<T>
+    public class GenericRepository<T, TKey>
     {
+        public TKey? Key { get; set; }
+
         // the protected keyword is slightly more permissive than the private keyword, allowing us to access the protected field from a subclass / inheritor
         protected readonly List<T> _items = new();
 
@@ -23,7 +24,7 @@ namespace WiredBrainCoffee.StorageApp.Repositories
         }
     }
 
-    public class GenericRepositoryWithRemove<T> : GenericRepository<T>
+    public class GenericRepositoryWithRemove<T> : GenericRepository<T, string>
     {
         public void Remove(T item)
         {
