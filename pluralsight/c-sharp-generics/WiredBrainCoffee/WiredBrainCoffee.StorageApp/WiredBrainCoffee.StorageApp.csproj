@@ -9,5 +9,13 @@
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\" />
+    <None Remove="Microsoft.EntityFrameworkCore.InMemory" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.8" />
   </ItemGroup>
 </Project>
