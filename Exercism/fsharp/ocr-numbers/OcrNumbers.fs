@@ -1,6 +1,6 @@
 module OcrNumbers
 
-let parseChar = List.ofSeq >> function
+let character = List.ofSeq >> function
         | [ " _ "; "| |"; "|_|"; "   " ] -> "0"
         | [ "   "; "  |"; "  |"; "   " ] -> "1"
         | [ " _ "; " _|"; "|_ "; "   " ] -> "2"
@@ -13,11 +13,9 @@ let parseChar = List.ofSeq >> function
         | [ " _ "; "|_|"; " _|"; "   " ] -> "9"
         | _ -> "?"
 
-let parseRow: seq<string> -> string =
-    Seq.map (Seq.chunkBySize 3 >> Seq.map System.String) >> Seq.transpose >> Seq.map parseChar >> String.concat ""
-
-let parse: seq<string> -> string = Seq.chunkBySize 4 >> Seq.map parseRow >> String.concat ","
+let row: seq<string> -> string =
+    Seq.map (Seq.chunkBySize 3 >> Seq.map System.String) >> Seq.transpose >> Seq.map character >> String.concat ""
 
 let convert = function
     | i when (i |> Seq.length) % 4 <> 0 || i |> Seq.exists (fun it -> (it |> Seq.length) % 3 <> 0) -> None
-    | i -> i |> parse |> Some
+    | i -> i |> Seq.chunkBySize 4 |> Seq.map row |> String.concat "," |> Some
