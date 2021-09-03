@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 
+public class Student
+{
+    public string Name;
+    public int Grade;
+}
+
 public class GradeSchool
 {
-    private readonly IDictionary<int, IEnumerable<string>> _school = new Dictionary<int, IEnumerable<string>>();
-
-    private IEnumerable<string> SafelyAccessGrade(int grade, IDictionary<int, IEnumerable<string>> school) => school.TryGetValue(grade, out var existingGrade) ? existingGrade : new List<string>();
+    private IEnumerable<Student> _students = new List<Student>();
 
     public void Add(string student, int grade)
     {
-        _school[grade] = Grade(grade).Append(student).OrderBy(x => x);
+        _students = _students.Append(new Student { Name = student, Grade = grade }).OrderBy(x => x.Grade).ThenBy(x => x.Name);
     }
 
-    public IEnumerable<string> Roster() => _school.ToList().OrderBy(x => x.Key).SelectMany(x => x.Value);
+    public IEnumerable<string> Roster() => _students.Select(x => x.Name);
 
-    public IEnumerable<string> Grade(int grade) => SafelyAccessGrade(grade, _school);
+    public IEnumerable<string> Grade(int grade) => _students.Aggregate(new List<string>(), (IEnumerable<string> g, Student s) => s.Grade == grade ? g.Append(s.Name) : g);
 }
