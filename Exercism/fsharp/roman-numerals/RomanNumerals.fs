@@ -3,7 +3,7 @@
 let mapGlyphs powerOfTen i =
     let one, five, ten =
         match powerOfTen with
-        | 3 -> ("M", "ↁ", "ↂ") | 2 -> ("C", "D", "M") | 1 -> ("X", "L", "C") | 0 -> ("I", "V", "X")
+        | 3 -> "M", "ↁ", "ↂ" | 2 -> "C", "D", "M" | 1 -> "X", "L", "C" | 0 -> "I", "V", "X"
         | _ -> failwith "Unsupported number"
 
     match i with
