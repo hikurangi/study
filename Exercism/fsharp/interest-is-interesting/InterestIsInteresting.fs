@@ -1,10 +1,16 @@
 module InterestIsInteresting
 
-let interestRate (balance: decimal): single =
-    failwith "Please implement the 'interestRate' function"
+let interestRate = function
+  | b when b < 0m -> -3.213f
+  | b when b < 1_000m -> 0.5f
+  | b when b < 5_000m -> 1.621f
+  | _ -> 2.475f
 
-let annualBalanceUpdate(balance: decimal): decimal =
-   failwith "Please implement the 'annualBalanceUpdate' function"
+let annualBalanceUpdate balance =
+  let interestPercentage' = (balance |> interestRate |> decimal) / 100m
+  balance + (interestPercentage' * balance) 
 
 let amountToDonate(balance: decimal) (taxFreePercentage: float): int =
-   failwith "Please implement the 'amountToDonate' function"
+  match (float balance * taxFreePercentage / 50.) |> int with
+    | a when a > 0 -> a
+    | _ -> 0
