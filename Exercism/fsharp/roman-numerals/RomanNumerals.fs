@@ -1,7 +1,11 @@
 ﻿module RomanNumerals
 
-let mapGlyphs glyphs i =
-    let one, five, ten = glyphs
+let mapGlyphs powerOfTen i =
+    let one, five, ten =
+        match powerOfTen with
+        | 3 -> ("M", "ↁ", "ↂ") | 2 -> ("C", "D", "M") | 1 -> ("X", "L", "C") | 0 -> ("I", "V", "X")
+        | _ -> failwith "Unsupported number"
+
     match i with
     | 1 | 2 | 3 -> List.init i (fun _ -> one)
     | 4 -> [ one; five ]
@@ -11,12 +15,9 @@ let mapGlyphs glyphs i =
     | _ -> [ "" ]
     |> Seq.reduce (+)
 
-let glyphsByPowersOfTen = function
-    | 3 -> ("M", "", "") | 2 -> ("C", "D", "M") | 1 -> ("X", "L", "C") | 0 -> ("I", "V", "X")
-    | _ -> failwith "Unsupported number"
-
-let rec transform numeral = function
-    | h :: t -> transform (numeral + mapGlyphs (glyphsByPowersOfTen (t |> List.length)) h) t
+let rec transform numeral =
+    function
+    | h :: t -> t |> transform (numeral + mapGlyphs t.Length h)
     | _ -> numeral
 
 let roman: int -> string =
