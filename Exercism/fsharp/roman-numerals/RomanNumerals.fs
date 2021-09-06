@@ -13,12 +13,12 @@ let mapGlyphs powerOfTen i =
     | 6 | 7 | 8 -> [ five ] @ List.init (i - 5) (fun _ -> one)
     | 9 -> [ one; ten ]
     | _ -> [ "" ]
-    |> Seq.reduce (+)
+    |> List.reduce (+)
 
 let rec transform numeral =
     function
     | h :: t -> t |> transform (numeral + mapGlyphs t.Length h)
-    | _ -> numeral
+    | [] -> numeral
 
 let roman: int -> string =
     string
