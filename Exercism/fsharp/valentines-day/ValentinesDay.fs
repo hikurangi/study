@@ -28,9 +28,7 @@ let rateActivity =
     | Chill -> No
     | Movie m ->
         match m with
-        | Crime
-        | Horror
-        | Thriller -> No
+        | Crime | Horror | Thriller -> No
         | Romance -> Yes
     | Restaurant r ->
         match r with
@@ -38,6 +36,6 @@ let rateActivity =
         | Turkish -> Maybe
     | Walk d ->
         match d with
-        | d when d > 4 -> No
-        | d when d > -1 && d < 3 -> Yes
-        | _ -> Maybe
+          | d when d > -1 && d < 3 -> Yes
+          | d when d > -1 && d < 5 -> Maybe
+          | _ -> No
