@@ -2,18 +2,17 @@ using System;
 
 static class SavingsAccount
 {
-    public static float InterestRate(decimal balance)
-    {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.InterestRate() method");
-    }
+  public static float InterestRate(decimal balance) => balance switch
+  {
+    < 0m => -3.213f,
+    < 1_000m => 0.5f,
+    < 5_000m => 1.621f,
+    _ => 2.475f
+  };
 
-    public static decimal AnnualBalanceUpdate(decimal balance)
-    {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.AnnualBalanceUpdate() method");
-    }
+  public static decimal AnnualBalanceUpdate(decimal balance) => balance + balance * Math.Abs((decimal)InterestRate(balance) / 100m);
 
-    public static int YearsBeforeDesiredBalance(decimal balance, decimal targetBalance)
-    {
-        throw new NotImplementedException("Please implement the (static) SavingsAccount.YearsBeforeDesiredBalance() method");
-    }
+  private static decimal YearUpdate(decimal balance, decimal targetBalance, int yearsElapsed) => (AnnualBalanceUpdate(balance) >= targetBalance) ? yearsElapsed : YearUpdate(AnnualBalanceUpdate(balance), targetBalance, yearsElapsed + 1);
+
+  public static int YearsBeforeDesiredBalance(decimal balance, decimal targetBalance) => (int)YearUpdate(balance, targetBalance, 1);
 }
