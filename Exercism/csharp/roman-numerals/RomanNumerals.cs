@@ -19,7 +19,8 @@ public static class RomanNumeralExtension
     {
       var (a, r) = conversions.First();
       var reps = arabic / a;
+      var remainder = arabic - (a * reps);
       var updateNumeral = String.Concat(roman, String.Concat(Enumerable.Repeat(r, reps)));
-      return Transform(conversions.Skip(1), arabic - (a * reps), updateNumeral);
+      return Transform(conversions.Skip(1), remainder, updateNumeral);
     }
 }
