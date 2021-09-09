@@ -1,27 +1,15 @@
 ﻿module RomanNumerals
 
-let mapGlyphs powerOfTen i =
-    let one, five, ten =
-        match powerOfTen with
-        | 3 -> "M", "ↁ", "ↂ" | 2 -> "C", "D", "M" | 1 -> "X", "L", "C" | 0 -> "I", "V", "X"
-        | _ -> failwith "Unsupported number"
+let rec transform map arabic roman =
+    match map, arabic with
+    | _, 0 | [], _ -> roman
+    | (a, r) :: t, _ ->
+         let reps = arabic / a
+         let arabic' = arabic - reps * a
+         let roman' = roman + (r |> List.replicate reps |> String.concat "")
+         transform t arabic' roman'
 
-    match i with
-    | 1 | 2 | 3 -> List.init i (fun _ -> one)
-    | 4 -> [ one; five ]
-    | 5 -> [ five ]
-    | 6 | 7 | 8 -> [ five ] @ List.init (i - 5) (fun _ -> one)
-    | 9 -> [ one; ten ]
-    | _ -> [ "" ]
-    |> String.concat ""
+let conversions =
+    [ 1000, "M"; 900, "CM"; 500, "D"; 400, "CD"; 100, "C"; 90, "XC"; 50, "L"; 40, "XL"; 10, "X"; 9, "IX"; 5, "V"; 4, "IV"; 1, "I" ]
 
-let rec transform numeral =
-    function
-    | h :: t -> transform (numeral + mapGlyphs t.Length h) t
-    | [] -> numeral
-
-let roman: int -> string =
-    string
-    >> Seq.map (fun i -> int i - int '0')
-    >> List.ofSeq
-    >> transform ""
+let roman arabic = transform conversions arabic ""
