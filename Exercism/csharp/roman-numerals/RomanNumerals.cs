@@ -11,7 +11,7 @@ public static class RomanNumeralExtension
     public static string ToRoman(this int value) => Transform(_conversions, value, "");
 
     private static string Transform(IEnumerable<(int, string)> conversions, int arabic, string roman) => (conversions, arabic) switch {
-      (_, 0) => roman, var t when t.conversions.Count() == 0 => roman,
+      (_, 0) => roman, var t when !t.conversions.Any() => roman,
       var t => Iterate(t.conversions, arabic, roman)
     };
 
@@ -20,7 +20,7 @@ public static class RomanNumeralExtension
       var (a, r) = conversions.First();
       var reps = arabic / a;
       var remainder = arabic - (a * reps);
-      var updateNumeral = String.Concat(roman, String.Concat(Enumerable.Repeat(r, reps)));
+      var updateNumeral = string.Concat(roman, string.Concat(Enumerable.Repeat(r, reps)));
       return Transform(conversions.Skip(1), remainder, updateNumeral);
     }
 }
