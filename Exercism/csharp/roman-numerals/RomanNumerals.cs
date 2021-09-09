@@ -4,32 +4,22 @@ using System.Linq;
 
 public static class RomanNumeralExtension
 {
-    private static string mapGlyphs(int powerOfTen, int i)
-    {
-        var (one, five, ten) = powerOfTen switch
-        {
-            3 => ("M", "ↁ", "ↂ"), 2 => ("C", "D", "M"), 1 => ("X", "L", "C"), 0 => ("I", "V", "X"),
-            _ => throw new ArgumentException("Unsupported number")
-        };
-
-        var glyphs = i switch
-        {
-            1 or 2 or 3 => Enumerable.Repeat(one, i),
-            4 => new List<string> { one, five },
-            5 => new List<string> { five },
-            6 or 7 or 8 => new List<string> { five }.Concat(Enumerable.Repeat(one, i - 5)),
-            9 => new List<string> { one, ten },
-            _ => new List<string> { "" }
-        };
-
-        return string.Join("", glyphs);
-    }
-
-    private static string Transform(this IEnumerable<int> arabic, string roman) => arabic.Count() switch
-    {
-        0 => roman,
-        var c => arabic.Skip(1).Transform(roman + mapGlyphs(c - 1, arabic.First()))
+    private static readonly IEnumerable<(int, string)> _conversions = new List<(int arabic, string roman)> {
+      ( 1000, "M" ), ( 900, "CM" ), ( 500, "D" ), ( 400, "CD" ), ( 100, "C" ), ( 90, "XC" ), ( 50, "L" ), ( 40, "XL" ), ( 10, "X" ), ( 9, "IX" ), ( 5, "V" ), ( 4, "IV" ), ( 1, "I" )
     };
 
-    public static string ToRoman(this int value) => value.ToString().ToCharArray().Select(i => i - (int)'0').ToList().Transform("");
+    public static string ToRoman(this int value) => Transform(_conversions, value, "");
+
+    private static string Transform(IEnumerable<(int, string)> conversions, int arabic, string roman) => (conversions, arabic) switch {
+      (_, 0) => roman, var t when t.conversions.Count() == 0 => roman,
+      var t => Iterate(t.conversions, arabic, roman)
+    };
+
+    private static string Iterate(IEnumerable<(int, string)> conversions, int arabic, string roman)
+    {
+      var (a, r) = conversions.First();
+      var reps = arabic / a;
+      var updateNumeral = String.Concat(roman, String.Concat(Enumerable.Repeat(r, reps)));
+      return Transform(conversions.Skip(1), arabic - (a * reps), updateNumeral);
+    }
 }
