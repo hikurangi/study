@@ -9,6 +9,8 @@ namespace WiredBrainCoffee.StorageApp.Repositories
     {
         private readonly List<T> _items = new();
 
+        public IEnumerable<T> GetAll() => _items.ToList();
+
         public T GetById(int id) => _items.Single(item => item.Id == id);
 
         public void Add(T item)

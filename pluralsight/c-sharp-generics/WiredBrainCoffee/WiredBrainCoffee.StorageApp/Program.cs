@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic.CompilerServices;
 using WiredBrainCoffee.StorageApp.Data;
 using WiredBrainCoffee.StorageApp.Entities;
 using WiredBrainCoffee.StorageApp.Repositories;
@@ -12,11 +13,21 @@ namespace WiredBrainCoffee.StorageApp
             var employeeRepository = new SqlRepository<Employee>(new StorageAppDbContext());
             AddEmployees(employeeRepository);
             GetEmployeeById(employeeRepository);
+            WriteAllToConsole(employeeRepository);
 
             var organisationRepository = new SqlRepository<Organisation>(new StorageAppDbContext());
             AddOrganisations(organisationRepository);
 
             Console.ReadLine();
+        }
+
+        private static void WriteAllToConsole(IRepository<Employee> employeeRepository)
+        {
+            var items = employeeRepository.GetAll();
+            foreach (var item in items)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         private static void GetEmployeeById(IRepository<Employee> employeeRepository)

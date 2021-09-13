@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using WiredBrainCoffee.StorageApp.Entities;
 
 namespace WiredBrainCoffee.StorageApp.Repositories
@@ -13,6 +15,9 @@ namespace WiredBrainCoffee.StorageApp.Repositories
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
+        
+        public IEnumerable<T> GetAll() => _dbSet.ToList();
+
 
         public T GetById(int id) => _dbSet.Find(id);
 
