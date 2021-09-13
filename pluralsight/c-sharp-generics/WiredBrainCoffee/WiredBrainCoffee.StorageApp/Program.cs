@@ -1,4 +1,5 @@
 ﻿using System;
+using WiredBrainCoffee.StorageApp.Data;
 using WiredBrainCoffee.StorageApp.Entities;
 using WiredBrainCoffee.StorageApp.Repositories;
 
@@ -6,25 +7,25 @@ namespace WiredBrainCoffee.StorageApp
 {
     class Program
     {
-        static void Main(string[] _args)
+        static void Main(string[] args)
         {
-            var employeeRepository = new ListRepository<Employee>();
+            var employeeRepository = new SqlRepository<Employee>(new StorageAppDbContext());
             AddEmployees(employeeRepository);
             GetEmployeeById(employeeRepository);
 
-            var organisationRepository = new ListRepository<Organisation>();
+            var organisationRepository = new SqlRepository<Organisation>(new StorageAppDbContext());
             AddOrganisations(organisationRepository);
 
             Console.ReadLine();
         }
 
-        private static void GetEmployeeById(ListRepository<Employee> employeeRepository)
+        private static void GetEmployeeById(IRepository<Employee> employeeRepository)
         {
             var employee = employeeRepository.GetById(2);
             Console.WriteLine($"Employee with Id 2: {employee.FirstName}");
         }
 
-        private static void AddEmployees(ListRepository<Employee> employeeRepository)
+        private static void AddEmployees(IRepository<Employee> employeeRepository)
         {
             employeeRepository.Add(new Employee { FirstName = "Lisa" });
             employeeRepository.Add(new Employee { FirstName = "Bart" });
@@ -32,7 +33,7 @@ namespace WiredBrainCoffee.StorageApp
             employeeRepository.Save();
         }
 
-        private static void AddOrganisations(ListRepository<Organisation> organisationRepository)
+        private static void AddOrganisations(IRepository<Organisation> organisationRepository)
         {
             organisationRepository.Add(new Organisation { Name = "Burns Empire" });
             organisationRepository.Add(new Organisation { Name = "Moe's Tavern" });
