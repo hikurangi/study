@@ -38,10 +38,11 @@ type IOUPayload =
       [<JsonProperty("amount")>]
       Amount: double }
 
+let deserialize<'a> = JsonConvert.DeserializeObject<'a>
+let serialize = JsonConvert.SerializeObject
+
 type RestApi(database: string) =
-    let mutable database =
-        database
-        |> JsonConvert.DeserializeObject<Database>
+    let mutable _database = database |> deserialize<Database>
 
     member this.FindByName name (store: Database) =
         store.Users |> Seq.find (fun u -> u.Name = name)
@@ -50,36 +51,29 @@ type RestApi(database: string) =
         store.Users
         |> Seq.where (fun u -> names |> Seq.contains u.Name)
 
-    member this.Get(url: string) = JsonConvert.SerializeObject database
+    member this.Get(url: string) = _database |> serialize
 
     member this.Get(url: string, payload: string) =
-        let asUsersPayload =
-            JsonConvert.DeserializeObject<UsersPayload> payload
-
-        { Users = this.FindByNames asUsersPayload.Users database }
-        |> JsonConvert.SerializeObject
+        { Users =
+              _database
+              |> this.FindByNames (deserialize<UsersPayload> payload).Users }
+        |> serialize
 
     member this.AddUser payload =
-        let asUserPayload =
-            payload
-            |> JsonConvert.DeserializeObject<UserPayload>
-
-        { Name = asUserPayload.User
+        { Name = (payload |> deserialize<UserPayload>).User
           Owes = Map.empty
           OwedBy = Map.empty
           Balance = 0. }
-        |> JsonConvert.SerializeObject
+        |> serialize
 
     member this.AddIOU payload =
-        let asIOUPayload =
-            payload
-            |> JsonConvert.DeserializeObject<IOUPayload>
+        let asIOUPayload = payload |> deserialize<IOUPayload>
 
         let lenderName = asIOUPayload.Lender
         let borrowerName = asIOUPayload.Borrower
         let amount = asIOUPayload.Amount
 
-        let existingLender = this.FindByName lenderName database
+        let existingLender = this.FindByName lenderName _database
 
         let newLoan =
             (borrowerName, (fun v -> defaultArg v 0. + amount |> Some))
@@ -101,7 +95,7 @@ type RestApi(database: string) =
                   OwedBy = newLoan
                   Balance = existingLender.Balance + amount }
 
-        let existingBorrower = this.FindByName borrowerName database
+        let existingBorrower = this.FindByName borrowerName _database
 
         let newBorrowerDebt =
             (lenderName, (fun v -> defaultArg v 0. + amount |> Some))
@@ -113,13 +107,13 @@ type RestApi(database: string) =
                   Balance = existingBorrower.Balance - amount }
 
         // TODO: properly update!
-        database <-
-            { database with
+        _database <-
+            { _database with
                   Users =
                       [ updatedLender; updatedBorrower ]
                       |> Seq.sortBy (fun u -> u.Name) }
 
-        database |> JsonConvert.SerializeObject
+        _database |> serialize
 
     member this.Post(url: string, payload: string) =
         url
