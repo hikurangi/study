@@ -5,21 +5,38 @@ open Newtonsoft.Json
 type Payees = Map<string, double>
 
 type User =
-    { name: string
-      owes: Payees
-      owed_by: Payees
-      balance: double }
+    { [<JsonProperty("name")>]
+      Name: string
+      [<JsonProperty("owes")>]
+      Owes: Payees
+      [<JsonProperty("owed_by")>]
+      OwedBy: Payees
+      [<JsonProperty("balance")>]
+      Balance: double }
 
-type Database = { users: seq<User> }
+type Database =
+    { [<JsonProperty("users")>]
+      Users: seq<User> }
 
-type UserPayload = { user: string }
-type UsersPayload = { users: seq<string> }
-type UsersResponse = { users: seq<User> }
+type UserPayload =
+    { [<JsonProperty("user")>]
+      User: string }
+
+type UsersPayload =
+    { [<JsonProperty("users")>]
+      Users: seq<string> }
+
+type UsersResponse =
+    { [<JsonProperty("users")>]
+      Users: seq<User> }
 
 type IOUPayload =
-    { lender: string
-      borrower: string
-      amount: double }
+    { [<JsonProperty("lender")>]
+      Lender: string
+      [<JsonProperty("borrower")>]
+      Borrower: string
+      [<JsonProperty("amount")>]
+      Amount: double }
 
 type RestApi(database: string) =
     let mutable database =
@@ -27,11 +44,11 @@ type RestApi(database: string) =
         |> JsonConvert.DeserializeObject<Database>
 
     member this.FindByName name (store: Database) =
-        store.users |> Seq.find (fun u -> u.name = name)
+        store.Users |> Seq.find (fun u -> u.Name = name)
 
     member this.FindByNames names (store: Database) =
-        store.users
-        |> Seq.where (fun u -> names |> Seq.contains u.name)
+        store.Users
+        |> Seq.where (fun u -> names |> Seq.contains u.Name)
 
     member this.Get(url: string) = JsonConvert.SerializeObject database
 
@@ -39,17 +56,18 @@ type RestApi(database: string) =
         let asUsersPayload =
             JsonConvert.DeserializeObject<UsersPayload> payload
 
-        { users = this.FindByNames asUsersPayload.users database }
+        { Users = this.FindByNames asUsersPayload.Users database }
         |> JsonConvert.SerializeObject
 
     member this.AddUser payload =
         let asUserPayload =
-            JsonConvert.DeserializeObject<UserPayload> payload
+            payload
+            |> JsonConvert.DeserializeObject<UserPayload>
 
-        { name = asUserPayload.user
-          owes = Map.empty
-          owed_by = Map.empty
-          balance = 0. }
+        { Name = asUserPayload.User
+          Owes = Map.empty
+          OwedBy = Map.empty
+          Balance = 0. }
         |> JsonConvert.SerializeObject
 
     member this.AddIOU payload =
@@ -57,47 +75,49 @@ type RestApi(database: string) =
             payload
             |> JsonConvert.DeserializeObject<IOUPayload>
 
-        let lenderName = asIOUPayload.lender
-        let borrowerName = asIOUPayload.borrower
-        let amount = asIOUPayload.amount
+        let lenderName = asIOUPayload.Lender
+        let borrowerName = asIOUPayload.Borrower
+        let amount = asIOUPayload.Amount
 
         let existingLender = this.FindByName lenderName database
 
         let newLoan =
             (borrowerName, (fun v -> defaultArg v 0. + amount |> Some))
-            |> existingLender.owed_by.Change
+            |> existingLender.OwedBy.Change
 
         let newLenderDebt =
             borrowerName
-            |> existingLender.owes.TryFind
+            |> existingLender.Owes.TryFind
             |> function
-                | Some n when n > 0. -> (borrowerName, (fun v -> defaultArg v 0. - amount |> Some)) |> existingLender.owes.Change
-                | Some n when n = 0. -> borrowerName |> existingLender.owes.Remove
-                | _ -> existingLender.owes
+                | Some n when n > 0. ->
+                    (borrowerName, (fun v -> defaultArg v 0. - amount |> Some))
+                    |> existingLender.Owes.Change
+                | Some n when n = 0. -> borrowerName |> existingLender.Owes.Remove
+                | _ -> existingLender.Owes
 
         let updatedLender =
             { existingLender with
-                  owes = newLenderDebt
-                  owed_by = newLoan
-                  balance = existingLender.balance + amount }
+                  Owes = newLenderDebt
+                  OwedBy = newLoan
+                  Balance = existingLender.Balance + amount }
 
         let existingBorrower = this.FindByName borrowerName database
 
         let newBorrowerDebt =
             (lenderName, (fun v -> defaultArg v 0. + amount |> Some))
-            |> existingBorrower.owes.Change
+            |> existingBorrower.Owes.Change
 
         let updatedBorrower =
             { existingBorrower with
-                  owes = newBorrowerDebt
-                  balance = existingBorrower.balance - amount }
+                  Owes = newBorrowerDebt
+                  Balance = existingBorrower.Balance - amount }
 
         // TODO: properly update!
         database <-
             { database with
-                  users =
+                  Users =
                       [ updatedLender; updatedBorrower ]
-                      |> Seq.sortBy (fun u -> u.name) }
+                      |> Seq.sortBy (fun u -> u.Name) }
 
         database |> JsonConvert.SerializeObject
 
