@@ -10,9 +10,8 @@ let countLanguages = Seq.length
 
 let reverseList = List.rev
 
-let excitingList languages =
-    match languages |> Seq.length, languages |> Seq.tryFindIndex (fun i -> i = "F#") with
-    | l, Some _ when l < 3 -> true
-    | 3, Some i when i < 2 -> true
-    | 4, Some i when i < 1 -> true
+let excitingList =
+    function
+    | "F#" :: _ -> true
+    | _ :: "F#" :: t when t |> Seq.length < 2 -> true
     | _ -> false
