@@ -67,6 +67,18 @@ let ``Odd week for week matching odd pattern`` () =
 
 [<Fact>]
 [<Task(6)>]
+let ``Odd week for week closely resembling odd pattern`` () =
+    oddWeek [| 2; -1; 2; -1; 2; -1; 2 |]
+    |> should equal false
+    
+[<Fact>]
+[<Task(6)>]
+let ``Odd week for week loosely resembling odd pattern`` () =
+    oddWeek [| 1; 1; 0; 0; 1; 1; 0 |]
+    |> should equal false
+
+[<Fact>]
+[<Task(6)>]
 let `` Odd week for week that does not match odd pattern`` () =
     oddWeek [| 2; 2; 1; 0; 1; 1; 1 |]
     |> should equal false

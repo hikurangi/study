@@ -1,29 +1,19 @@
 module BirdWatcher
 
-let lastWeek: int [] = [| 0; 2; 5; 3; 7; 8; 4 |]
+let lastWeek = [| 0; 2; 5; 3; 7; 8; 4 |]
 
 let yesterday (counts: seq<'a>) =
     counts |> Seq.item ((counts |> Seq.length) - 2)
 
-let total (counts: seq<int>) = counts |> Seq.fold (+) 0
+let total: seq<int> -> int = Seq.reduce (+)
 
-let dayWithoutBirds (counts: seq<int>) = counts |> Seq.contains 0
+let dayWithoutBirds: seq<int> -> bool = Seq.contains 0
 
-let incrementTodaysCount (counts: int []) : int [] =
-    counts
-    |> Seq.take 6
-    |> Seq.rev
-    |> Seq.append (Seq.singleton ((counts |> Seq.last) + 1))
-    |> Seq.rev
-    |> Seq.toArray
+let incrementTodaysCount counts =
+    [| 1 + Array.last counts |]
+    |> Array.append (counts |> Array.take 6)
 
-let oddWeek (counts: int []) : bool =
-    let tagged = counts |> Seq.mapi (fun idx it -> idx, it)
-    
-    let evens = tagged |> Seq.filter (fun (idx, _) -> idx % 2 = 0)
-    let evensAreOnes = evens |> Seq.forall (fun (_, it) -> it = 1)
-  
-    let odds = tagged |> Seq.filter (fun (idx, _) -> idx % 2 <> 0)
-    let oddsAreZeroes = odds |> Seq.forall (fun (_, it) -> it = 0)
-    
-    evensAreOnes && oddsAreZeroes
+let oddWeek: seq<int> -> bool =
+    Seq.pairwise
+    >> Seq.forall
+        (fun (a, b) -> a + b = 1 && [ a; b ] |> Seq.forall (fun i -> [ 1; 0 ] |> Seq.contains i))
