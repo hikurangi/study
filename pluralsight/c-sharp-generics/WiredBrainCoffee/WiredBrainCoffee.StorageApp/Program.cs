@@ -24,8 +24,8 @@ namespace WiredBrainCoffee.StorageApp
 
         private static void AddManagers(IWriteRepository<Manager> managerRepository)
         {
-            managerRepository.Add(new Manager { FirstName = "Carl" });
-            managerRepository.Add(new Manager { FirstName = "Lenny" });
+            managerRepository.Add(new Manager {FirstName = "Carl"});
+            managerRepository.Add(new Manager {FirstName = "Lenny"});
             managerRepository.Save();
         }
 
@@ -46,16 +46,30 @@ namespace WiredBrainCoffee.StorageApp
 
         private static void AddEmployees(IRepository<Employee> employeeRepository)
         {
-            employeeRepository.Add(new Employee { FirstName = "Lisa" });
-            employeeRepository.Add(new Employee { FirstName = "Bart" });
-            employeeRepository.Add(new Employee { FirstName = "Maggie" });
+            employeeRepository.Add(new Employee {FirstName = "Lisa"});
+            employeeRepository.Add(new Employee {FirstName = "Bart"});
+            employeeRepository.Add(new Employee {FirstName = "Maggie"});
             employeeRepository.Save();
         }
 
         private static void AddOrganisations(IRepository<Organisation> organisationRepository)
         {
-            organisationRepository.Add(new Organisation { Name = "Burns Empire" });
-            organisationRepository.Add(new Organisation { Name = "Moe's Tavern" });
+            var organisations = new[]
+            {
+                new Organisation {Name = "Burns Empire"},
+                new Organisation {Name = "Moe's Tavern"}
+            };
+
+            AddBatch(organisationRepository, organisations);
+        }
+
+        private static void AddBatch(IRepository<Organisation> organisationRepository, Organisation[] organisations)
+        {
+            foreach (var item in organisations)
+            {
+                organisationRepository.Add(item);
+            }
+
             organisationRepository.Save();
         }
     }
