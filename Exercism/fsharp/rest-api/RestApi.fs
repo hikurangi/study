@@ -35,40 +35,40 @@ type Database(database: DatabaseDTO) =
 
     let mutable _users = database.Users
 
+    member this.InitializeUser(user: AddUsersDTO) =
+        { Name = user.User
+          Owes = Map.empty
+          OwedBy = Map.empty
+          Balance = 0.0 }
+
     member this.GetUsers(search: GetUsersDTO) =
         _users
         |> Seq.filter (fun u -> search.Users |> Seq.contains u.Name)
         |> (fun u -> { Users = u })
 
-    member this.GetAllUsers = _users
+    member this.GetAllUsers = { Users = _users }
 
     member this.GetUser(search: string) =
         _users
         |> Seq.tryFind (fun u -> search = u.Name)
         |> (function
         | Some u -> u
-        | None -> failwith "404 User not found")
+        | None -> failwith "User not found")
 
     member this.GetUpdatedUsers(additionalUsers: User seq) =
         _users
         |> Seq.filter
             (fun u ->
-                (additionalUsers
-                 |> Seq.exists (fun u' -> u.Name = u'.Name)
-                 |> not))
+                additionalUsers
+                |> Seq.exists (fun u' -> u.Name = u'.Name)
+                |> not)
         |> Seq.append additionalUsers
 
     member this.UpdateUsers(updatedUsers: User seq) = _users <- updatedUsers
 
-    member this.Serialize = { Users = _users }
-
-type RestApi(database) =
-    let _database =
-        database |> deserialize<DatabaseDTO> |> Database
-
-    let resolveIOU (iou: IOUDTO) : DatabaseDTO =
-        let lenderUser = iou.Lender |> _database.GetUser
-        let borrowerUser = iou.Borrower |> _database.GetUser
+    member this.ResolveIOU(iou: IOUDTO) : DatabaseDTO =
+        let lenderUser = iou.Lender |> this.GetUser
+        let borrowerUser = iou.Borrower |> this.GetUser
         let iouAmount = iou.Amount
 
         let updatedLenderUserOwedBy =
@@ -88,7 +88,7 @@ type RestApi(database) =
             borrowerUser.Owes.Change(
                 iou.Lender,
                 (function
-                | Some v -> (v + iouAmount) |> Some
+                | Some v -> (v - iouAmount) |> Some
                 | None -> Some iouAmount)
             )
 
@@ -97,13 +97,19 @@ type RestApi(database) =
                   Balance = borrowerUser.Balance - iouAmount
                   Owes = updatedBorrowerUserOwes }
 
-        let updatedUsers =
-            _database.GetUpdatedUsers [ updatedLenderUser
-                                        updatedBorrowerUser ]
+        { Users =
+              [ updatedLenderUser
+                updatedBorrowerUser ]
+              |> Seq.sortBy (fun u -> u.Name) }
 
-        { Users = updatedUsers }
+type RestApi(database) =
+    let _database =
+        database |> deserialize<DatabaseDTO> |> Database
 
-    member this.Get(url: string) = _database.Serialize |> serialize
+    member this.Get(url: string) =
+        match url with
+        | "/users" -> _database.GetAllUsers |> serialize
+        | _ -> "404"
 
     member this.Get(url: string, payload: string) =
         match url with
@@ -112,22 +118,18 @@ type RestApi(database) =
             |> deserialize<GetUsersDTO>
             |> _database.GetUsers
             |> serialize
-        | _ -> failwith "404"
+        | _ -> "404"
 
     member this.Post(url: string, payload: string) =
         match url with
         | "/add" ->
             payload
             |> deserialize<AddUsersDTO>
-            |> (fun u ->
-                { Name = u.User
-                  Owes = Map.empty
-                  OwedBy = Map.empty
-                  Balance = 0.0 })
+            |> _database.InitializeUser
             |> serialize
         | "/iou" ->
             payload
             |> deserialize<IOUDTO>
-            |> resolveIOU
+            |> _database.ResolveIOU
             |> serialize
-        | _ -> failwith "404"
+        | _ -> "404"
