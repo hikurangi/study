@@ -22,7 +22,7 @@ let ``Add user`` () =
     let api = RestApi(database)
     api.Post (url, payload) |> should equal expected
 
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Get single user`` () =
     let database = """{"users":[{"name":"Adam","owes":{},"owed_by":{},"balance":0.0},{"name":"Bob","owes":{},"owed_by":{},"balance":0.0}]}"""
     let payload = """{"users":["Bob"]}"""
@@ -31,7 +31,7 @@ let ``Get single user`` () =
     let api = RestApi(database)
     api.Get (url, payload) |> should equal expected
 
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Both users have 0 balance`` () =
     let database = """{"users":[{"name":"Adam","owes":{},"owed_by":{},"balance":0.0},{"name":"Bob","owes":{},"owed_by":{},"balance":0.0}]}"""
     let payload = """{"lender":"Adam","borrower":"Bob","amount":3.0}"""
