@@ -3,32 +3,6 @@
 open Newtonsoft.Json
 open Newtonsoft.Json.Serialization
 
-type Ledger = Map<string, double>
-
-type User =
-    { Name: string
-      Owes: Ledger
-      OwedBy: Ledger
-      Balance: double }
-
-type UserAssetsAndLiabilities =
-    { Assets: double
-      Liabilities: double
-      Balance: double }
-
-type Exchange =
-    { Lender: UserAssetsAndLiabilities
-      Borrower: UserAssetsAndLiabilities }
-
-type AddUsersDTO = { User: string }
-type GetUsersDTO = { Users: string seq }
-type DatabaseDTO = { Users: User seq }
-
-type IOUDTO =
-    { Lender: string
-      Borrower: string
-      Amount: double }
-
 let snakeCaseContractResolver = DefaultContractResolver()
 snakeCaseContractResolver.NamingStrategy <- SnakeCaseNamingStrategy()
 let serializerSettings = JsonSerializerSettings()
@@ -40,59 +14,54 @@ let deserialize<'a> s =
 let serialize o =
     JsonConvert.SerializeObject(o, serializerSettings)
 
-type Database(database: DatabaseDTO) =
+type Ledger = Map<string, float>
+type User =
+    { Name: string
+      Owes: Ledger
+      OwedBy: Ledger
+      Balance: float }
 
+type AddUsersDTO = { User: string }
+type GetUsersDTO = { Users: string seq }
+type DatabaseDTO = { Users: User seq }
+
+type IOUDTO =
+    { Lender: string
+      Borrower: string
+      Amount: float }
+
+type Application(database: DatabaseDTO) =
     let mutable _users = database.Users
-
-    let zeroToNone =
-        function
-        | v when v <= 0.0 -> None
-        | v -> Some v
 
     let defaultToZero v = defaultArg v 0.0
 
-    let calculateExchange lenderUser borrowerUser amount =
-        let updatedLenderPosition =
-            lenderUser.Assets - lenderUser.Liabilities
-            + amount
+    let updateUser existingP1 p2Name balance p1Total =
+        let owedBy =
+            if p1Total > 0.0 then
+                existingP1.OwedBy.Add(p2Name, p1Total)
+            else
+                existingP1.OwedBy.Remove p2Name
 
-        let updatedBorrowerPosition =
-            borrowerUser.Assets
-            - borrowerUser.Liabilities
-            - amount
+        let owes =
+            if p1Total < 0.0 then
+                existingP1.Owes.Add(p2Name, p1Total |> abs)
+            else
+                existingP1.Owes.Remove p2Name
 
-        let updatedLenderAssets =
-            match updatedLenderPosition with
-            | v when v > 0.0 -> v
-            | _ -> 0.0
+        { existingP1 with
+              Balance = balance
+              OwedBy = owedBy
+              Owes = owes }
 
-        let updatedLenderLiabilities =
-            match updatedLenderPosition with
-            | v when v > 0.0 -> 0.0
-            | v -> v |> abs
 
-        let updatedLenderBalance = lenderUser.Balance + amount
-
-        let updatedBorrowerAssets =
-            match updatedBorrowerPosition with
-            | v when v > 0.0 -> v
-            | _ -> 0.0
-
-        let updatedBorrowerLiabilities =
-            match updatedBorrowerPosition with
-            | v when v > 0.0 -> 0.0
-            | v -> v |> abs
-
-        let updatedBorrowerBalance = borrowerUser.Balance - amount
-
-        { Lender =
-              { Assets = updatedLenderAssets
-                Liabilities = updatedLenderLiabilities
-                Balance = updatedLenderBalance }
-          Borrower =
-              { Assets = updatedBorrowerAssets
-                Liabilities = updatedBorrowerLiabilities
-                Balance = updatedBorrowerBalance } }
+    let getBalance p1 p2 amount =
+        (p2.Name
+         |> p1.OwedBy.TryFind
+         |> defaultToZero)
+        - (p2.Name
+           |> p1.Owes.TryFind
+           |> defaultToZero)
+        + amount
 
     member this.InitializeUser(user: AddUsersDTO) =
         { Name = user.User
@@ -123,71 +92,19 @@ type Database(database: DatabaseDTO) =
                 |> not)
         |> Seq.append additionalUsers
 
-    member this.UpdateUsers(updatedUsers: User seq) = _users <- updatedUsers
-
     member this.ResolveIOU(iou: IOUDTO) : DatabaseDTO =
+
+        let amount = iou.Amount
         let lenderUser = iou.Lender |> this.GetUser
         let borrowerUser = iou.Borrower |> this.GetUser
-        let amount = iou.Amount
-
-        let lenderAssetsAndLiabilities =
-            { Assets =
-                  borrowerUser.Name
-                  |> lenderUser.OwedBy.TryFind
-                  |> defaultToZero
-              Liabilities =
-                  borrowerUser.Name
-                  |> lenderUser.Owes.TryFind
-                  |> defaultToZero
-              Balance = lenderUser.Balance }
-
-        let borrowerAssetsAndLiabilities =
-            { Assets =
-                  lenderUser.Name
-                  |> borrowerUser.OwedBy.TryFind
-                  |> defaultToZero
-              Liabilities =
-                  lenderUser.Name
-                  |> borrowerUser.Owes.TryFind
-                  |> defaultToZero
-              Balance = borrowerUser.Balance }
-
-        let exchange =
-            calculateExchange lenderAssetsAndLiabilities borrowerAssetsAndLiabilities amount
-
-        let lenderLiabilities = exchange.Lender.Liabilities
-        let lenderAssets = exchange.Lender.Assets
-
-        let borrowerLiabilities = exchange.Borrower.Liabilities
-        let borrowerAssets = exchange.Borrower.Assets
 
         let updatedLenderUser =
-            { lenderUser with
-                  Balance = exchange.Lender.Balance
-                  Owes =
-                      if lenderLiabilities > 0.0 then
-                          lenderUser.Owes.Add(borrowerUser.Name, lenderLiabilities)
-                      else
-                          borrowerUser.Name |> lenderUser.Owes.Remove
-                  OwedBy =
-                      if lenderAssets > 0.0 then
-                          lenderUser.OwedBy.Add(borrowerUser.Name, lenderAssets)
-                      else
-                          borrowerUser.Name |> lenderUser.OwedBy.Remove }
+            getBalance lenderUser borrowerUser amount
+            |> updateUser lenderUser borrowerUser.Name (lenderUser.Balance + amount)
 
         let updatedBorrowerUser =
-            { borrowerUser with
-                  Balance = exchange.Borrower.Balance
-                  Owes =
-                      if borrowerLiabilities > 0.0 then
-                          borrowerUser.Owes.Add(lenderUser.Name, borrowerLiabilities)
-                      else
-                          lenderUser.Name |> borrowerUser.Owes.Remove
-                  OwedBy =
-                      if borrowerAssets > 0.0 then
-                          borrowerUser.OwedBy.Add(lenderUser.Name, borrowerAssets)
-                      else
-                          lenderUser.Name |> borrowerUser.OwedBy.Remove }
+            getBalance borrowerUser lenderUser -amount
+            |> updateUser borrowerUser lenderUser.Name (borrowerUser.Balance - amount)
 
         { Users =
               [ updatedLenderUser
@@ -195,12 +112,14 @@ type Database(database: DatabaseDTO) =
               |> Seq.sortBy (fun u -> u.Name) }
 
 type RestApi(database) =
-    let _database =
-        database |> deserialize<DatabaseDTO> |> Database
+    let _app =
+        database
+        |> deserialize<DatabaseDTO>
+        |> Application
 
     member this.Get(url: string) =
         match url with
-        | "/users" -> _database.GetAllUsers |> serialize
+        | "/users" -> _app.GetAllUsers |> serialize
         | _ -> "404"
 
     member this.Get(url: string, payload: string) =
@@ -208,7 +127,7 @@ type RestApi(database) =
         | "/users" ->
             payload
             |> deserialize<GetUsersDTO>
-            |> _database.GetUsers
+            |> _app.GetUsers
             |> serialize
         | _ -> "404"
 
@@ -217,11 +136,11 @@ type RestApi(database) =
         | "/add" ->
             payload
             |> deserialize<AddUsersDTO>
-            |> _database.InitializeUser
+            |> _app.InitializeUser
             |> serialize
         | "/iou" ->
             payload
             |> deserialize<IOUDTO>
-            |> _database.ResolveIOU
+            |> _app.ResolveIOU
             |> serialize
         | _ -> "404"
