@@ -1,11 +1,6 @@
 module PizzaPricing
 
-type Pizza =
-    | Margherita
-    | Formaggio
-    | Caprese
-    | ExtraSauce of Pizza
-    | ExtraToppings of Pizza
+type Pizza = Margherita | Formaggio | Caprese | ExtraSauce of Pizza | ExtraToppings of Pizza
 
 let rec pizzaPrice =
     function
@@ -16,16 +11,7 @@ let rec pizzaPrice =
     | ExtraToppings p -> pizzaPrice p + 2
 
 let orderPrice pizzas =
-    let rec orderPrice' price pizzas' =
-        match price, pizzas' with
-        | p, [] -> p
-        | p, h :: t -> orderPrice' (p + pizzaPrice h) t
-
-    let markup =
-        match pizzas |> List.length with
-        | 1 -> 3
-        | 2 -> 2
-        | c when c = 0 || c > 2 -> 0
-        | _ -> failwith "invalid number of pizzas ordered"
-
-    orderPrice' markup pizzas
+    Seq.sumBy pizzaPrice pizzas + match pizzas |> Seq.length with
+    | 1 -> 3
+    | 2 -> 2
+    | _ -> 0
