@@ -15,6 +15,7 @@ let serialize o =
     JsonConvert.SerializeObject(o, serializerSettings)
 
 type Ledger = Map<string, float>
+
 type User =
     { Name: string
       Owes: Ledger
@@ -55,12 +56,8 @@ type Application(database: DatabaseDTO) =
 
 
     let getBalance p1 p2 amount =
-        (p2.Name
-         |> p1.OwedBy.TryFind
-         |> defaultToZero)
-        - (p2.Name
-           |> p1.Owes.TryFind
-           |> defaultToZero)
+        (p2.Name |> p1.OwedBy.TryFind |> defaultToZero)
+        - (p2.Name |> p1.Owes.TryFind |> defaultToZero)
         + amount
 
     member this.InitializeUser(user: AddUsersDTO) =
@@ -70,9 +67,9 @@ type Application(database: DatabaseDTO) =
           Balance = 0.0 }
 
     member this.GetUsers(search: GetUsersDTO) =
-        _users
-        |> Seq.filter (fun u -> search.Users |> Seq.contains u.Name)
-        |> (fun u -> { Users = u })
+        { Users =
+              _users
+              |> Seq.filter (fun u -> search.Users |> Seq.contains u.Name) }
 
     member this.GetAllUsers = { Users = _users }
 
@@ -95,6 +92,7 @@ type Application(database: DatabaseDTO) =
     member this.ResolveIOU(iou: IOUDTO) : DatabaseDTO =
 
         let amount = iou.Amount
+        
         let lenderUser = iou.Lender |> this.GetUser
         let borrowerUser = iou.Borrower |> this.GetUser
 
