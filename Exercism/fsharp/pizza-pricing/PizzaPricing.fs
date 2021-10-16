@@ -11,7 +11,8 @@ let rec pizzaPrice =
     | ExtraToppings p -> pizzaPrice p + 2
 
 let orderPrice pizzas =
-    Seq.sumBy pizzaPrice pizzas + match pizzas |> Seq.length with
+    match pizzas |> Seq.length with
     | 1 -> 3
     | 2 -> 2
     | _ -> 0
+    + Seq.sumBy pizzaPrice pizzas
