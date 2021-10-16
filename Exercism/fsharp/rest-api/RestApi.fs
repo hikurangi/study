@@ -11,6 +11,15 @@ type User =
       OwedBy: Ledger
       Balance: double }
 
+type UserAssetsAndLiabilities =
+    { Assets: double
+      Liabilities: double
+      Balance: double }
+
+type Exchange =
+    { Lender: UserAssetsAndLiabilities
+      Borrower: UserAssetsAndLiabilities }
+
 type AddUsersDTO = { User: string }
 type GetUsersDTO = { Users: string seq }
 type DatabaseDTO = { Users: User seq }
@@ -34,6 +43,56 @@ let serialize o =
 type Database(database: DatabaseDTO) =
 
     let mutable _users = database.Users
+
+    let zeroToNone =
+        function
+        | v when v <= 0.0 -> None
+        | v -> Some v
+
+    let defaultToZero v = defaultArg v 0.0
+
+    let calculateExchange lenderUser borrowerUser amount =
+        let updatedLenderPosition =
+            lenderUser.Assets - lenderUser.Liabilities
+            + amount
+
+        let updatedBorrowerPosition =
+            borrowerUser.Assets
+            - borrowerUser.Liabilities
+            - amount
+
+        let updatedLenderAssets =
+            match updatedLenderPosition with
+            | v when v > 0.0 -> v
+            | _ -> 0.0
+
+        let updatedLenderLiabilities =
+            match updatedLenderPosition with
+            | v when v > 0.0 -> 0.0
+            | v -> v |> abs
+
+        let updatedLenderBalance = lenderUser.Balance + amount
+
+        let updatedBorrowerAssets =
+            match updatedBorrowerPosition with
+            | v when v > 0.0 -> v
+            | _ -> 0.0
+
+        let updatedBorrowerLiabilities =
+            match updatedBorrowerPosition with
+            | v when v > 0.0 -> 0.0
+            | v -> v |> abs
+
+        let updatedBorrowerBalance = borrowerUser.Balance - amount
+
+        { Lender =
+              { Assets = updatedLenderAssets
+                Liabilities = updatedLenderLiabilities
+                Balance = updatedLenderBalance }
+          Borrower =
+              { Assets = updatedBorrowerAssets
+                Liabilities = updatedBorrowerLiabilities
+                Balance = updatedBorrowerBalance } }
 
     member this.InitializeUser(user: AddUsersDTO) =
         { Name = user.User
@@ -69,33 +128,66 @@ type Database(database: DatabaseDTO) =
     member this.ResolveIOU(iou: IOUDTO) : DatabaseDTO =
         let lenderUser = iou.Lender |> this.GetUser
         let borrowerUser = iou.Borrower |> this.GetUser
-        let iouAmount = iou.Amount
+        let amount = iou.Amount
 
-        let updatedLenderUserOwedBy =
-            lenderUser.OwedBy.Change(
-                iou.Borrower,
-                (function
-                | Some v -> (v + iouAmount) |> Some
-                | None -> Some iouAmount)
-            )
+        let lenderAssetsAndLiabilities =
+            { Assets =
+                  borrowerUser.Name
+                  |> lenderUser.OwedBy.TryFind
+                  |> defaultToZero
+              Liabilities =
+                  borrowerUser.Name
+                  |> lenderUser.Owes.TryFind
+                  |> defaultToZero
+              Balance = lenderUser.Balance }
+
+        let borrowerAssetsAndLiabilities =
+            { Assets =
+                  lenderUser.Name
+                  |> borrowerUser.OwedBy.TryFind
+                  |> defaultToZero
+              Liabilities =
+                  lenderUser.Name
+                  |> borrowerUser.Owes.TryFind
+                  |> defaultToZero
+              Balance = borrowerUser.Balance }
+
+        let exchange =
+            calculateExchange lenderAssetsAndLiabilities borrowerAssetsAndLiabilities amount
+
+        let lenderLiabilities = exchange.Lender.Liabilities
+        let lenderAssets = exchange.Lender.Assets
+
+        let borrowerLiabilities = exchange.Borrower.Liabilities
+        let borrowerAssets = exchange.Borrower.Assets
 
         let updatedLenderUser =
             { lenderUser with
-                  Balance = lenderUser.Balance + iouAmount
-                  OwedBy = updatedLenderUserOwedBy }
-
-        let updatedBorrowerUserOwes =
-            borrowerUser.Owes.Change(
-                iou.Lender,
-                (function
-                | Some v -> (v - iouAmount) |> Some
-                | None -> Some iouAmount)
-            )
+                  Balance = exchange.Lender.Balance
+                  Owes =
+                      if lenderLiabilities > 0.0 then
+                          lenderUser.Owes.Add(borrowerUser.Name, lenderLiabilities)
+                      else
+                          borrowerUser.Name |> lenderUser.Owes.Remove
+                  OwedBy =
+                      if lenderAssets > 0.0 then
+                          lenderUser.OwedBy.Add(borrowerUser.Name, lenderAssets)
+                      else
+                          borrowerUser.Name |> lenderUser.OwedBy.Remove }
 
         let updatedBorrowerUser =
             { borrowerUser with
-                  Balance = borrowerUser.Balance - iouAmount
-                  Owes = updatedBorrowerUserOwes }
+                  Balance = exchange.Borrower.Balance
+                  Owes =
+                      if borrowerLiabilities > 0.0 then
+                          borrowerUser.Owes.Add(lenderUser.Name, borrowerLiabilities)
+                      else
+                          lenderUser.Name |> borrowerUser.Owes.Remove
+                  OwedBy =
+                      if borrowerAssets > 0.0 then
+                          borrowerUser.OwedBy.Add(lenderUser.Name, borrowerAssets)
+                      else
+                          lenderUser.Name |> borrowerUser.OwedBy.Remove }
 
         { Users =
               [ updatedLenderUser

@@ -58,7 +58,7 @@ let ``Lender has negative balance`` () =
     let api = RestApi(database)
     api.Post (url, payload) |> should equal expected
 
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Lender owes borrower`` () =
     let database = """{"users":[{"name":"Adam","owes":{"Bob":3.0},"owed_by":{},"balance":-3.0},{"name":"Bob","owes":{},"owed_by":{"Adam":3.0},"balance":3.0}]}"""
     let payload = """{"lender":"Adam","borrower":"Bob","amount":2.0}"""
@@ -67,7 +67,7 @@ let ``Lender owes borrower`` () =
     let api = RestApi(database)
     api.Post (url, payload) |> should equal expected
 
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Lender owes borrower less than new loan`` () =
     let database = """{"users":[{"name":"Adam","owes":{"Bob":3.0},"owed_by":{},"balance":-3.0},{"name":"Bob","owes":{},"owed_by":{"Adam":3.0},"balance":3.0}]}"""
     let payload = """{"lender":"Adam","borrower":"Bob","amount":4.0}"""
@@ -76,7 +76,7 @@ let ``Lender owes borrower less than new loan`` () =
     let api = RestApi(database)
     api.Post (url, payload) |> should equal expected
 
-[<Fact(Skip = "Remove this Skip property to run this test")>]
+[<Fact>]
 let ``Lender owes borrower same as new loan`` () =
     let database = """{"users":[{"name":"Adam","owes":{"Bob":3.0},"owed_by":{},"balance":-3.0},{"name":"Bob","owes":{},"owed_by":{"Adam":3.0},"balance":3.0}]}"""
     let payload = """{"lender":"Adam","borrower":"Bob","amount":3.0}"""
