@@ -5,31 +5,24 @@ open Newtonsoft.Json.Serialization
 
 let snakeCaseContractResolver = DefaultContractResolver()
 snakeCaseContractResolver.NamingStrategy <- SnakeCaseNamingStrategy()
+
 let serializerSettings = JsonSerializerSettings()
 serializerSettings.ContractResolver <- snakeCaseContractResolver
 
-let deserialize<'a> s =
-    JsonConvert.DeserializeObject<'a>(s, serializerSettings)
+let deserialize<'a> s = JsonConvert.DeserializeObject<'a>(s, serializerSettings)
+let serialize o = JsonConvert.SerializeObject(o, serializerSettings)
 
-let serialize o =
-    JsonConvert.SerializeObject(o, serializerSettings)
+type Position = { Name: string; Assets: float; Liabilities: float; Balance: float}
+type IOU = { Lender: Position; Borrower: Position; Amount: float }
 
 type Ledger = Map<string, float>
-
-type User =
-    { Name: string
-      Owes: Ledger
-      OwedBy: Ledger
-      Balance: float }
+type User = { Name: string; Owes: Ledger; OwedBy: Ledger; Balance: float }
 
 type AddUsersDTO = { User: string }
 type GetUsersDTO = { Users: string seq }
 type DatabaseDTO = { Users: User seq }
 
-type IOUDTO =
-    { Lender: string
-      Borrower: string
-      Amount: float }
+type IOUDTO = { Lender: string; Borrower: string; Amount: float }
 
 type Application(database: DatabaseDTO) =
     let mutable _users = database.Users
@@ -54,33 +47,32 @@ type Application(database: DatabaseDTO) =
               OwedBy = owedBy
               Owes = owes }
 
-
     let getBalance p1 p2 amount =
         (p2.Name |> p1.OwedBy.TryFind |> defaultToZero)
         - (p2.Name |> p1.Owes.TryFind |> defaultToZero)
         + amount
 
-    member this.InitializeUser(user: AddUsersDTO) =
+    member _.InitializeUser(user: AddUsersDTO) =
         { Name = user.User
           Owes = Map.empty
           OwedBy = Map.empty
           Balance = 0.0 }
 
-    member this.GetUsers(search: GetUsersDTO) =
+    member _.GetUsers(search: GetUsersDTO) =
         { Users =
               _users
               |> Seq.filter (fun u -> search.Users |> Seq.contains u.Name) }
 
-    member this.GetAllUsers = { Users = _users }
+    member _.GetAllUsers = { Users = _users }
 
-    member this.GetUser(search: string) =
+    member _.GetUser(search: string) =
         _users
         |> Seq.tryFind (fun u -> search = u.Name)
         |> (function
         | Some u -> u
         | None -> failwith "User not found")
 
-    member this.GetUpdatedUsers(additionalUsers: User seq) =
+    member _.GetUpdatedUsers(additionalUsers: User seq) =
         _users
         |> Seq.filter
             (fun u ->
@@ -89,7 +81,7 @@ type Application(database: DatabaseDTO) =
                 |> not)
         |> Seq.append additionalUsers
 
-    member this.ResolveIOU(iou: IOUDTO) : DatabaseDTO =
+    member this.IOU(iou: IOUDTO) : DatabaseDTO =
 
         let amount = iou.Amount
         
@@ -115,12 +107,12 @@ type RestApi(database) =
         |> deserialize<DatabaseDTO>
         |> Application
 
-    member this.Get(url: string) =
+    member _.Get(url: string) =
         match url with
         | "/users" -> _app.GetAllUsers |> serialize
         | _ -> "404"
 
-    member this.Get(url: string, payload: string) =
+    member _.Get(url: string, payload: string) =
         match url with
         | "/users" ->
             payload
@@ -129,7 +121,7 @@ type RestApi(database) =
             |> serialize
         | _ -> "404"
 
-    member this.Post(url: string, payload: string) =
+    member _.Post(url: string, payload: string) =
         match url with
         | "/add" ->
             payload
@@ -139,6 +131,6 @@ type RestApi(database) =
         | "/iou" ->
             payload
             |> deserialize<IOUDTO>
-            |> _app.ResolveIOU
+            |> _app.IOU
             |> serialize
         | _ -> "404"
