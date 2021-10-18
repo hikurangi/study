@@ -12,16 +12,12 @@ serializerSettings.ContractResolver <- snakeCaseContractResolver
 let deserialize<'a> s = JsonConvert.DeserializeObject<'a>(s, serializerSettings)
 let serialize o = JsonConvert.SerializeObject(o, serializerSettings)
 
-type Position = { Name: string; Assets: float; Liabilities: float; Balance: float}
-type IOU = { Lender: Position; Borrower: Position; Amount: float }
-
 type Ledger = Map<string, float>
 type User = { Name: string; Owes: Ledger; OwedBy: Ledger; Balance: float }
 
 type AddUsersDTO = { User: string }
 type GetUsersDTO = { Users: string seq }
 type DatabaseDTO = { Users: User seq }
-
 type IOUDTO = { Lender: string; Borrower: string; Amount: float }
 
 type Application(database: DatabaseDTO) =
