@@ -2,13 +2,9 @@ using System;
 
 public static class PhoneNumber
 {
-    public static (bool IsNewYork, bool IsFake, string LocalNumber) Analyze(string phoneNumber)
-    {
-        throw new NotImplementedException($"Please implement the (static) PhoneNumber.Analyze() method");
-    }
+  private static (bool IsNewYork, bool IsFake, string LocalNumber) _Analyze(this string[] numberSections) => (numberSections[0] == "212", numberSections[1] == "555", numberSections[2]);
 
-    public static bool IsFake((bool IsNewYork, bool IsFake, string LocalNumber) phoneNumberInfo)
-    {
-        throw new NotImplementedException($"Please implement the (static) PhoneNumber.IsFake() method");
-    }
+  public static (bool IsNewYork, bool IsFake, string LocalNumber) Analyze(string phoneNumber) => phoneNumber.Split('-')._Analyze();
+
+  public static bool IsFake((bool IsNewYork, bool IsFake, string LocalNumber) phoneNumberInfo) => phoneNumberInfo.IsFake;
 }
