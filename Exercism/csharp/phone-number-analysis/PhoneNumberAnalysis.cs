@@ -1,5 +1,3 @@
-using System;
-
 public static class PhoneNumber
 {
   private static (bool IsNewYork, bool IsFake, string LocalNumber) _Analyze(this string[] codes) => (codes[0] == "212", codes[1] == "555", codes[2]);
