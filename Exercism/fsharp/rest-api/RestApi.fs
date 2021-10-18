@@ -61,7 +61,7 @@ type Application(database: DatabaseDTO) =
 
     member _.GetAllUsers = { Users = _users }
 
-    member _.GetUser(search: string) =
+    member _.GetUser search =
         _users
         |> Seq.tryFind (fun u -> search = u.Name)
         |> (function
@@ -77,7 +77,7 @@ type Application(database: DatabaseDTO) =
                 |> not)
         |> Seq.append additionalUsers
 
-    member this.IOU(iou: IOUDTO) : DatabaseDTO =
+    member this.IOU(iou: IOUDTO) =
 
         let amount = iou.Amount
         
@@ -103,7 +103,7 @@ type RestApi(database) =
         |> deserialize<DatabaseDTO>
         |> Application
 
-    member _.Get(url: string) =
+    member _.Get url =
         match url with
         | "/users" -> _app.GetAllUsers |> serialize
         | _ -> "404"
