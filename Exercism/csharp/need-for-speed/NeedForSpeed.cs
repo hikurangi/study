@@ -1,8 +1,8 @@
 class RemoteControlCar
 {
-  private int _battery;
   private readonly int _speed;
   private readonly int _batteryDrain;
+  private int _battery;
   private int _distanceDriven;
 
   public RemoteControlCar(int speed, int batteryDrain)
@@ -14,9 +14,7 @@ class RemoteControlCar
   }
 
   public int Range() => _battery / _batteryDrain * _speed;
-
   public bool BatteryDrained() => _battery <= 0; // should only be able to go to zero
-
   public int DistanceDriven() => _distanceDriven;
 
   public void Drive()
