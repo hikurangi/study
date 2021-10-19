@@ -1,13 +1,7 @@
 ﻿module Seq
 
 let keep pred xs =
-    let rec run acc =
-      function 
-      | [] -> Seq.rev acc
-      | h::t when pred h -> run (h::acc) t
-      | _h::t -> run acc t
-
-    run [] xs
+    seq { for x in xs do if pred x then yield x }
 
 let discard pred xs =
-    failwith "You need to implement this function."
+    seq { for x in xs do if x |> pred |> not then yield x }
