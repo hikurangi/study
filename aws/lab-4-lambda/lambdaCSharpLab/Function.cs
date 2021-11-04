@@ -77,8 +77,9 @@ namespace Calculator
             var min = numbers.Min();
             var max = numbers.Max();
             var avg = numbers.Average();
+            var count = numbers.Count();
 
-            result = $"Min: {min} Max: {max} Average: {avg}";
+            result = $"Min: {min} Max: {max} Average: {avg} Count: {count}";
           }
         }
         Console.WriteLine(result);
@@ -105,8 +106,7 @@ namespace Calculator
           {
             S3 = new S3EventNotification.S3Entity
             {
-                    // TODO 1: Update the event bucket name
-                    Bucket = new S3EventNotification.S3BucketEntity { Name = "REPLACE WITH BUCKET NAME" },
+              Bucket = new S3EventNotification.S3BucketEntity { Name = "calculator-input-hsk" },
               Object = new S3EventNotification.S3ObjectEntity { Key = "numbers.txt" }
             }
           });
