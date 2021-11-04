@@ -1,50 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class Languages
 {
-    public static List<string> NewList()
-    {
-        throw new NotImplementedException("Please implement the static Languages.NewList() method");
-    }
+  public static List<string> NewList() => new();
+  public static List<string> GetExistingLanguages() => new List<string> { "C#", "Clojure", "Elm" };
+  public static List<string> AddLanguage(List<string> languages, string language) => languages.Append(language).ToList();
 
-    public static List<string> GetExistingLanguages()
-    {
-        throw new NotImplementedException("Please implement the static Languages.GetExistingLanguages() method");
-    }
-
-    public static List<string> AddLanguage(List<string> languages, string language)
-    {
-        throw new NotImplementedException("Please implement the static Languages.AddLanguage() method");
-    }
-
-    public static int CountLanguages(List<string> languages)
-    {
-        throw new NotImplementedException("Please implement the static Languages.CountLanguages() method");
-    }
-
-    public static bool HasLanguage(List<string> languages, string language)
-    {
-        throw new NotImplementedException("Please implement the static Languages.HasLanguage() method");
-    }
-
-    public static List<string> ReverseList(List<string> languages)
-    {
-        throw new NotImplementedException("Please implement the static Languages.ReverseList() method");
-    }
-
-    public static bool IsExciting(List<string> languages)
-    {
-        throw new NotImplementedException("Please implement the static Languages.IsExciting() method");
-    }
-
-    public static List<string> RemoveLanguage(List<string> languages, string language)
-    {
-        throw new NotImplementedException("Please implement the static Languages.RemoveLanguage() method");
-    }
-
-    public static bool IsUnique(List<string> languages)
-    {
-        throw new NotImplementedException("Please implement the static Languages.IsUnique() method");
-    }
+  public static int CountLanguages(List<string> languages) => languages.Count;
+  public static bool HasLanguage(List<string> languages, string language) => languages.Contains(language);
+  public static List<string> ReverseList(List<string> languages) => languages.Reverse<string>().ToList();
+  public static bool IsExciting(List<string> languages) => languages.FirstOrDefault() == "C#" || (Enumerable.Range(2, 2).Contains(languages.Count) && languages[1] == "C#");
+  public static List<string> RemoveLanguage(List<string> languages, string language) => languages.Where(l => l != language).ToList();
+  public static bool IsUnique(List<string> languages) => new HashSet<string>(languages).Count == languages.Count;
 }
