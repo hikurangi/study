@@ -1,5 +1,10 @@
 # Grains
 
+Welcome to Grains on Exercism's F# Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
 Calculate the number of grains of wheat on a chessboard given that the number
 on each square doubles.
 
@@ -26,27 +31,28 @@ are some additional things you could try:
 Then please share your thoughts in a comment on the submission. Did this
 experiment make the code better? Worse? Did you learn anything from it?
 
-## Hints
 For this exercise the following F# features come in handy:
-- [BigInt](https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/numerics.biginteger-structure-%5Bfsharp%5D)
-- [Seq.sumBy](https://msdn.microsoft.com/en-us/visualfsharpdocs/conceptual/seq.sumby%5B't,%5Eu%5D-function-%5Bfsharp%5D) is a condensed format to apply a function to a sequence and then sum the results
 
-## Running the tests
-
-To run the tests, run the command `dotnet test` from within the exercise directory.
-
-## Autoformatting the code
-
-F# source code can be formatted with the [Fantomas](https://github.com/fsprojects/fantomas) tool.
-
-After installing it with `dotnet tool restore`, run `dotnet fantomas .` to format code within the current directory.
-
-## Further information
-
-For more detailed information about the F# track, including how to get help if
-you're having trouble, please visit the exercism.io [F# language page](http://exercism.io/languages/fsharp/resources).
+- [BigInt](https://docs.microsoft.com/en-us/dotnet/api/system.numerics.biginteger?view=net-5.0)
+- [Seq.sumBy](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-seqmodule.html#sumBy) is a condensed format to apply a function to a sequence and then sum the results
 
 ## Source
 
-JavaRanch Cattle Drive, exercise 6 [http://www.javaranch.com/grains.jsp](http://www.javaranch.com/grains.jsp)
+### Created by
 
+- @jwood803
+
+### Contributed to by
+
+- @ErikSchierboom
+- @jrr
+- @kytrinyx
+- @lestephane
+- @MaritimeMartin
+- @robkeim
+- @valentin-p
+- @wolf99
+
+### Based on
+
+JavaRanch Cattle Drive, exercise 6 - http://www.javaranch.com/grains.jsp
