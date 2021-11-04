@@ -15,13 +15,11 @@ namespace Lab2
     // puts the transformed objects into the output S3 bucket.
     public static class DataTransformer
     {
-        public static readonly string[] Attributes = { "genericDrugName", "adverseReaction" };
+        public static readonly string[] Attributes = {"genericDrugName", "adverseReaction"};
 
-        // TODO 1: Set input bucket name (must be globally unique)
-        public static readonly string InputBucketName = "<globally-unique-input-bucket-name>";
+        public static readonly string InputBucketName = "input-cjb-bucket";
 
-        // TODO 2: Set output bucket name (must be globally unique)
-        public static readonly string OutputBucketName = "<globally-unique-output-bucket-name>";
+        public static readonly string OutputBucketName = "output-cjb-bucket";
 
         public static readonly string JsonComment = "\"comment\": \"DataTransformer JSON\",";
 
@@ -52,6 +50,7 @@ namespace Lab2
                 };
 
                 ListObjectsResponse listResponse;
+
                 do
                 {
                     // Get a list of objects
@@ -66,8 +65,8 @@ namespace Lab2
                             transformedFile = TransformText(curObject);
 
                             // TODO 7: Switch to enhanced file upload
-                            PutObjectBasic(OutputBucketName, fileKey, transformedFile);
-                            // PutObjectEnhanced(OutputBucketName, fileKey, transformedFile);
+                            //PutObjectBasic(OutputBucketName, fileKey, transformedFile);
+                            PutObjectEnhanced(OutputBucketName, fileKey, transformedFile);
 
                             url = GeneratePresignedURL(fileKey);
                             if (url != null)
@@ -152,7 +151,8 @@ namespace Lab2
 
             if (!ownedByYou)
             {
-                Debug.WriteLine(String.Format("The {0} bucket is owned by another account. Specify a unique name for your bucket. ", bucketName));
+                Debug.WriteLine(String.Format(
+                    "The {0} bucket is owned by another account. Specify a unique name for your bucket. ", bucketName));
             }
         }
 
@@ -174,10 +174,11 @@ namespace Lab2
             {
                 // Transform to JSON then write to file
                 StreamReader reader = new StreamReader(response.ResponseStream);
-                while((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null)
                 {
                     sbJSON.Append(TransformLineToJson(line));
                 }
+
                 reader.Close();
             }
             catch (IOException ex)
@@ -208,6 +209,7 @@ namespace Lab2
                     jsonAttrText = jsonAttrText + "\n";
                 }
             }
+
             jsonAttrText = jsonAttrText + "},\n";
             return jsonAttrText;
         }
@@ -217,11 +219,7 @@ namespace Lab2
          *
          * @return      The S3 Client
          */
-        private static AmazonS3Client CreateS3Client()
-        {
-            // TODO 3: Replace the solution with your own code
-            return Solution.CreateS3Client();
-        }
+        private static AmazonS3Client CreateS3Client() => new AmazonS3Client();
 
         /**
          * Retrieve each object from the input S3 bucket
@@ -231,11 +229,8 @@ namespace Lab2
          * @param fileKey       Key (path) to the file
          * @return              The file contents
          */
-        private static GetObjectResponse GetS3Object(AmazonS3Client s3Client, string bucketName, string fileKey)
-        {
-            // TODO 4: Replace the solution with your own code
-            return Solution.GetS3Object(s3Client, bucketName, fileKey);
-        }
+        private static GetObjectResponse GetS3Object(AmazonS3Client s3Client, string bucketName, string fileKey) =>
+            s3Client.GetObject(new GetObjectRequest {BucketName = bucketName, Key = fileKey});
 
         /**
          * Upload object to output bucket
@@ -246,8 +241,10 @@ namespace Lab2
          */
         private static void PutObjectBasic(string bucketName, string fileKey, string transformedFile)
         {
+            s3ForStudentBuckets.PutObject(new PutObjectRequest
+                {BucketName = bucketName, Key = fileKey, ContentBody = transformedFile});
             // TODO 5: Replace the solution with your own code
-            Solution.PutObjectBasic(s3ForStudentBuckets, bucketName, fileKey, transformedFile);
+            //Solution.PutObjectBasic(s3ForStudentBuckets, bucketName, fileKey, transformedFile);
         }
 
         /**
@@ -256,11 +253,15 @@ namespace Lab2
          * @param objectKey     Key (path) to the file
          * @return              Presigned URL
          */
-        private static string GeneratePresignedURL(string objectKey)
-        {
-            // TODO 6: Replace the solution with your own code
-            return Solution.GeneratePresignedURL(s3ForStudentBuckets, OutputBucketName, objectKey);
-        }
+        private static string GeneratePresignedURL(string objectKey) => s3ForStudentBuckets.GetPreSignedURL(
+            new GetPreSignedUrlRequest
+            {
+                BucketName = OutputBucketName,
+                Key = objectKey,
+                Protocol = Protocol.HTTP,
+                Verb = HttpVerb.GET,
+                Expires = DateTime.Now.AddSeconds(900)
+            });
 
         /**
          * Upload a file to a S3 bucket using AES 256 server-side encryption
@@ -271,8 +272,26 @@ namespace Lab2
          */
         private static void PutObjectEnhanced(string bucketName, string fileKey, string transformedFile)
         {
-            // TODO 8: Replace the solution with your own code
-            Solution.PutObjectEnhanced(s3ForStudentBuckets, bucketName, fileKey, transformedFile);
+            var putRequest = new PutObjectRequest
+            {
+                BucketName = bucketName,
+                Key = fileKey,
+                ContentBody = transformedFile,
+                ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+            };
+            putRequest.Metadata.Add("contact", "John Doe");
+
+            s3ForStudentBuckets.PutObject(putRequest);
+
+            GetObjectMetadataRequest encryptionRequest = new GetObjectMetadataRequest()
+            {
+                BucketName = bucketName,
+                Key = fileKey,
+            };
+            ServerSideEncryptionMethod objectEncryption =
+                s3ForStudentBuckets.GetObjectMetadata(encryptionRequest).ServerSideEncryptionMethod;
+            GetObjectMetadataResponse metadataResponse = s3ForStudentBuckets.GetObjectMetadata(encryptionRequest);
+            string contactName = metadataResponse.Metadata["x-amz-meta-contact"];
         }
     }
 }
