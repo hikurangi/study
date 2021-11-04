@@ -1,0 +1,14 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "REPLACE WITH BUCKET NAME"
+        },
+        "object": {
+          "key": "numbers.txt"
+        }
+      }
+    }
+  ]
+}
