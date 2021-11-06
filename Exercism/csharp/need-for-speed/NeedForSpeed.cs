@@ -14,12 +14,12 @@ class RemoteControlCar
   }
 
   public int Range() => _battery / _batteryDrain * _speed;
-  public bool BatteryDrained() => _battery <= 0; // should only be able to go to zero
+  public bool BatteryDrained() => _battery < _batteryDrain; // should only be able to go to zero
   public int DistanceDriven() => _distanceDriven;
 
   public void Drive()
   {
-    if (_battery > 0)
+    if (!BatteryDrained())
     {
       _distanceDriven += _speed;
       _battery -= _batteryDrain;
