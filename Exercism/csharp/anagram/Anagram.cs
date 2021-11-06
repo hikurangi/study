@@ -8,10 +8,12 @@ public class Anagram
 
     public Anagram(string baseWord)
     {
-        _baseWord = baseWord.ToLowerInvariant();
+        _baseWord = baseWord;
         _anagram = MakeComparable(baseWord);
     }
 
-    private char[] MakeComparable(string phrase) => phrase.ToCharArray().Select(c => char.ToLowerInvariant(c)).OrderBy(c => c).ToArray();
-    public string[] FindAnagrams(string[] potentialMatches) => potentialMatches.Where(m => MakeComparable(m).SequenceEqual(_anagram) && m.ToLowerInvariant() != _baseWord).ToArray();
+    private char[] MakeComparable(string phrase) => phrase.ToCharArray().Select(char.ToLowerInvariant).OrderBy(c => c).ToArray();
+    public string[] FindAnagrams(string[] potentialMatches) => potentialMatches
+      .Where(m => MakeComparable(m).SequenceEqual(_anagram) && !String.Equals(m, _baseWord, StringComparison.InvariantCultureIgnoreCase))
+      .ToArray();
 }
