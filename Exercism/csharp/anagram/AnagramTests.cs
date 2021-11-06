@@ -10,7 +10,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_two_anagrams()
     {
         var candidates = new[] { "stream", "pigeon", "maters" };
@@ -19,7 +19,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Does_not_detect_anagram_subsets()
     {
         var candidates = new[] { "dog", "goody" };
@@ -27,7 +27,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_anagram()
     {
         var candidates = new[] { "enlists", "google", "inlets", "banana" };
@@ -36,7 +36,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_three_anagrams()
     {
         var candidates = new[] { "gallery", "ballerina", "regally", "clergy", "largely", "leading" };
@@ -45,7 +45,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_multiple_anagrams_with_different_case()
     {
         var candidates = new[] { "Eons", "ONES" };
@@ -54,7 +54,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Does_not_detect_non_anagrams_with_identical_checksum()
     {
         var candidates = new[] { "last" };
@@ -62,7 +62,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_anagrams_case_insensitively()
     {
         var candidates = new[] { "cashregister", "Carthorse", "radishes" };
@@ -71,7 +71,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_anagrams_using_case_insensitive_subject()
     {
         var candidates = new[] { "cashregister", "carthorse", "radishes" };
@@ -80,7 +80,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Detects_anagrams_using_case_insensitive_possible_matches()
     {
         var candidates = new[] { "cashregister", "Carthorse", "radishes" };
@@ -89,7 +89,7 @@ public class AnagramTests
         Assert.Equal(expected, sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Does_not_detect_an_anagram_if_the_original_word_is_repeated()
     {
         var candidates = new[] { "go Go GO" };
@@ -97,7 +97,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Anagrams_must_use_all_letters_exactly_once()
     {
         var candidates = new[] { "patter" };
@@ -105,7 +105,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Words_are_not_anagrams_of_themselves_case_insensitive_()
     {
         var candidates = new[] { "BANANA", "Banana", "banana" };
@@ -113,7 +113,7 @@ public class AnagramTests
         Assert.Empty(sut.FindAnagrams(candidates));
     }
 
-    [Fact(Skip = "Remove this Skip property to run this test")]
+    [Fact]
     public void Words_other_than_themselves_can_be_anagrams()
     {
         var candidates = new[] { "Listen", "Silent", "LISTEN" };
