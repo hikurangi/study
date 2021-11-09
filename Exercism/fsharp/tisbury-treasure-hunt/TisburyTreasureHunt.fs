@@ -1,13 +1,14 @@
 module TisburyTreasureHunt
 
-let getCoordinate (line: string * string): string =
-    failwith "Please implement the 'getCoordinate' function"
+let getCoordinate (_description, coordinate) = coordinate
 
-let convertCoordinate (coordinate: string): int * char = 
-    failwith "Please implement the 'convertCoordinate' function"
+let convertCoordinate (coordinate: string) = // In real code, I'd handle exception cases properly using Result and Seq.tryItem
+    (coordinate |> Seq.head |> int) - ('0' |> int), coordinate |> Seq.item 1
 
-let compareRecords (azarasData: string * string) (ruisData: string * (int * char) * string) : bool = 
-    failwith "Please implement the 'compareRecords' function"
+let compareRecords (_aDescription, aCoord) (_bDescription, bCoord, _bColor) = aCoord |> convertCoordinate = bCoord
 
-let createRecord (azarasData: string * string) (ruisData: string * (int * char) * string) : (string * string * string * string) =
-    failwith "Please implement the 'createRecord' function"
+let createRecord (aDescription, aCoord) (bDescription, _bCoord, bColor) =
+    if (aCoord |> convertCoordinate = _bCoord) then
+        aCoord, bDescription, bColor, aDescription
+    else
+        "", "", "", ""
