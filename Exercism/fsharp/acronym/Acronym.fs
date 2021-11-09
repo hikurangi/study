@@ -1,10 +1,7 @@
 ﻿module Acronym
 
-open System
-open System.Text.RegularExpressions
-
-let abbreviate (phrase: string) =
-    Regex.Replace(phrase, "[\-_, ]+", " ")
-    |> (fun p -> p.Split ' ')
-    |> Seq.map (Seq.head >> Char.ToUpper)
-    |> String.Concat
+let abbreviate (phrase: string) = // Pinched from https://exercism.org/tracks/fsharp/exercises/acronym/solutions/mikecoop
+    phrase // Full credit to mikecoop for his sorcerer-level .NET knowledge! 
+    |> System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToLower
+    |> System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase
+    |> String.filter System.Char.IsUpper
