@@ -1,7 +1,7 @@
 ﻿module Acronym
 
-open System.Text.RegularExpressions
 open System
+open System.Text.RegularExpressions
 
 let abbreviate (phrase: string) =
     Regex.Replace(phrase, "[\-_, ]+", " ")
