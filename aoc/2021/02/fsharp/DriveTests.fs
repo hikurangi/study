@@ -1,5 +1,6 @@
 module DriveTests
 
+open System.IO
 open FsUnit.Xunit
 open Xunit
 
@@ -18,3 +19,12 @@ let ``Position is calculated accurately using test data`` () =
         "
 
     drive directions |> should equal 150
+
+[<Fact>]
+let ``Position is calculated accurately using real data`` () =
+    let directions =
+        Path.Join(__SOURCE_DIRECTORY__, "input.txt")
+        |> File.ReadAllLines
+        |> Seq.reduce (fun state item -> state + "\n" + item)
+
+    drive directions |> should equal 1728414

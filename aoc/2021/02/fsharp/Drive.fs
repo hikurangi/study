@@ -21,17 +21,17 @@ let lineToMovement input =
     | "up", n -> Up n
     | d, _ -> failwith $"invalid direction '{d}' supplied"
 
-let parseLines deserialiser (input: string) =
-    input.Trim().Split('\n') |> Seq.map deserialiser
+let parseLines transformer (input: string) =
+    input.Trim().Split('\n') |> Seq.map transformer
 
-let drive' position =
+let drive' initialPosition =
     Seq.fold
         (fun s ->
             function
             | Forward n -> { s with x = s.x + n }
             | Down n -> { s with y = s.y + n }
             | Up n -> { s with y = s.y - n })
-        position
+        initialPosition
 
 let drive =
     parseLines lineToMovement
