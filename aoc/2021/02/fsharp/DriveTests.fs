@@ -42,3 +42,12 @@ let ``Position is calculated accurately with new navigation approach, using test
         "
 
     updatedDrive directions |> should equal 900
+
+[<Fact>]
+let ``Position is calculated accurately with new navigation approach, using real data`` () =
+    let directions =
+        Path.Join(__SOURCE_DIRECTORY__, "input.txt")
+        |> File.ReadAllLines
+        |> Seq.reduce (fun state item -> state + "\n" + item)
+
+    updatedDrive directions |> should equal 1765720035
