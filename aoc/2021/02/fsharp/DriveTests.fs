@@ -1,4 +1,4 @@
-module SonarSweepTests
+module DriveTests
 
 open FsUnit.Xunit
 open Xunit
@@ -17,4 +17,4 @@ let ``Position is calculated accurately using test data`` () =
         forward 2
         "
 
-    drive directions |> should equal 7
+    drive directions |> should equal 150
