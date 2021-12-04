@@ -7,7 +7,7 @@ type Movement =
     | Down of int
     | Up of int
 
-type Position = { x: int; y: int }
+type Coordinates = { x: int; y: int }
 
 let lineToMovement input =
     let groups = Regex.Match(input, "(?<direction>\w+)\s+(?<distance>\d+)").Groups
@@ -33,9 +33,7 @@ let drive' position =
             | Up n -> { s with y = s.y - n })
         position
 
-let xTimesY coordinates = coordinates.x * coordinates.y
-
 let drive =
     parseLines lineToMovement
     >> drive' { x = 0; y = 0 }
-    >> xTimesY
+    >> (fun c -> c.x * c.y)
