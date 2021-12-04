@@ -28,3 +28,17 @@ let ``Position is calculated accurately using real data`` () =
         |> Seq.reduce (fun state item -> state + "\n" + item)
 
     drive directions |> should equal 1728414
+    
+[<Fact>]
+let ``Position is calculated accurately with new navigation approach, using test data`` () =
+    let directions =
+        @"
+        forward 5
+        down 5
+        forward 8
+        up 3
+        down 8
+        forward 2
+        "
+
+    updatedDrive directions |> should equal 900
