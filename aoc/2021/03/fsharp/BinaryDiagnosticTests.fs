@@ -25,7 +25,8 @@ let ``Gamma rate is calculated correctly from test data`` () =
         "
 
     gammaRate diagnosticReport |> should equal 22
-    
+
+[<Fact>]
 let ``Epsilon rate is calculated correctly from test data`` () =
     let diagnosticReport =
         @"
@@ -44,12 +45,12 @@ let ``Epsilon rate is calculated correctly from test data`` () =
         "
 
     epsilonRate diagnosticReport |> should equal 9
-
-//[<Fact>]
-//let ``Position is calculated accurately using real data`` () =
-//    let directions =
-//        Path.Join(__SOURCE_DIRECTORY__, "input.txt")
-//        |> File.ReadAllLines
-//        |> Seq.reduce (fun state item -> state + "\n" + item)
-//
-//    drive directions |> should equal 1728414
+    
+[<Fact>]
+let ``Gamma rate multiplied by Epsilon rate is calculated correctly from real data`` () =
+    let diagnosticReport =
+        Path.Join(__SOURCE_DIRECTORY__, "input.txt")
+        |> File.ReadAllLines
+        |> Seq.reduce (fun state item -> state + "\n" + item)
+        
+    gammaRate diagnosticReport * epsilonRate diagnosticReport |> should equal 4103154
