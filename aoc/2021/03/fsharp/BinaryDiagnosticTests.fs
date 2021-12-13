@@ -96,7 +96,7 @@ let ``C02 scrubber rating is calculated correctly from test data`` () =
     c02ScrubberRating diagnosticReport |> should equal 10
     
 [<Fact>]
-let ``Multiple of oxygen generator rating and CO2 scrubber rating is calculated correctly from real data`` () =
+let ``Life support rating (Multiple of oxygen generator rating and CO2 scrubber rating) is calculated correctly from real data`` () =
     let diagnosticReport =
         Path.Join(__SOURCE_DIRECTORY__, "input.txt")
         |> File.ReadAllLines

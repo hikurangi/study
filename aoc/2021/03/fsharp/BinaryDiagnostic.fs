@@ -8,9 +8,9 @@ let parseReport (report: string) =
 
 let binaryStringToDecimal str = System.Convert.ToInt32(str, 2)
 
-let getPowerConsumption (byCriteria: (CharCount -> int) -> seq<CharCount> -> CharCount) =
+let getPowerConsumption (discriminator: (CharCount -> int) -> seq<CharCount> -> CharCount) =
     Seq.transpose
-    >> Seq.map (Seq.countBy id >> byCriteria snd >> fst)
+    >> Seq.map (Seq.countBy id >> discriminator snd >> fst)
     >> System.String.Concat
     >> binaryStringToDecimal
 
@@ -20,32 +20,31 @@ let gammaRate =
 let epsilonRate =
     parseReport >> getPowerConsumption Seq.minBy
 
-let getGasRate byCriteria defaultBit report =
+let hasDuplicates s =
+    s |> Seq.length <> (s |> Set |> Seq.length)
+
+let getGasRate discriminator tiebreaker report =
     let rec getGasRate' str idx data =
         match data |> Seq.length with
         | 0 -> failwith "no values left!"
         | 1 -> data |> Seq.exactlyOne |> binaryStringToDecimal
-        | _ ->
+        | _ -> // will never be negative
             let meetsCriteriaAtThisIndex =
                 data
-                |> Seq.map (Seq.item idx)
-                |> Seq.countBy id // doesn't check for a tie
+                |> Seq.countBy (Seq.item idx)
                 |> fun s ->
-                    (let values = s |> Seq.map snd
-                     let uniqueValuesCount = values |> Set |> Seq.length
-
-                     if values |> Seq.length <> uniqueValuesCount then
-                         defaultBit
+                    (if s |> Seq.map snd |> hasDuplicates then
+                         tiebreaker
                      else
-                         s |> byCriteria snd |> fst)
+                         s |> discriminator snd |> fst)
 
-            let filteredData =
+            let matchedData =
                 data
                 |> Seq.filter (fun i -> i |> Seq.item idx = meetsCriteriaAtThisIndex)
 
-            getGasRate' ((meetsCriteriaAtThisIndex |> string) + str) (idx + 1) filteredData
+            getGasRate' ((meetsCriteriaAtThisIndex |> string) + str) (idx + 1) matchedData
 
-    getGasRate' "" 0 (report |> parseReport)
+    getGasRate' "" 0 report
 
-let oxygenGeneratorRating = getGasRate Seq.maxBy '1'
-let c02ScrubberRating = getGasRate Seq.minBy '0'
+let oxygenGeneratorRating = parseReport >> getGasRate Seq.maxBy '1'
+let c02ScrubberRating = parseReport >> getGasRate Seq.minBy '0'
