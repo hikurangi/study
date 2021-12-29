@@ -14,10 +14,10 @@ let parseCalls =
     >> Array.map int
     >> List.ofArray
 
-let parseSquare n = { Number = n; Drawn = false }
+let parseSquare n = { Number = int n; Drawn = false }
 
 let parseBoard =
-    Seq.collect (splitOn " " >> Seq.map (int >> parseSquare))
+    Seq.collect (splitOn " " >> Seq.map parseSquare)
 
 let parseBoards =
     splitOn "\n"
@@ -28,17 +28,22 @@ let parseBoards =
 let hasWinningRow =
     Seq.exists (Seq.forall (fun square -> square.Drawn = true))
 
-let hasWinningColumn = Seq.transpose >> hasWinningRow
-
 let hasWon board =
     let board' =
         board |> Seq.chunkBySize 5 |> Seq.map Seq.ofArray
 
-    hasWinningRow board' || hasWinningColumn board'
+    board' |> hasWinningRow || board' |> Seq.transpose |> hasWinningRow
 
-let score winningCall board =
-    if board |> hasWon then
-        board
+type BingoResult =
+    | Winners of seq<seq<Square>> * int // needs to give the final call
+    | Remaining of seq<seq<Square>> * int
+
+let score (result : BingoResult) =
+    let board, winningCall = match result with Winners (a, b) -> a, b | Remaining(a, b) -> a, b
+    let board' = board |> Seq.exactlyOne
+    
+    if board' |> hasWon then
+        board'
         |> Seq.fold
             (fun st sq ->
                 if sq.Drawn = false then
@@ -57,13 +62,9 @@ let call number = // could optimise to not overwrite but don't need the performa
                 { square with
                       Drawn = square.Drawn = true || square.Number = number })
     )
-
-type BingoResult =
-    | Winners of seq<seq<Square>>
-    | Remaining of seq<seq<Square>>
-
-let rec runCalls calls boards =
+    
+let rec runCalls calls prevCall boards =
     match calls, boards |> Seq.filter hasWon with // allows for multiple winners. Is the assumption here that there is always only one winner?
-    | [], b when b |> Seq.length < 1 -> Remaining boards // no winners after final call
-    | cH :: cT, b when b |> Seq.length < 1 -> runCalls cT (boards |> call cH) // does not win on non-final call
-    | _, b -> Winners b // wins on non-final call
+    | [], b when b |> Seq.length < 1 -> Remaining (boards, prevCall) // no winners after final call
+    | cH :: cT, b when b |> Seq.length < 1 -> runCalls cT cH (boards |> call cH) // does not win on non-final call
+    | _, b -> Winners (b, prevCall)// wins on non-final call
