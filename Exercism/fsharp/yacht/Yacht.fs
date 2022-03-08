@@ -39,6 +39,7 @@ let isLilStraight =
 let isBigStraight =
     List.map int >> List.sort >> (=) [ 2; 3; 4; 5; 6 ]
 
+// TODO: benchmark Seq vs List
 let score category dice =
     match category with
     | Yacht ->
