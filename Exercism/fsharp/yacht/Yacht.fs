@@ -57,17 +57,12 @@ let score category dice =
         else
             0
     | FourOfAKind ->
-        if dice |> isFourOfAKind then
-            dice
-            |> List.countBy id
-            |> List.fold
-                (fun acc ->
-                    function
-                    | face, count when count >= 4 -> face |> int |> (*) 4
-                    | _ -> acc)
-                0
-        else
-            0
+        dice
+        |> List.countBy id
+        |> List.tryFind (fun (_, count) -> count >= 4)
+        |> (function
+        | Some (face, _) -> face |> int |> (*) 4
+        | None -> 0)
     | LittleStraight -> if dice |> isLilStraight then 30 else 0
     | BigStraight -> if dice |> isBigStraight then 30 else 0
     | Choice -> dice |> List.sumBy int
