@@ -1,69 +1,31 @@
 module Yacht
 
-type Category =
-    | Ones
-    | Twos
-    | Threes
-    | Fours
-    | Fives
-    | Sixes
-    | FullHouse
-    | FourOfAKind
-    | LittleStraight
-    | BigStraight
-    | Choice
-    | Yacht
+type Category = Ones | Twos | Threes | Fours | Fives | Sixes | FullHouse | FourOfAKind | LittleStraight | BigStraight | Choice | Yacht
+type Die = One = 1 | Two = 2 | Three = 3 | Four = 4 | Five = 5 | Six = 6
 
-type Die =
-    | One = 1
-    | Two = 2
-    | Three = 3
-    | Four = 4
-    | Five = 5
-    | Six = 6
-
-let scoreByFace face =
-    List.filter ((=) face) >> List.sumBy int
-
-let countRollsByFace =
-    List.countBy id >> List.map snd >> List.sortBy id
-
-let isFullHouse = countRollsByFace >> (=) [ 2; 3 ]
-
-let isFourOfAKind =
-    countRollsByFace >> List.exists (fun i -> i >= 4)
-
-let isLilStraight =
-    List.map int >> List.sort >> (=) [ 1; 2; 3; 4; 5 ]
-
-let isBigStraight =
-    List.map int >> List.sort >> (=) [ 2; 3; 4; 5; 6 ]
-
-// TODO: benchmark Seq vs List
 let score category dice =
+    let diceScoredByFace face = dice |> List.filter ((=) face) |> List.sumBy int
+    let diceSorted = dice |> List.sort
+    let diceSortedByCounts = dice |> List.countBy int |> List.sortBy snd
+    
     match category with
-    | Yacht ->
-        match dice with
-        | h :: t when t |> List.forall ((=) h) -> 50
-        | _ -> 0
-    | Ones -> dice |> scoreByFace Die.One
-    | Twos -> dice |> scoreByFace Die.Two
-    | Threes -> dice |> scoreByFace Die.Three
-    | Fours -> dice |> scoreByFace Die.Four
-    | Fives -> dice |> scoreByFace Die.Five
-    | Sixes -> dice |> scoreByFace Die.Six
+    | Ones -> diceScoredByFace Die.One
+    | Twos -> diceScoredByFace Die.Two
+    | Threes -> diceScoredByFace Die.Three
+    | Fours -> diceScoredByFace Die.Four
+    | Fives -> diceScoredByFace Die.Five
+    | Sixes -> diceScoredByFace Die.Six
     | FullHouse ->
-        if dice |> isFullHouse then
-            dice |> List.sumBy int
-        else
-            0
+        diceSortedByCounts |> (function
+        | [ (_, 2); (_, 3) ] -> dice |> List.sumBy int
+        | _ -> 0)
     | FourOfAKind ->
-        dice
-        |> List.countBy id
-        |> List.tryFind (fun (_, count) -> count >= 4)
-        |> (function
-        | Some (face, _) -> face |> int |> (*) 4
+        diceSortedByCounts |> List.tryFind (fun (_, count) -> count >= 4) |> (function
+        | Some (face, _) -> face |> (*) 4
         | None -> 0)
-    | LittleStraight -> if dice |> isLilStraight then 30 else 0
-    | BigStraight -> if dice |> isBigStraight then 30 else 0
+    | LittleStraight ->
+        if diceSorted = [ Die.One; Die.Two; Die.Three; Die.Four; Die.Five ] then 30 else 0
+    | BigStraight ->
+        if diceSorted = [ Die.Two; Die.Three; Die.Four; Die.Five; Die.Six ] then 30 else 0
     | Choice -> dice |> List.sumBy int
+    | Yacht -> if dice |> set |> Set.count = 1 then 50 else 0
