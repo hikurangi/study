@@ -1,16 +1,8 @@
 module RotationalCipher
 
-open System
+let rotateCharacterFrom startChar shiftKey character = (int character - int startChar + shiftKey) % 26 + int startChar |> char
 
-let shiftCharBy shiftKey character =
-    let highestLetterOfCase =
-        character
-        |> (fun c -> if Char.IsLower c then 'z' else 'Z')
-        |> int
-
-    match character |> int |> (+) shiftKey with
-    | _ when not (Char.IsLetter character) -> character
-    | shiftedCharValue when shiftedCharValue <= highestLetterOfCase -> shiftedCharValue |> char
-    | shiftedCharValue -> (shiftedCharValue - 26) |> char
-
-let rotate shiftKey = Seq.map (shiftCharBy shiftKey) >> String.Concat
+let rotate shiftKey = String.map (function
+        | c when System.Char.IsLower c -> rotateCharacterFrom 'a' shiftKey c
+        | c when System.Char.IsUpper c -> rotateCharacterFrom 'A' shiftKey c
+        | c -> c)
