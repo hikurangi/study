@@ -8,8 +8,11 @@ type AccountAction =
 
 let performAccountAction =
     function
-    | _, Open -> Some 0.0m
-    | _, Close -> None
+    | None, Open -> Some 0m
+    | Some _balance, Open -> failwith $"Cannot open an account which is already open."
+    | Some 0m, Close
+    | None, Close -> None
+    | Some _balance, Close -> failwith $"Cannot close an account with a non-zero balance."
     | prevBalance, GetBalance replyChannel -> replyChannel.Reply(prevBalance); prevBalance
     | prevBalance, UpdateBalance change ->
         match prevBalance with
