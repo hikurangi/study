@@ -1,11 +1,51 @@
 ﻿module BankAccount
 
-let mkBankAccount() = failwith "You need to implement this function."
+type Account = { Balance: decimal option }
 
-let openAccount account = failwith "You need to implement this function."
+type AccountAction =
+    | Open
+    | Close
+    | GetBalance of AsyncReplyChannel<Account>
+    | UpdateBalance of decimal
 
-let closeAccount account = failwith "You need to implement this function."
+let performAccountAction previousAccountState =
+    function
+    | Open -> { Balance = Some 0.0m }
+    | GetBalance replyChannel ->
+        replyChannel.Reply(previousAccountState)
+        previousAccountState
+    | UpdateBalance change ->
+        { Balance =
+              (match previousAccountState.Balance with
+               | Some v -> Some(v + change)
+               | None -> Some change) }
+    | Close -> { Balance = None }
 
-let getBalance account = failwith "You need to implement this function."
+let mkBankAccount () =
+    MailboxProcessor.Start
+        (fun inbox ->
+            let rec loop previousState =
+                async {
 
-let updateBalance change account = failwith "You need to implement this function."
+                    let! msg = inbox.Receive()
+                    let updatedState = performAccountAction previousState msg
+
+                    return! loop updatedState
+                }
+
+            loop { Balance = None })
+
+let openAccount (account: MailboxProcessor<AccountAction>) =
+    account.Post Open
+    account
+
+let getBalance (account: MailboxProcessor<AccountAction>) =
+    (account.PostAndReply GetBalance).Balance
+
+let updateBalance change (account: MailboxProcessor<AccountAction>) =
+    account.Post(UpdateBalance change)
+    account
+
+let closeAccount (account: MailboxProcessor<AccountAction>) =
+    account.Post Close
+    account
