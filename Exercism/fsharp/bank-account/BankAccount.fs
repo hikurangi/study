@@ -6,15 +6,15 @@ type AccountAction =
     | GetBalance of AsyncReplyChannel<decimal option>
     | UpdateBalance of decimal
 
-let performAccountAction prevBalance =
+let performAccountAction =
     function
-    | Open -> Some 0.0m
-    | GetBalance replyChannel -> replyChannel.Reply(prevBalance); prevBalance
-    | UpdateBalance change ->
+    | _, Open -> Some 0.0m
+    | _, Close -> None
+    | prevBalance, GetBalance replyChannel -> replyChannel.Reply(prevBalance); prevBalance
+    | prevBalance, UpdateBalance change ->
         match prevBalance with
         | Some v -> Some(v + change)
         | None -> Some change
-    | Close -> None
 
 type AccountAgent = MailboxProcessor<AccountAction>
 
@@ -23,8 +23,8 @@ let mkBankAccount () =
         (fun inbox ->
             let rec loop prevBalance =
                 async {
-                    let! msg = inbox.Receive()
-                    let newBalance = performAccountAction prevBalance msg
+                    let! action = inbox.Receive()
+                    let newBalance = performAccountAction (prevBalance, action)
                     return! loop newBalance
                 }
             loop None)
