@@ -6,7 +6,7 @@ type AccountAction =
     | GetBalance of AsyncReplyChannel<decimal option>
     | UpdateBalance of decimal
 
-let performAccountAction =
+let accountReducer =
     function
     | None, Open -> Some 0m
     | Some _balance, Open -> failwith $"Cannot open an account which is already open."
@@ -27,7 +27,7 @@ let mkBankAccount () =
             let rec loop prevBalance =
                 async {
                     let! action = inbox.Receive()
-                    let newBalance = performAccountAction (prevBalance, action)
+                    let newBalance = accountReducer (prevBalance, action)
                     return! loop newBalance
                 }
             loop None)
