@@ -1,51 +1,38 @@
 ﻿module BankAccount
 
-type Account = { Balance: decimal option }
-
 type AccountAction =
     | Open
     | Close
-    | GetBalance of AsyncReplyChannel<Account>
+    | GetBalance of AsyncReplyChannel<decimal option>
     | UpdateBalance of decimal
 
-let performAccountAction previousAccountState =
+let performAccountAction prevBalance =
     function
-    | Open -> { Balance = Some 0.0m }
-    | GetBalance replyChannel ->
-        replyChannel.Reply(previousAccountState)
-        previousAccountState
+    | Open -> Some 0.0m
+    | GetBalance replyChannel -> replyChannel.Reply(prevBalance); prevBalance
     | UpdateBalance change ->
-        { Balance =
-              (match previousAccountState.Balance with
-               | Some v -> Some(v + change)
-               | None -> Some change) }
-    | Close -> { Balance = None }
+        match prevBalance with
+        | Some v -> Some(v + change)
+        | None -> Some change
+    | Close -> None
+
+type AccountAgent = MailboxProcessor<AccountAction>
 
 let mkBankAccount () =
     MailboxProcessor.Start
         (fun inbox ->
-            let rec loop previousState =
+            let rec loop prevBalance =
                 async {
-
                     let! msg = inbox.Receive()
-                    let updatedState = performAccountAction previousState msg
-
-                    return! loop updatedState
+                    let newBalance = performAccountAction prevBalance msg
+                    return! loop newBalance
                 }
+            loop None)
 
-            loop { Balance = None })
+let openAccount (account: AccountAgent) = account.Post Open; account
 
-let openAccount (account: MailboxProcessor<AccountAction>) =
-    account.Post Open
-    account
+let getBalance (account: AccountAgent) = account.PostAndReply GetBalance
 
-let getBalance (account: MailboxProcessor<AccountAction>) =
-    (account.PostAndReply GetBalance).Balance
+let updateBalance change (account: AccountAgent) = account.Post(UpdateBalance change); account
 
-let updateBalance change (account: MailboxProcessor<AccountAction>) =
-    account.Post(UpdateBalance change)
-    account
-
-let closeAccount (account: MailboxProcessor<AccountAction>) =
-    account.Post Close
-    account
+let closeAccount (account: AccountAgent) = account.Post Close; account
