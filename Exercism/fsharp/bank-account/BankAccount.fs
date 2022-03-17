@@ -14,10 +14,7 @@ let accountReducer =
     | None, Close -> None
     | Some _balance, Close -> failwith $"Cannot close an account with a non-zero balance."
     | prevBalance, GetBalance replyChannel -> replyChannel.Reply(prevBalance); prevBalance
-    | prevBalance, UpdateBalance change ->
-        match prevBalance with
-        | Some v -> Some(v + change)
-        | None -> Some change
+    | prevBalance, UpdateBalance change -> prevBalance |> Option.map ((+) change)
 
 type AccountAgent = MailboxProcessor<AccountAction>
 
