@@ -8,22 +8,14 @@ let startListAtIndex index list = (list |> List.skip index) @ (list |> List.take
 
 let interval intervals tonic =
     let scale = if sharpKeys |> List.contains tonic then chromaticScaleInSharps else chromaticScaleInFlats
-    let tonicIndex = scale |> List.findIndex (fun note -> System.String.Equals(note, tonic, System.StringComparison.InvariantCultureIgnoreCase))
-    let scaleFromTonic = startListAtIndex tonicIndex scale
+    let indexOfTonic = scale |> List.findIndex (fun note -> System.String.Equals(note, tonic, System.StringComparison.InvariantCultureIgnoreCase))
+    let scaleFromTonic = startListAtIndex indexOfTonic scale
     
-    let intervals' = intervals |> Seq.map (function 'm' -> 1 | 'M' -> 2 | 'A' -> 3 | i -> failwith $"Invalid interval: {i}") |> List.ofSeq
-
-    let rec filterScaleByIntervals remainingSourceScale targetScale =
-        function
-        | [] -> targetScale
-        | intervalCount :: _ when intervalCount < 1 || intervalCount > 3 -> failwith $"Invalid interval supplied: '{intervalCount}' semitones"
-        | intervalCount :: remainingIntervals ->
-            filterScaleByIntervals
-                (remainingSourceScale |> List.skip intervalCount)
-                (targetScale
-                 @ [ remainingSourceScale |> List.head ])
-                remainingIntervals
-
-    filterScaleByIntervals scaleFromTonic [] intervals'
+    intervals
+        |> Seq.map (function 'm' -> 1 | 'M' -> 2 | 'A' -> 3 | i -> failwith $"Invalid interval: {i}")
+        |> Seq.scan (+) 0
+        |> Seq.take (intervals |> Seq.length) // Seq.scan appends a final reduced value we aren't using
+        |> Seq.map (function idx -> scaleFromTonic[idx])
+        |> List.ofSeq
 
 let chromatic tonic = interval "mmmmmmmmmmmm" tonic
