@@ -1,41 +1,17 @@
 module ScaleGenerator
-let isCaseInsensitiveMatchFor str1 str2 =
-    System.String.Equals(str1, str2, System.StringComparison.InvariantCultureIgnoreCase)
     
-let isTonicOfSharpKey tonic =
-    ["a"; "C"; "e"; "G"; "b"; "D"; "f#"; "A"; "c#"; "E"; "g#"; "B"; "d#"; "F#"] |> List.contains tonic
+let sharpKeys = ["a"; "C"; "e"; "G"; "b"; "D"; "f#"; "A"; "c#"; "E"; "g#"; "B"; "d#"; "F#"]
+let chromaticScaleInSharps = [ "C"; "C#"; "D"; "D#"; "E"; "F"; "F#"; "G"; "G#"; "A"; "A#"; "B" ]
+let chromaticScaleInFlats = [ "Bb"; "B"; "C"; "Db"; "D"; "Eb"; "E"; "F"; "Gb"; "G"; "Ab"; "A" ]
 
-let buildScaleFromTonic chromaticScale tonic =
-    let scaleBeforeTonic =
-        chromaticScale
-        |> List.takeWhile (isCaseInsensitiveMatchFor tonic >> not)
-
-    let scaleAfterTonic =
-        chromaticScale
-        |> List.skipWhile (isCaseInsensitiveMatchFor tonic >> not)
-
-    scaleAfterTonic @ scaleBeforeTonic
-
-let buildChromaticScaleFromTonic tonic =
-    let starterChromaticScaleWithSharps =
-        [ "C"; "C#"; "D"; "D#"; "E"; "F"; "F#"; "G"; "G#"; "A"; "A#"; "B" ]
-        
-    let starterChromaticScaleWithFlats =
-        [ "Bb"; "B"; "C"; "Db"; "D"; "Eb"; "E"; "F"; "Gb"; "G"; "Ab"; "A" ]
-        
-    let chromaticScale =
-      if tonic |> isTonicOfSharpKey then
-        starterChromaticScaleWithSharps
-      else
-        starterChromaticScaleWithFlats
-  
-    buildScaleFromTonic chromaticScale tonic
+let startListAtIndex index list = (list |> List.skip index) @ (list |> List.take index)
 
 let interval intervals tonic =
-
-    let intervalsAsSemitones = intervals |> Seq.map (function 'm' -> 1 | 'M' -> 2 | 'A' -> 3 | i -> failwith $"Invalid interval: {i}") |> List.ofSeq
+    let scale = if sharpKeys |> List.contains tonic then chromaticScaleInSharps else chromaticScaleInFlats
+    let tonicIndex = scale |> List.findIndex (fun note -> System.String.Equals(note, tonic, System.StringComparison.InvariantCultureIgnoreCase))
+    let scaleFromTonic = startListAtIndex tonicIndex scale
     
-    let chromaticScaleFromTonic = buildChromaticScaleFromTonic tonic
+    let intervals' = intervals |> Seq.map (function 'm' -> 1 | 'M' -> 2 | 'A' -> 3 | i -> failwith $"Invalid interval: {i}") |> List.ofSeq
 
     let rec filterScaleByIntervals remainingSourceScale targetScale =
         function
@@ -48,6 +24,6 @@ let interval intervals tonic =
                  @ [ remainingSourceScale |> List.head ])
                 remainingIntervals
 
-    filterScaleByIntervals chromaticScaleFromTonic [] intervalsAsSemitones
+    filterScaleByIntervals scaleFromTonic [] intervals'
 
 let chromatic tonic = interval "mmmmmmmmmmmm" tonic
