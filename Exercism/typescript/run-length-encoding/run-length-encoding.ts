@@ -1,7 +1,7 @@
-export function encode() {
-  throw new Error('Remove this statement and implement this function')
-}
+export const encode = (input: string) =>
+  input.replace(/(\D)\1+/g, (match, character) => match.length + character);
 
-export function decode() {
-  throw new Error('Remove this statement and implement this function')
-}
+export const decode = (input: string) =>
+  input.replace(/(\d+)(\D)/g, (_match, count, character) =>
+    character.repeat(count)
+  );
