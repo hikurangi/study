@@ -1,7 +1,17 @@
 module Bowling
 
-let newGame() = failwith "You need to implement this function."
+type Frame =
+    | Strike of int * int * int
+    | Spare of int * int * int
+    | Open of int * int
 
-let roll pins rolls = failwith "You need to implement this function."
+type Game = Frame * Frame * Frame * Frame * Frame * Frame * Frame * Frame * Frame * Frame
 
-let score game = failwith "You need to implement this function."
+let newGame () =
+    failwith "You need to implement this function."
+
+let roll (pins: int) (rolls: seq<int>) =
+    failwith "You need to implement this function."
+
+let score (game: Game) =
+    failwith "You need to implement this function."

@@ -34,12 +34,13 @@ let hasWon board =
 
     board' |> hasWinningRow || board' |> Seq.transpose |> hasWinningRow
 
+type BingoResultPayload = seq<seq<Square>> * int
 type BingoResult =
-    | Winners of seq<seq<Square>> * int // needs to give the final call
-    | Remaining of seq<seq<Square>> * int
+    | Winners of BingoResultPayload
+    | Remaining of BingoResultPayload
 
 let score (result : BingoResult) =
-    let board, winningCall = match result with Winners (a, b) -> a, b | Remaining(a, b) -> a, b
+    let board, winningCall = match result with Winners (a, b) -> a, b | Remaining(a, b) -> a, b // doesn't make sense? We only score winners
     let board' = board |> Seq.exactlyOne
     
     if board' |> hasWon then
@@ -68,3 +69,22 @@ let rec runCalls calls prevCall boards =
     | [], b when b |> Seq.length < 1 -> Remaining (boards, prevCall) // no winners after final call
     | cH :: cT, b when b |> Seq.length < 1 -> runCalls cT cH (boards |> call cH) // does not win on non-final call
     | _, b -> Winners (b, prevCall)// wins on non-final call
+
+// we are interested in the current state at the current step
+
+// we want an output which gives us
+    // a call history
+    // boards sorted into winners and remaining?
+
+// the only base case is that we run out of calls.
+
+// can stop at the last winner
+    
+//let rec runCalls' futureCalls history boards =
+    //
+
+// 1. check for empty calls list. if so, return current boards with call history. else...
+// 2. run this call.
+//  a. capture any wins, add winning call
+//  b. filter out those wins ??
+// 3. run next iteration with win

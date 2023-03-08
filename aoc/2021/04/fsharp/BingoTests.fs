@@ -151,6 +151,24 @@ let ``Can win with a vertical line`` () =
         }, 26)
 
     testInput |> parseBoards |> runCalls [ 7; 4; 9; 5; 11; 17; 23; 2; 0; 14; 22; 21; 8; 6; ] 0 |> unwrapBingo |> should equal (winners |> unwrapBingo)
+    
+//[<Fact>]
+//let ``Gets last winning board with correct score`` () =
+//    let lastWinner =
+//        Winners (seq {
+//            seq {
+//                { Number = 3; Drawn = false }; { Number = 15; Drawn = false }; { Number = 0; Drawn = true }; { Number = 2; Drawn = true }; { Number = 22; Drawn = false }
+//                { Number = 9; Drawn = true }; { Number = 18; Drawn = false }; { Number = 13; Drawn = true }; { Number = 17; Drawn = true }; { Number = 5; Drawn = true }
+//                { Number = 19; Drawn = false }; { Number = 8; Drawn = false }; { Number = 7; Drawn = true }; { Number = 25; Drawn = false }; { Number = 23; Drawn = true }
+//                { Number = 20; Drawn = false }; { Number = 11; Drawn = true }; { Number = 10; Drawn = true }; { Number = 24; Drawn = true }; { Number = 4; Drawn = true }
+//                { Number = 14; Drawn = true }; { Number = 21; Drawn = true }; { Number = 16; Drawn = true }; { Number = 12; Drawn = false }; { Number = 6; Drawn = false }
+//            }
+//        }, 26)
+//
+//    let actualWinner = testInput |> parseBoards |> runCallsForLastWinner [ 7; 4; 9; 5; 11; 17; 23; 2; 0; 14; 21; 24; 10; 16; 13 ] 0
+//    actualWinner |> unwrapBingo |> should equal (lastWinner |> unwrapBingo)
+//    actualWinner |> score |> should equal 1924
+    
 
 [<Fact>]
 let ``Winning score is calculated accurately from test input`` () =
@@ -167,4 +185,4 @@ let ``Winning board score is calculated accurately from real data`` () =
     let calls = input |> parseCalls
     let boards = input |> parseBoards
 
-    boards |> runCalls calls 0 |> score |> should equal 25410 // 26136
+    boards |> runCalls calls 0 |> score |> should equal 25410
