@@ -446,7 +446,10 @@ $RECYCLE.BIN/
 
 # Yarn - I'm not using Zero-Installs
 # see https://github.com/yarnpkg/berry/issues/454#issuecomment-530312089
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
 .pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
