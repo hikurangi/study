@@ -443,3 +443,10 @@ $RECYCLE.BIN/
 
 # Editor Configs
 .editorconfig
+
+# Yarn - I'm not using Zero-Installs
+# see https://github.com/yarnpkg/berry/issues/454#issuecomment-530312089
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
