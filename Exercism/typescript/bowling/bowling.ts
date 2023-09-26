@@ -67,7 +67,6 @@ const mapRollsToGame = (game: Game, rolls: Array<number>): Game => {
       return mapRollsToGame([...game, frame], isLastFrame ? [] : rolls.slice(2))
     } else {
       // Open
-      // I think this is safe as a 'default' branch
       return mapRollsToGame(
         [
           ...game,
