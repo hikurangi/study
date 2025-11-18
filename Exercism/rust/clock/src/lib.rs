@@ -4,7 +4,7 @@ use std::i32;
 const MINUTES_IN_HOUR: i32 = 60;
 const MINUTES_IN_DAY: i32 = MINUTES_IN_HOUR * 24;
 
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Debug)]
 pub struct Clock {
     minutes: i32,
 }
