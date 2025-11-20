@@ -6,7 +6,7 @@ fn sort_string(word: &str) -> Vec<char> {
     copied_word_vec
 }
 
-pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&'a str]) -> HashSet<&'a str> {
+pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
     let word_lowercased = word.to_lowercase();
     let word_sorted = sort_string(&word_lowercased);
 
