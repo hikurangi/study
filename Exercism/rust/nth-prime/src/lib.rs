@@ -1,30 +1,8 @@
 pub fn nth(n: u32) -> u32 {
-    if n == 0 {
-        2
-    } else {
-        let mut count = 2;
-        let mut candidate = 3;
-        while count < n + 1 {
-            candidate += 1;
-
-            if is_prime(candidate) {
-                count += 1;
-            }
-        }
-        return candidate;
-    }
+    // I think this range would overflow before the unwrap call panics?
+    (2..).filter(|x| is_prime(*x)).nth(n as usize).unwrap()
 }
 
-fn is_prime(candidate: u32) -> bool {
-    if candidate < 2 {
-        return false;
-    }
-    let mut d = 2;
-    while d * d <= candidate {
-        if candidate % d == 0 {
-            return false;
-        }
-        d += 1;
-    }
-    true
+fn is_prime(n: u32) -> bool {
+    !(2..=(n as f32).sqrt() as u32).any(|x| n % x == 0)
 }
