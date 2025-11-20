@@ -1,15 +1,14 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
-fn to_frequency_map(word: &str) -> HashMap<char, usize> {
-    word.chars().fold(HashMap::new(), |mut acc, c| {
-        *acc.entry(c).or_insert(0) += 1;
-        acc
-    })
+fn sort_string(word: &str) -> Vec<char> {
+    let mut copied_word_vec = word.chars().collect::<Vec<char>>();
+    copied_word_vec.sort();
+    copied_word_vec
 }
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&'a str]) -> HashSet<&'a str> {
     let word_lowercased = word.to_lowercase();
-    let word_as_f_map = to_frequency_map(&word_lowercased);
+    let word_sorted = sort_string(&word_lowercased);
 
     possible_anagrams
         .iter()
@@ -21,7 +20,7 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&'a str]) -> HashSet
             let candidate_lowercased = candidate.to_lowercase();
 
             word_lowercased != candidate_lowercased
-                && word_as_f_map == to_frequency_map(&candidate_lowercased)
+                && word_sorted == sort_string(&candidate_lowercased)
         })
         .collect()
 }
