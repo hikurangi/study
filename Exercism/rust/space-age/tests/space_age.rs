@@ -18,7 +18,6 @@ fn age_on_earth() {
 }
 
 #[test]
-#[ignore]
 fn age_on_mercury() {
     let seconds = 2_134_835_688;
     let duration = Duration::from(seconds);
@@ -28,7 +27,6 @@ fn age_on_mercury() {
 }
 
 #[test]
-#[ignore]
 fn age_on_venus() {
     let seconds = 189_839_836;
     let duration = Duration::from(seconds);
@@ -38,7 +36,6 @@ fn age_on_venus() {
 }
 
 #[test]
-#[ignore]
 fn age_on_mars() {
     let seconds = 2_129_871_239;
     let duration = Duration::from(seconds);
@@ -48,8 +45,7 @@ fn age_on_mars() {
 }
 
 #[test]
-#[ignore]
-fn age_on_jupiter() {
+fn age_ons_jupiter() {
     let seconds = 901_876_382;
     let duration = Duration::from(seconds);
     let output = Jupiter::years_during(&duration);
@@ -58,7 +54,6 @@ fn age_on_jupiter() {
 }
 
 #[test]
-#[ignore]
 fn age_on_saturn() {
     let seconds = 2_000_000_000;
     let duration = Duration::from(seconds);
@@ -68,8 +63,7 @@ fn age_on_saturn() {
 }
 
 #[test]
-#[ignore]
-fn age_on_uranus() {
+fn age_ons_uranus() {
     let seconds = 1_210_123_456;
     let duration = Duration::from(seconds);
     let output = Uranus::years_during(&duration);
@@ -78,7 +72,6 @@ fn age_on_uranus() {
 }
 
 #[test]
-#[ignore]
 fn age_on_neptune() {
     let seconds = 1_821_023_456;
     let duration = Duration::from(seconds);
