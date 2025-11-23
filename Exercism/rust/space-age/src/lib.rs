@@ -18,6 +18,14 @@ pub trait Planet {
     fn years_during(d: &Duration) -> f64;
 }
 
+macro_rules! planet {
+    ($n:ident, $p:ty) => {
+        pub struct $n; impl Planet for $n { const YEAR_IN_SECONDS: $ty, fn years_during(d: &Duration) -> f64 {
+            d.seconds as f64 / Self::YEAR_IN_SECONDS
+        }}
+    };
+}
+
 pub struct Mercury;
 pub struct Venus;
 pub struct Earth;
