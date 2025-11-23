@@ -18,68 +18,23 @@ pub trait Planet {
     fn years_during(d: &Duration) -> f64;
 }
 
-macro_rules! planet {
-    ($n:ident, $p:ty) => {
-        pub struct $n; impl Planet for $n { const YEAR_IN_SECONDS: $ty, fn years_during(d: &Duration) -> f64 {
-            d.seconds as f64 / Self::YEAR_IN_SECONDS
-        }}
+macro_rules! create {
+    ($name:ident, $ratio:literal) => {
+        pub struct $name;
+        impl Planet for $name {
+            const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * $ratio;
+            fn years_during(d: &Duration) -> f64 {
+                d.seconds as f64 / Self::YEAR_IN_SECONDS
+            }
+        }
     };
 }
 
-pub struct Mercury;
-pub struct Venus;
-pub struct Earth;
-pub struct Mars;
-pub struct Jupiter;
-pub struct Saturn;
-pub struct Uranus;
-pub struct Neptune;
-
-impl Planet for Mercury {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 0.2408467;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Venus {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 0.61519726;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Earth {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Mars {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 1.8808158;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Jupiter {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 11.862615;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Saturn {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 29.447498;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Uranus {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 84.016846;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
-impl Planet for Neptune {
-    const YEAR_IN_SECONDS: f64 = EARTH_YEAR_IN_SECONDS * 164.79132;
-    fn years_during(d: &Duration) -> f64 {
-        d.seconds as f64 / Self::YEAR_IN_SECONDS
-    }
-}
+create!(Mercury, 0.2408467);
+create!(Venus, 0.61519726);
+create!(Earth, 1.0);
+create!(Mars, 1.8808158);
+create!(Jupiter, 11.862615);
+create!(Saturn, 29.447498);
+create!(Uranus, 84.016846);
+create!(Neptune, 164.79132);
