@@ -1,6 +1,6 @@
 // The code below is a stub. Just enough to satisfy the compiler.
 // In order to pass the tests you can add-to or change any of this code.
-const EARTH_YEAR_IN_SECONDS: f64 = 31_556_600.;
+const EARTH_YEAR_IN_SECONDS: f64 = 31_556_600_f64;
 
 #[derive(Debug)]
 pub struct Duration {
