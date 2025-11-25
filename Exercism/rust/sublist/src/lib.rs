@@ -7,7 +7,35 @@ pub enum Comparison {
 }
 
 pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
-    todo!(
-        "Determine if the {first_list:?} is equal to, sublist of, superlist of or unequal to {second_list:?}."
-    );
+    match first_list.len().cmp(&second_list.len()) {
+        std::cmp::Ordering::Equal => {
+            if first_list == second_list {
+                return Comparison::Equal;
+            } else {
+                return Comparison::Unequal;
+            }
+        }
+        std::cmp::Ordering::Greater => {
+            if second_list == []
+                || first_list
+                    .windows(second_list.len())
+                    .any(|l| l == second_list)
+            {
+                return Comparison::Superlist;
+            } else {
+                return Comparison::Unequal;
+            }
+        }
+        std::cmp::Ordering::Less => {
+            if first_list == []
+                || second_list
+                    .windows(first_list.len())
+                    .any(|l| l == first_list)
+            {
+                return Comparison::Sublist;
+            } else {
+                return Comparison::Unequal;
+            }
+        }
+    }
 }
