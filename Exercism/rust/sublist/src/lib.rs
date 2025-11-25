@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum Comparison {
     Equal,
@@ -7,34 +9,37 @@ pub enum Comparison {
 }
 
 pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
-    match first_list.len().cmp(&second_list.len()) {
-        std::cmp::Ordering::Equal => {
+    let first_list_length = first_list.len();
+    let second_list_length = second_list.len();
+
+    match first_list_length.cmp(&second_list_length) {
+        Ordering::Equal => {
             if first_list == second_list {
-                return Comparison::Equal;
+                Comparison::Equal
             } else {
-                return Comparison::Unequal;
+                Comparison::Unequal
             }
         }
-        std::cmp::Ordering::Greater => {
+        Ordering::Greater => {
             if second_list == []
                 || first_list
-                    .windows(second_list.len())
+                    .windows(second_list_length)
                     .any(|l| l == second_list)
             {
-                return Comparison::Superlist;
+                Comparison::Superlist
             } else {
-                return Comparison::Unequal;
+                Comparison::Unequal
             }
         }
-        std::cmp::Ordering::Less => {
+        Ordering::Less => {
             if first_list == []
                 || second_list
-                    .windows(first_list.len())
+                    .windows(first_list_length)
                     .any(|l| l == first_list)
             {
-                return Comparison::Sublist;
+                Comparison::Sublist
             } else {
-                return Comparison::Unequal;
+                Comparison::Unequal
             }
         }
     }
