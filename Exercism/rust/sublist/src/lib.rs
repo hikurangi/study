@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum Comparison {
     Equal,
@@ -9,38 +7,20 @@ pub enum Comparison {
 }
 
 pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
-    let first_list_length = first_list.len();
-    let second_list_length = second_list.len();
+    let is_first_sublist_of_second = first_list.is_empty()
+        || second_list
+            .windows(first_list.len())
+            .any(|l| l == first_list);
 
-    match first_list_length.cmp(&second_list_length) {
-        Ordering::Equal => {
-            if first_list == second_list {
-                Comparison::Equal
-            } else {
-                Comparison::Unequal
-            }
-        }
-        Ordering::Greater => {
-            if second_list.is_empty()
-                || first_list
-                    .windows(second_list_length)
-                    .any(|l| l == second_list)
-            {
-                Comparison::Superlist
-            } else {
-                Comparison::Unequal
-            }
-        }
-        Ordering::Less => {
-            if first_list.is_empty()
-                || second_list
-                    .windows(first_list_length)
-                    .any(|l| l == first_list)
-            {
-                Comparison::Sublist
-            } else {
-                Comparison::Unequal
-            }
-        }
+    let is_first_superlist_of_second = second_list.is_empty()
+        || first_list
+            .windows(second_list.len())
+            .any(|l| l == second_list);
+
+    match (is_first_sublist_of_second, is_first_superlist_of_second) {
+        (false, false) => Comparison::Unequal,
+        (true, true) => Comparison::Equal,
+        (true, false) => Comparison::Sublist,
+        (false, true) => Comparison::Superlist,
     }
 }
