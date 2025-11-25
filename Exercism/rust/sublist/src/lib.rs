@@ -21,7 +21,7 @@ pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
             }
         }
         Ordering::Greater => {
-            if second_list == []
+            if second_list.is_empty()
                 || first_list
                     .windows(second_list_length)
                     .any(|l| l == second_list)
@@ -32,7 +32,7 @@ pub fn sublist(first_list: &[i32], second_list: &[i32]) -> Comparison {
             }
         }
         Ordering::Less => {
-            if first_list == []
+            if first_list.is_empty()
                 || second_list
                     .windows(first_list_length)
                     .any(|l| l == first_list)
