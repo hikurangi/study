@@ -1,4 +1,5 @@
 fn main() {
+    // let reference_to_nothing = dangle();
     // an immutable string literal is hardcoded into a compiled executable
 
     // a mutable string, must be assigned to the heap, since it can change.
@@ -40,15 +41,35 @@ fn main() {
     // let y = x;
 
     // println!("x = {}, y = {}", x, y);
-    let s1 = String::from("hello");
+    let mut s = String::from("hello");
+    let r1 = &s;
+    let r2 = &s;
 
-    let (s2, len) = calculate_length(s1);
+    println!("{r1}, {r2}");
 
-    println!("The length of '{s2}' is {len}.");
+    let r3 = &mut s;
+    println!("{r3}");
+    // change(&mut s);
+    // let len = calculate_length(&s1);
+
+    // println!("The length of '{s1}' is {len}.");
 }
 
-fn calculate_length(s: String) -> (String, usize) {
-    let length = s.len(); // len() returns the length of a String
+// fn change(some_string: &mut String) {
+//     some_string.push_str(", world");
+// }
+// fn calculate_length(s: &String) -> usize {
+//     s.len()
+// } // Here, s goes out of scope. But because is does not have ownership of what it refers to, the String is not dropped.
 
-    (s, length)
-}
+// fn dangle() -> &String {
+//     let s = String::from("hello");
+
+//     &s
+// }
+
+// fn no_dangle() -> String {
+//     let s = String::from("hello");
+
+//     s
+// }
