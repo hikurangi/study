@@ -53,16 +53,17 @@ where
         .collect()
 }
 
-fn get_password(turns: Vec<i32>) -> u32 {
-    let (password, _) = turns
-        .iter()
-        .fold((0, 0), |(mut password, running_total), current| {
-            let new_total = (running_total + current) % 100;
-            if new_total == 0 {
+fn get_password(initial_dial_position: i32, turns: Vec<i32>) -> u32 {
+    let (password, _) = turns.iter().fold(
+        (0, initial_dial_position),
+        |(mut password, dial_position), current_turn| {
+            let new_dial_position = (dial_position + current_turn) % 100;
+            if new_dial_position == 0 {
                 password += 1;
             }
-            (password, new_total)
-        });
+            (password, new_dial_position)
+        },
+    );
 
     password as u32
 }
@@ -78,7 +79,7 @@ fn main() {
 
     let turns = process_lines(lines.map(|l| l.map_err(|_| LineError::Empty))).unwrap();
 
-    let password = get_password(turns);
+    let password = get_password(50, turns);
 
     println!("PASSWORD: {password}");
 }
@@ -121,24 +122,28 @@ mod tests {
     #[test]
     fn password_is_zero() {
         let turns: Vec<i32> = Vec::from([1, 10, -5]);
-        assert_eq!(get_password(turns), 0);
+        let initial_dial_position = 0;
+        assert_eq!(get_password(initial_dial_position, turns), 0);
     }
 
     #[test]
     fn password_is_zero_overflowing() {
         let turns: Vec<i32> = Vec::from([95, 15, -2, 6]);
-        assert_eq!(get_password(turns), 0);
+        let initial_dial_position = 0;
+        assert_eq!(get_password(initial_dial_position, turns), 0);
     }
 
     #[test]
     fn password_is_one() {
         let turns: Vec<i32> = Vec::from([99, 1, 22, -700]);
-        assert_eq!(get_password(turns), 1);
+        let initial_dial_position = 0;
+        assert_eq!(get_password(initial_dial_position, turns), 1);
     }
 
     #[test]
     fn password_is_two() {
         let turns: Vec<i32> = Vec::from([17, -5, -12, 27, -27]);
-        assert_eq!(get_password(turns), 2);
+        let initial_dial_position = 0;
+        assert_eq!(get_password(initial_dial_position, turns), 2);
     }
 }
