@@ -75,6 +75,7 @@ fn read_lines<R: BufRead>(reader: R) -> impl Iterator<Item = std::io::Result<Str
 fn main() {
     let file = File::open(FILE_PATH).unwrap();
     let reader = BufReader::new(file);
+
     let lines = read_lines(reader);
 
     let turns = process_lines(lines.map(|l| l.map_err(|_| LineError::Empty))).unwrap();
