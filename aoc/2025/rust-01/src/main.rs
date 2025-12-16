@@ -1,51 +1,87 @@
 // use std::env;
 use std::{
     fs::File,
-    io::{self, BufRead, BufReader},
+    io::{BufRead, BufReader},
 };
+
+#[derive(Debug, PartialEq)]
+enum Line {
+    Value(i32),
+}
+
+#[derive(Debug, PartialEq)]
+enum LineError {
+    Empty,
+    BadSign,
+    BadNumber,
+}
 
 // file is read from project root?
 // or is it relative to `cargo run` site
 const FILE_PATH: &str = "./input.txt";
 
-fn parse_signed(line: &str) -> Result<i32, &'static str> {
+fn parse_line(line: &str) -> Result<Line, LineError> {
     let trimmed = line.trim(); // possibly unnecessary
     let mut chars = trimmed.chars();
-    let sign = chars.next().ok_or("Empty string")?;
+    let sign = chars.next().ok_or(LineError::Empty)?;
     let rest = chars.as_str();
 
-    let magnitude: i32 = rest.parse().map_err(|_| "Invalid number")?;
+    let number: i32 = rest.parse().map_err(|_| LineError::BadNumber)?;
 
     match sign {
-        'R' => Ok(magnitude),
-        'L' => Ok(-magnitude),
-        _ => Err("Invalid sign"),
+        'R' => Ok(Line::Value(number)),
+        'L' => Ok(Line::Value(-number)),
+        _ => Err(LineError::BadSign),
     }
 }
 
-fn main() -> io::Result<()> {
-    let file = File::open(FILE_PATH)?;
+fn process_lines<I>(lines: I) -> Result<Vec<i32>, LineError>
+where
+    I: IntoIterator<Item = Result<String, LineError>>,
+{
+    lines
+        .into_iter()
+        .map(|line| {
+            let line = line?;
+            parse_line(&line)
+        })
+        .map(|r| {
+            r.map(|l| match l {
+                Line::Value(n) => n,
+            })
+        })
+        .collect()
+}
+
+fn get_password(turns: Vec<i32>) -> u32 {
+    let (password, _) = turns
+        .iter()
+        .fold((0, 0), |(mut password, running_total), current| {
+            let new_total = (running_total + current) % 100;
+            if new_total == 0 {
+                password += 1;
+            }
+            (password, new_total)
+        });
+
+    password as u32
+}
+
+fn read_lines<R: BufRead>(reader: R) -> impl Iterator<Item = std::io::Result<String>> {
+    reader.lines()
+}
+
+fn main() {
+    let file = File::open(FILE_PATH).unwrap();
     let reader = BufReader::new(file);
+    let lines = read_lines(reader);
 
-    // let mut password: u32 = 0;
+    let turns = process_lines(lines.map(|l| l.map_err(|_| LineError::Empty))).unwrap();
 
-    // read file line by line
-    for line in reader.lines() {
-        let line = line?;
-        let parsed = parse_signed(&line);
-        // L is negative, R is positive, else error
-        // if running mod 100 total === 0, add to counter
-        // return total
-        // match line {}
-        if parsed.is_ok() {
-            println!("{}", parsed.unwrap());
-        }
-    }
+    let password = get_password(turns);
 
-    Ok(())
+    println!("PASSWORD: {password}");
 }
-
-// test
 
 #[cfg(test)]
 mod tests {
@@ -55,30 +91,54 @@ mod tests {
     #[test]
     fn postive_number() {
         let line: &str = "R11";
-        assert_eq!(parse_signed(line), Ok(11_i32));
+        assert_eq!(parse_line(line), Ok(Line::Value(11_i32)));
     }
 
     #[test]
     fn negative_number() {
         let line: &str = "L496";
-        assert_eq!(parse_signed(line), Ok(-496));
+        assert_eq!(parse_line(line), Ok(Line::Value(-496)));
     }
 
     #[test]
     fn empty_string() {
         let line: &str = "";
-        assert_eq!(parse_signed(line), Err("Empty string"));
+        assert_eq!(parse_line(line), Err(LineError::Empty));
     }
 
     #[test]
     fn invalid_number() {
         let line: &str = "Labc";
-        assert_eq!(parse_signed(line), Err("Invalid number"));
+        assert_eq!(parse_line(line), Err(LineError::BadNumber));
     }
 
     #[test]
     fn invalid_sign() {
         let line: &str = "X123";
-        assert_eq!(parse_signed(line), Err("Invalid sign"));
+        assert_eq!(parse_line(line), Err(LineError::BadSign));
+    }
+
+    #[test]
+    fn password_is_zero() {
+        let turns: Vec<i32> = Vec::from([1, 10, -5]);
+        assert_eq!(get_password(turns), 0);
+    }
+
+    #[test]
+    fn password_is_zero_overflowing() {
+        let turns: Vec<i32> = Vec::from([95, 15, -2, 6]);
+        assert_eq!(get_password(turns), 0);
+    }
+
+    #[test]
+    fn password_is_one() {
+        let turns: Vec<i32> = Vec::from([99, 1, 22, -700]);
+        assert_eq!(get_password(turns), 1);
+    }
+
+    #[test]
+    fn password_is_two() {
+        let turns: Vec<i32> = Vec::from([17, -5, -12, 27, -27]);
+        assert_eq!(get_password(turns), 2);
     }
 }
