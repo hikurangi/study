@@ -1,4 +1,3 @@
-// use std::env;
 use std::{
     fs::File,
     io::{BufRead, BufReader},
@@ -14,6 +13,7 @@ enum LineError {
     Empty,
     BadSign,
     BadNumber,
+    NotATurn,
 }
 
 // file is read from project root?
@@ -27,6 +27,11 @@ fn parse_line(line: &str) -> Result<Line, LineError> {
     let rest = chars.as_str();
 
     let number: i32 = rest.parse().map_err(|_| LineError::BadNumber)?;
+
+    if number == 0 {
+        // eliminate non-turn turns!
+        return Err(LineError::NotATurn);
+    }
 
     match sign {
         'R' => Ok(Line::Value(number)),
@@ -53,19 +58,71 @@ where
         .collect()
 }
 
-fn get_password(initial_dial_position: i32, turns: Vec<i32>) -> u32 {
-    let (password, _) = turns.iter().fold(
-        (0, initial_dial_position),
-        |(mut password, dial_position), current_turn| {
-            let new_dial_position = (dial_position + current_turn) % 100;
-            if new_dial_position == 0 {
-                password += 1;
-            }
-            (password, new_dial_position)
-        },
-    );
+#[derive(Debug, PartialEq)]
+struct Turn {
+    start: u32,
+    delta: i32,
+    end: u32,
+    zeros: u32,
+}
 
-    password as u32
+fn step(start: u32, delta: i32) -> Turn {
+    if delta == 0 {
+        panic!("Invalid delta value! Delta cannot be zero")
+    }
+
+    let is_right_turn = delta > 0;
+    let initial_clicks = delta.unsigned_abs();
+    let mut clicks_remaining = initial_clicks;
+    let mut position = start;
+    let mut zeros = 0;
+
+    while clicks_remaining > 0 {
+        match is_right_turn {
+            true => {
+                if position == 99 {
+                    zeros += 1;
+                    position = 0;
+                } else {
+                    position += 1;
+                }
+            }
+            false => {
+                if position == 0 {
+                    if clicks_remaining != initial_clicks {
+                        // seeing a zero at the *start* of a turn doesn't count!
+                        zeros += 1;
+                    }
+                    position = 99;
+                } else {
+                    position -= 1;
+                }
+            }
+        }
+        clicks_remaining -= 1;
+    }
+
+    let total_zeros = zeros + (position == 0 && delta < 0) as u32;
+
+    Turn {
+        start,
+        delta,
+        end: position,
+        zeros: total_zeros,
+    }
+}
+
+fn get_password(initial_dial_position: u32, deltas: Vec<i32>) -> u32 {
+    deltas
+        .into_iter()
+        .scan(initial_dial_position, |prev_position, delta| {
+            let turn = step(*prev_position, delta);
+            *prev_position = turn.end;
+
+            Some(turn)
+        })
+        .map(|t| t.zeros)
+        .sum()
 }
 
 fn read_lines<R: BufRead>(reader: R) -> impl Iterator<Item = std::io::Result<String>> {
@@ -86,65 +143,4 @@ fn main() {
 }
 
 #[cfg(test)]
-mod tests {
-    // Note this useful idiom: importing names from outer (for mod tests) scope.
-    use super::*;
-
-    #[test]
-    fn postive_number() {
-        let line: &str = "R11";
-        assert_eq!(parse_line(line), Ok(Line::Value(11_i32)));
-    }
-
-    #[test]
-    fn negative_number() {
-        let line: &str = "L496";
-        assert_eq!(parse_line(line), Ok(Line::Value(-496)));
-    }
-
-    #[test]
-    fn empty_string() {
-        let line: &str = "";
-        assert_eq!(parse_line(line), Err(LineError::Empty));
-    }
-
-    #[test]
-    fn invalid_number() {
-        let line: &str = "Labc";
-        assert_eq!(parse_line(line), Err(LineError::BadNumber));
-    }
-
-    #[test]
-    fn invalid_sign() {
-        let line: &str = "X123";
-        assert_eq!(parse_line(line), Err(LineError::BadSign));
-    }
-
-    #[test]
-    fn password_is_zero() {
-        let turns: Vec<i32> = Vec::from([1, 10, -5]);
-        let initial_dial_position = 0;
-        assert_eq!(get_password(initial_dial_position, turns), 0);
-    }
-
-    #[test]
-    fn password_is_zero_overflowing() {
-        let turns: Vec<i32> = Vec::from([95, 15, -2, 6]);
-        let initial_dial_position = 0;
-        assert_eq!(get_password(initial_dial_position, turns), 0);
-    }
-
-    #[test]
-    fn password_is_one() {
-        let turns: Vec<i32> = Vec::from([99, 1, 22, -700]);
-        let initial_dial_position = 0;
-        assert_eq!(get_password(initial_dial_position, turns), 1);
-    }
-
-    #[test]
-    fn password_is_two() {
-        let turns: Vec<i32> = Vec::from([17, -5, -12, 27, -27]);
-        let initial_dial_position = 0;
-        assert_eq!(get_password(initial_dial_position, turns), 2);
-    }
-}
+mod tests;
