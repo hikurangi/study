@@ -11,8 +11,7 @@ fn main() -> Result<(), Error> {
     file.read_to_string(&mut buffer)?;
 
     let ranges = buffer.split(',');
-    let mut invalid_ids = Vec::<u64>::new();
-    for range in ranges {
+    let invalid_id_sum: u64 = ranges.fold(0_u64, |mut sum, range| {
         let (start_str, end_str) = range.split_once('-').unwrap();
 
         let start_value: u64 = start_str.parse().unwrap();
@@ -35,11 +34,12 @@ fn main() -> Result<(), Error> {
             })
             .collect::<Vec<u64>>();
 
-        invalid_ids.extend(invalid_ids_for_current_range);
-    }
+        // NOTE: what about just returning the sum instead of mutating THEN returning?
+        sum += invalid_ids_for_current_range.iter().sum::<u64>();
+        sum
+    });
 
-    let sum: u64 = invalid_ids.into_iter().sum();
-    println!("SUM {sum}");
+    println!("SUM {invalid_id_sum}");
 
     Ok(())
 }
