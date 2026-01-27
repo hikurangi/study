@@ -90,7 +90,7 @@ fn main() -> Result<(), AppError> {
         .map(|range| parse_range(range))
         .collect::<Result<Vec<(u64, u64)>, RangeParseError>>()?;
 
-    ranges.sort_by(|(start_a, _), (start_b, _)| start_a.cmp(start_b));
+    // ranges.sort_by(|(start_a, _), (start_b, _)| start_a.cmp(start_b));
 
     let total_possible_fresh_id_count = get_total_possible_fresh_ids(&mut ranges);
     println!("COUNT: {total_possible_fresh_id_count}");
