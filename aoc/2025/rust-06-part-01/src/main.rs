@@ -15,6 +15,9 @@ enum AppError {
 
     #[error("Error parsing: \"{0}\"")]
     ParseHeaderError(#[from] ParseHeaderError),
+
+    #[error("Error parsing: \"{0}\"")]
+    EvaluationError(#[from] EvaluationError),
 }
 
 #[derive(Error, Debug)]
@@ -35,11 +38,16 @@ enum ParseHeaderError {
     InvalidOperator(String),
 }
 
+#[derive(Error, Debug)]
+enum EvaluationError {
+    #[error("Empty column in number grid \"{0}\"")]
+    EmptyColumn(String),
+}
+
 fn parse_number_line(line: Result<String, io::Error>) -> Result<Vec<u16>, ParseNumberError> {
     line?
         .split_whitespace()
-        // .map(|num_str| num_str.parse::<u16>().map_err(ParseError::from)) // also works
-        .map(|num_str| Ok(num_str.parse::<u16>()?))
+        .map(|num_str| num_str.parse::<u16>().map_err(ParseNumberError::from))
         .collect()
 }
 
@@ -56,32 +64,44 @@ fn parse_header_line(line: Result<String, io::Error>) -> Result<Vec<Operation>, 
 
 const INPUT_FILE: &str = "./input.txt";
 
+#[derive(Clone, Copy)]
 enum Operation {
     Addition,
     Multiplication,
 }
 
-fn line_is_header(line: &Result<String, io::Error>) -> bool {
-    line.as_ref()
-        .ok()
-        .and_then(|s| s.chars().next())
-        .is_some_and(|c| c == '+' || c == '*')
+fn is_line_header(line: &Result<String, io::Error>) -> bool {
+    matches!(
+        line.as_ref().ok().and_then(|s| s.as_bytes().first()),
+        Some(b'+') | Some(b'*')
+    )
 }
 
-fn evaluate_operations(header_row: Vec<Operation>, number_rows: Vec<Vec<u16>>) -> Vec<u64> {
+fn evaluate_operations_by_column(
+    header_row: &[Operation],
+    number_rows: &[Vec<u16>],
+) -> Result<Vec<u64>, EvaluationError> {
     header_row
         .iter()
+        .copied()
         .enumerate()
         .map(|(i, operation)| {
             let mut column = number_rows.iter().filter_map(|row| row.get(i));
 
-            let init = *column.next().unwrap() as u64;
-            column.fold(init, |total, num| match operation {
-                Operation::Addition => total + (*num as u64),
-                Operation::Multiplication => total * (*num as u64),
-            })
+            let init = *column
+                .next()
+                .ok_or_else(|| EvaluationError::EmptyColumn(format!("{:#?}", number_rows)))?
+                as u64;
+
+            Ok(column.fold(init, |total, num| {
+                let num = *num as u64;
+                match operation {
+                    Operation::Addition => total + num,
+                    Operation::Multiplication => total * num,
+                }
+            }))
         })
-        .collect()
+        .collect::<Result<Vec<u64>, EvaluationError>>()
 }
 
 fn main() -> Result<(), AppError> {
@@ -91,16 +111,15 @@ fn main() -> Result<(), AppError> {
     let mut header_row = Vec::<Operation>::new();
     let mut number_rows = Vec::<Vec<u16>>::new();
 
-    // TODO: fold which returns a result which can be propagated out at the top level later
     for line in reader.lines() {
-        if line_is_header(&line) {
+        if is_line_header(&line) {
             header_row = parse_header_line(line)?
         } else {
             number_rows.push(parse_number_line(line)?)
         }
     }
 
-    let results = evaluate_operations(header_row, number_rows);
+    let results = evaluate_operations_by_column(&header_row, &number_rows)?;
 
     let sum = results.iter().sum::<u64>();
     println!("SUM!!! {sum}");
@@ -114,16 +133,14 @@ mod test {
 
     #[test]
     fn example_data() {
-        let grid = Vec::<Vec<u16>>::from(
-            [[123, 328, 51, 64], [45, 64, 387, 23], [6, 98, 215, 314]].map(Vec::from),
-        );
-        let headers = Vec::from([
+        let grid = [[123, 328, 51, 64], [45, 64, 387, 23], [6, 98, 215, 314]].map(Vec::<u16>::from);
+        let headers = [
             Operation::Multiplication,
             Operation::Addition,
             Operation::Multiplication,
             Operation::Addition,
-        ]);
-        let results = evaluate_operations(headers, grid);
+        ];
+        let results = evaluate_operations_by_column(&headers, &grid).unwrap();
 
         assert_eq!(results.iter().sum::<u64>(), 4277556)
     }
