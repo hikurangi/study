@@ -140,7 +140,8 @@ mod test {
             Operation::Multiplication,
             Operation::Addition,
         ];
-        let results = evaluate_operations_by_column(&headers, &grid).unwrap();
+        let results =
+            evaluate_operations_by_column(&headers, &grid).expect("Error assembling test data");
 
         assert_eq!(results.iter().sum::<u64>(), 4277556)
     }
