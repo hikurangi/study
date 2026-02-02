@@ -53,7 +53,7 @@ fn char_to_pixel(c: char) -> Pixel {
     }
 }
 
-// if current_line is empty, skip this fn call altogether
+// TODO: if current_line is empty, skip this fn call altogether
 fn progress_beams(
     (mut beam_split_count, prev_beam_indices): (usize, HashSet<usize>),
     current_line: Vec<Pixel>,
@@ -72,7 +72,7 @@ fn progress_beams(
                 HashSet::<usize>::new(),
                 |mut next_beam_indices, (i, pixel)| {
                     match pixel {
-                        Pixel::Empty => {
+                        Pixel::Source | Pixel::Empty => {
                             next_beam_indices.insert(i);
                         }
                         Pixel::Splitter => {
@@ -84,7 +84,6 @@ fn progress_beams(
                                 .checked_add(1)
                                 .ok_or(BeamProgressionError::BeamSplitPositionNumericOverflow)?;
 
-                            // TODO: have some state about this?
                             if index_split_right >= current_line.len() {
                                 return Err(BeamProgressionError::BeamSplitOutOfBoundsRight);
                             }
@@ -93,15 +92,11 @@ fn progress_beams(
                                 .checked_add(1)
                                 .ok_or(BeamProgressionError::BeamSplitCountNumericOverflow)?;
 
-                            // TODO: count the number of splits
                             next_beam_indices.remove(&i);
                             next_beam_indices.insert(index_split_left);
                             next_beam_indices.insert(index_split_right);
 
                             beam_split_count = updated_beam_split_count;
-                        }
-                        Pixel::Source => {
-                            next_beam_indices.insert(i);
                         }
                     }
 
