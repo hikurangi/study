@@ -143,29 +143,6 @@ fn main() -> Result<(), AppError> {
 
     Ok(())
 }
-// we can read this line-by-line
-// RULES
-// - first line MUST have an S
-
-// - even lines MUST be empty
-// - input must be rectangular (all lines the same length)
-
-// notes
-// - we only need a previous line to compute a next line
-
-// line types
-// start line -> Vec<EmptyOrS> -> never changes
-// really this is just a line with a beam where the source is
-
-// empty line -> Vec<Empty>
-// this is just skipped - the beams don't change direction in an empty line
-
-// splitter -> Vec<EmptyOrSplitter> -> has beam(s) added
-// takes indices of prev beams
-// outputs new indices of new beams
-
-// tests will be transforming a line into indices
-// fn receives prev beam indices, current line, returns indices
 
 #[cfg(test)]
 mod test {
