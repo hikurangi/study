@@ -13,7 +13,7 @@ enum AppError {
     #[error("Parsing Error")]
     Parsing(#[from] ParsingError),
     #[error("Beam Progression Error")]
-    BeamProgression(#[from] BeamProgressionError),
+    BeamProgression(#[from] BeamSplitError),
     #[error("Empty input - first line missing")]
     FirstLineMissing,
 }
@@ -25,15 +25,15 @@ enum ParsingError {
 }
 
 #[derive(Debug, Error, PartialEq)]
-enum BeamProgressionError {
+enum BeamSplitError {
     #[error("Split beam left index too low")]
-    BeamSplitOutOfBoundsLeft,
+    OutOfBoundsLeft,
     #[error("Split beam right index too high")]
-    BeamSplitOutOfBoundsRight,
+    OutOfBoundsRight,
     #[error("Split beam right index numeric overflow")]
-    BeamSplitPositionNumericOverflow,
+    PositionNumericOverflow,
     #[error("Beam split count numeric overflow")]
-    BeamSplitCountNumericOverflow,
+    CountNumericOverflow,
 }
 #[derive(Debug, Eq, PartialEq)]
 enum Pixel {
@@ -57,7 +57,7 @@ fn char_to_pixel(c: char) -> Pixel {
 fn progress_beams(
     (mut beam_split_count, prev_beam_indices): (usize, HashSet<usize>),
     current_line: Vec<Pixel>,
-) -> Result<(usize, HashSet<usize>), BeamProgressionError> {
+) -> Result<(usize, HashSet<usize>), BeamSplitError> {
     if current_line
         .iter()
         .all(|pixel| matches!(pixel, Pixel::Empty))
@@ -76,21 +76,20 @@ fn progress_beams(
                             next_beam_indices.insert(i);
                         }
                         Pixel::Splitter => {
-                            let index_split_left = i
-                                .checked_sub(1)
-                                .ok_or(BeamProgressionError::BeamSplitOutOfBoundsLeft)?;
+                            let index_split_left =
+                                i.checked_sub(1).ok_or(BeamSplitError::OutOfBoundsLeft)?;
 
                             let index_split_right = i
                                 .checked_add(1)
-                                .ok_or(BeamProgressionError::BeamSplitPositionNumericOverflow)?;
+                                .ok_or(BeamSplitError::PositionNumericOverflow)?;
 
                             if index_split_right >= current_line.len() {
-                                return Err(BeamProgressionError::BeamSplitOutOfBoundsRight);
+                                return Err(BeamSplitError::OutOfBoundsRight);
                             }
 
                             let updated_beam_split_count = beam_split_count
                                 .checked_add(1)
-                                .ok_or(BeamProgressionError::BeamSplitCountNumericOverflow)?;
+                                .ok_or(BeamSplitError::CountNumericOverflow)?;
 
                             next_beam_indices.remove(&i);
                             next_beam_indices.insert(index_split_left);
@@ -176,7 +175,7 @@ mod test {
 
         assert_eq!(
             progress_beams((split_count, prev_beam_indices), current_line),
-            Err(BeamProgressionError::BeamSplitOutOfBoundsLeft)
+            Err(BeamSplitError::OutOfBoundsLeft)
         )
     }
 
@@ -188,7 +187,7 @@ mod test {
 
         assert_eq!(
             progress_beams((split_count, prev_beam_indices), current_line),
-            Err(BeamProgressionError::BeamSplitOutOfBoundsRight)
+            Err(BeamSplitError::OutOfBoundsRight)
         )
     }
 }
