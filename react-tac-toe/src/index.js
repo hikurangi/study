@@ -1,0 +1,147 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+
+const Square = props => {
+  return (
+    <button className="square" onClick={() => props.onClick()}>
+      {props.value}
+    </button>
+  )
+}
+
+class Board extends React.Component {
+  renderSquare(i) {
+    return (
+      <Square
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+      />
+    )
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="board-row">
+          {this.renderSquare(0)}
+          {this.renderSquare(1)}
+          {this.renderSquare(2)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(3)}
+          {this.renderSquare(4)}
+          {this.renderSquare(5)}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(6)}
+          {this.renderSquare(7)}
+          {this.renderSquare(8)}
+        </div>
+      </div>
+    );
+  }
+}
+
+class Game extends React.Component {
+  constructor () { // only needs to be passed a 'props' argument if it is receiving props
+    super () // only needs to be passed a 'props' argument if this class' state is manipulating - effectively forking - props
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null) // calls the Array constructor to create an array with length 9, .filled with null values - even the default is immutable. Best practice.
+      }],
+      stepNumber: 0,
+      xIsNext: true, // As in the AirBnB style guide, for sanity and avoiding errors, use trailing commas in multiline object initialisations.
+    }
+  }
+
+  handleClick(i) {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1)
+    const current = history[history.length - 1]
+    const squares = current.squares.slice() // a shallow copy of the squares array for immutability. No 'let's!
+    if (calculateWinner(squares) || squares[i]) {
+      return
+    }
+    squares[i] = this.state.xIsNext? 'X' : 'O'
+    this.setState({
+      history: history.concat([{
+        squares,
+      }]),
+      stepNumber: history.length,
+      xIsNext: !this.state.xIsNext,
+    })
+  }
+
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step % 2) === 0,
+    })
+  }
+
+  render() {
+    const history = this.state.history
+    const current = history[this.state.stepNumber]
+    const winner = calculateWinner(current.squares)
+
+    let status
+    if (winner) {
+      status = 'Winner: ' + winner
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+    }
+
+    const moves = history.map((step, move) => { // move corresponds to the array item's index, so it's an easy choice for a React key value
+      const desc = move ?
+        'Move #' + move :
+        'Game start'
+        return (
+          <li key={move}>
+            <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a> {/*Gives: "Links must not point to "#". Use a more descriptive href or use a button instead  jsx-a11y/href-no-hash"*/}
+          </li>
+        )
+    })
+
+    return (
+      <div className="game">
+        <div className="game-board">
+          <Board
+            squares={current.squares}
+            onClick={i => this.handleClick(i)}
+          />
+        </div>
+        <div className="game-info">
+          <div>{status}</div>
+          <ol>{moves}</ol>
+        </div>
+      </div>
+    );
+  }
+}
+
+const calculateWinner = squares => {
+  const lines = [ // all possible win conditions
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ]
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i] // assign variable names to each of the three values in the sub-array from lines
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a] // if the squares at all three positions match, return the symbol we were checking for => winning symbol ('X' or 'O')
+    }
+  }
+  return null
+}
+
+// ========================================
+
+ReactDOM.render(
+  <Game />,
+  document.getElementById('root')
+);
