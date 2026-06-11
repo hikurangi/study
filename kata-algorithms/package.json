@@ -1,0 +1,29 @@
+{
+  "name": "fcc-answers",
+  "version": "1.0.0",
+  "description": "My answers for the free code camp javascript algorithm challenges",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hikurangi/fcc-solutions.git"
+  },
+  "keywords": [
+    "fcc-answers"
+  ],
+  "author": "hikurangi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hikurangi/fcc-solutions/issues"
+  },
+  "homepage": "https://github.com/hikurangi/fcc-solutions#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0"
+  }
+}
